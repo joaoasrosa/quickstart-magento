@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey": "KeyName",
+    "ParameterValue": "tonynv"
+  }, 
+  {
+    "ParameterKey": "DBPassword",
+    "ParameterValue": "passwdfordb"
+  },
+  {
+    "ParameterKey": "DBMasterUserPassword",
+    "ParameterValue": "SomePass-1234"
+  },
+  {
+    "ParameterKey": "MagentoReleaseMedia",
+    "ParameterValue": "https://s3.amazonaws.com/quickstart-reference/magento/latest/media/magento-1.9.2.2.tar.gz"
+  },
+  {
+    "ParameterKey": "MagentoSampleData",
+    "ParameterValue": "https://s3.amazonaws.com/quickstart-reference/magento/latest/media/magento-sample-data-latest.tar.gz"
+  }
+]
