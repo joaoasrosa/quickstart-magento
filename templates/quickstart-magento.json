@@ -4,10 +4,6 @@
     "ParameterValue": "tonynv"
   }, 
   {
-    "ParameterKey": "DBPassword",
-    "ParameterValue": "passwdfordb"
-  },
-  {
     "ParameterKey": "DBMasterUserPassword",
     "ParameterValue": "SomePass-1234"
   },
