@@ -1,8 +1,8 @@
 global:
   qsname: quickstart-magento
   reporting: true
-  regions:
   cis3bucket:  s3://quickstart-ci-bucket
+  regions:
     - us-east-1
  
 tests:
