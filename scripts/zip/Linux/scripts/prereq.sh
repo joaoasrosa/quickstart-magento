@@ -181,9 +181,9 @@ install_magento() {
 
     MAGENTO_INSTALL_PHP=$(find ${MAGENTO_EXTRACT_DIR} -name install.php)
     MAGENTO_ROOT=$(dirname ${MAGENTO_INSTALL_PHP})
-    mkdir -p /var/www/html/magento
-    echo "cp -r ${MAGENTO_ROOT}/* /var/www/html/magento"
-    cp -r ${MAGENTO_ROOT}/* /var/www/html/magento
+    mkdir -p /var/www/html
+    echo "cp -r ${MAGENTO_ROOT} /var/www/html/magento"
+    cp -r ${MAGENTO_ROOT} /var/www/html/magento
     #cp -r /home/ec2-user/misc/magento /var/www/html/magento
 
     wget https://s3.amazonaws.com/${BUILDBUCKET}/magento/latest/media/magento-check.zip
