@@ -1,0 +1,1130 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS WebServer Template with AutoScaling group",
+    "Parameters": {
+        "VPC": {
+            "Type": "AWS::EC2::VPC::Id",
+            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to depoy WebServers.",
+            "AllowedPattern": "vpc-[0-9a-z]{8}"
+        },
+        "WebServerInstanceType": {
+            "Description": "WebServer EC2 instance type",
+            "Type": "String",
+            "Default": "m3.2xlarge",
+            "AllowedValues": [
+                "t2.micro",
+                "t2.small",
+                "t2.medium",
+                "m1.small",
+                "m1.medium",
+                "m1.large",
+                "m1.xlarge",
+                "m2.xlarge",
+                "m2.2xlarge",
+                "m2.4xlarge",
+                "m3.medium",
+                "m3.large",
+                "m3.xlarge",
+                "m3.2xlarge",
+                "c1.medium",
+                "c1.xlarge",
+                "c3.large",
+                "c3.xlarge",
+                "c3.2xlarge",
+                "c3.4xlarge",
+                "c3.8xlarge",
+                "c4.large",
+                "c4.xlarge",
+                "c4.2xlarge",
+                "c4.4xlarge",
+                "c4.8xlarge",
+                "g2.2xlarge",
+                "r3.large",
+                "r3.xlarge",
+                "r3.2xlarge",
+                "r3.4xlarge",
+                "r3.8xlarge",
+                "i2.xlarge",
+                "i2.2xlarge",
+                "i2.4xlarge",
+                "i2.8xlarge",
+                "hi1.4xlarge",
+                "hs1.8xlarge",
+                "cr1.8xlarge",
+                "cc2.8xlarge",
+                "cg1.4xlarge"
+            ],
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        },
+        "NotificationEmail": {
+            "Description": "Email address to notify if there are any scaling operations [ optional]",
+            "Default": "",
+            "Type": "String"
+        },
+        "ElasticLoadBalancerSecurityGroup": {
+            "Description": "Enter ElasticLoadBalancerSecurityGroup ",
+            "Default": "",
+            "Type": "String"
+        },
+        "SSLCertificateId": {
+            "Description": "The ARN of the SSL certificate to use. [ optional]",
+            "Default": "",
+            "Type": "String"
+        },
+        "AutoScaledInstanceSecurityGroup": {
+            "Description": "Enter AutoScaledInstanceSecurityGroup ",
+            "Default": "",
+            "Type": "String"
+        },
+        "WebServerSubnets": {
+            "Type": "List<AWS::EC2::Subnet::Id>",
+            "Description": "A list of subnet identifiers of Amazon VPCs where the WebServer Autoscaling would be launched.",
+            "Default": "",
+            "ConstraintDescription": "must be list of existing subnet Ids"
+        },
+        "ElasticLoadBalancerSubnets": {
+            "Type": "List<AWS::EC2::Subnet::Id>",
+            "Description": "A list of public subnet identifiers of Amazon VPCs where the ElasticLoadBalancer would be launched.",
+            "Default": "",
+            "ConstraintDescription": "must be list of existing Public subnet Ids"
+        },
+        "BucketNamePrefix": {
+            "Description": "Name of bucket to share magento media",
+            "Default": "",
+            "Type": "String"
+        },
+        "RDSMySQLStack": {
+            "Type": "String",
+            "Default": "",
+            "Description": "RDS MySQL Stack"
+        },
+        "DBMasterUserPassword": {
+            "Type": "String",
+            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
+            "NoEcho": "True",
+            "Default": "Admin-123456",
+            "Description": "RDS MySQL Stack"
+        },
+        "DBMasterUsername": {
+            "Type": "String",
+            "Default": "admin",
+            "Description": "RDS MySQL Stack"
+        },
+        "MagentoReleaseMedia": {
+            "Description": "Amazon S3 path to download magento .tar.gz file (s3://mybucket/magento-1.9.2.1.tar-2015-08-03-06-35-45.gz)",
+            "Default": "",
+            "Type": "String"
+        },
+        "MagentoSampleData": {
+            "Description": "[ optional ] Amazon S3 path to download magento sample data file ((s3://mybucket/magento-sample-data-1.9.1.0.tar-2015-02-11-08-18-26.gz)",
+            "Default": "",
+            "Type": "String"
+        },
+        "BuildBucket": {
+            "Description": "S3 bucket containing templates and scripts [Don't change].",
+            "Type": "String",
+            "Default": "quickstart-reference"
+        },
+        "WebServerMinSize": {
+            "Description": "The minimum number of EC2 instances in the Auto Scaling group of WebServers.",
+            "Default": "1",
+            "Type": "String",
+            "AllowedValues": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10"
+            ]
+        },
+        "WebServerMaxSize": {
+            "Description": "The maximum number of EC2 instances in the Auto Scaling group of WebServers.",
+            "Type": "String",
+            "Default": "1",
+            "AllowedValues": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10"
+            ]
+        },
+        "WebServerDesiredCapacity": {
+            "Description": "The desired number of EC2 instances in the Auto Scaling group of WebServers before indicating CREATE_SUCCESS.",
+            "Type": "String",
+            "Default": "1",
+            "AllowedValues": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10"
+            ]
+        },
+        "KeyName": {
+            "Description": "The EC2 Key Pair to allow SSH access to the instances",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "Default": "",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        },
+        "ExistingIamInstanceProfile": {
+            "Type": "String",
+            "Default": "",
+            "Description": "Name or ARN of the instance profile associated with the IAM role for the WebServer instances. If empty, instances will be launched with default IAM role."
+        },
+        "RemoteAccessCIDR": {
+            "Description": "The IP address range that can be used to SSH to the EC2 instances",
+            "Type": "String",
+            "MinLength": "9",
+            "MaxLength": "18",
+            "Default": "0.0.0.0/0",
+            "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+            "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+        }
+    },
+    "Mappings": {
+        "Region2Examples": {
+            "us-east-1": {
+                "Examples": "https://s3.amazonaws.com/cloudformation-examples-us-east-1"
+            },
+            "us-west-2": {
+                "Examples": "https://s3-us-west-2.amazonaws.com/cloudformation-examples-us-west-2"
+            },
+            "us-west-1": {
+                "Examples": "https://s3-us-west-1.amazonaws.com/cloudformation-examples-us-west-1"
+            },
+            "eu-west-1": {
+                "Examples": "https://s3-eu-west-1.amazonaws.com/cloudformation-examples-eu-west-1"
+            },
+            "eu-central-1": {
+                "Examples": "https://s3-eu-central-1.amazonaws.com/cloudformation-examples-eu-central-1"
+            },
+            "ap-southeast-1": {
+                "Examples": "https://s3-ap-southeast-1.amazonaws.com/cloudformation-examples-ap-southeast-1"
+            },
+            "ap-northeast-1": {
+                "Examples": "https://s3-ap-northeast-1.amazonaws.com/cloudformation-examples-ap-northeast-1"
+            },
+            "ap-southeast-2": {
+                "Examples": "https://s3-ap-southeast-2.amazonaws.com/cloudformation-examples-ap-southeast-2"
+            },
+            "sa-east-1": {
+                "Examples": "https://s3-sa-east-1.amazonaws.com/cloudformation-examples-sa-east-1"
+            },
+            "cn-north-1": {
+                "Examples": "https://s3.cn-north-1.amazonaws.com.cn/cloudformation-examples-cn-north-1"
+            }
+        },
+        "InstanceTypeArch": {
+            "t2.micro": {
+                "Arch": "64HVM"
+            },
+            "m3.medium": {
+                "Arch": "64HVM"
+            },
+            "m3.large": {
+                "Arch": "64HVM"
+            },
+            "m3.xlarge": {
+                "Arch": "64HVM"
+            },
+            "m3.2xlarge": {
+                "Arch": "64HVM"
+            },
+            "c3.large": {
+                "Arch": "64HVM"
+            },
+            "c3.xlarge": {
+                "Arch": "64HVM"
+            },
+            "c3.2xlarge": {
+                "Arch": "64HVM"
+            },
+            "c3.4xlarge": {
+                "Arch": "64HVM"
+            },
+            "c3.8xlarge": {
+                "Arch": "64HVM"
+            },
+            "r3.large": {
+                "Arch": "64HVM"
+            },
+            "r3.xlarge": {
+                "Arch": "64HVM"
+            },
+            "r3.2xlarge": {
+                "Arch": "64HVM"
+            },
+            "r3.4xlarge": {
+                "Arch": "64HVM"
+            },
+            "r3.8xlarge": {
+                "Arch": "64HVM"
+            },
+            "i2.xlarge": {
+                "Arch": "64HVM"
+            },
+            "i2.2xlarge": {
+                "Arch": "64HVM"
+            },
+            "i2.4xlarge": {
+                "Arch": "64HVM"
+            },
+            "i2.8xlarge": {
+                "Arch": "64HVM"
+            }
+        },
+        "AMI": {
+            "eu-west-1": {
+                "64HVM": "ami-e4d18e93"
+            },
+            "ap-southeast-1": {
+                "64HVM": "ami-d44b4286"
+            },
+            "ap-southeast-2": {
+                "64HVM": "ami-db7b39e1"
+            },
+            "eu-central-1": {
+                "64HVM": "ami-a6b0b7bb"
+            },
+            "ap-northeast-1": {
+                "64HVM": "ami-1c1b9f1c"
+            },
+            "us-east-1": {
+                "64HVM": "ami-0d4cfd66"
+            },
+            "sa-east-1": {
+                "64HVM": "ami-55098148"
+            },
+            "us-west-1": {
+                "64HVM": "ami-87ea13c3"
+            },
+            "us-west-2": {
+                "64HVM": "ami-d5c5d1e5"
+            }
+        }
+    },
+    "Conditions": {
+        "CreateIamInstanceProfile": {
+            "Fn::Equals": [
+                {
+                    "Ref": "ExistingIamInstanceProfile"
+                },
+                ""
+            ]
+        },
+        "DontUseSSL": {
+            "Fn::Equals": [
+                {
+                    "Ref": "SSLCertificateId"
+                },
+                ""
+            ]
+        },
+        "AllowNotificationEmail": {
+            "Fn::Not": [
+                {
+                    "Fn::Equals": [
+                        {
+                            "Ref": "NotificationEmail"
+                        },
+                        ""
+                    ]
+                }
+            ]
+        }
+    },
+    "Resources": {
+        "MagentoS3Bucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "BucketName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "BucketNamePrefix"
+                            },
+                            {
+                                "Ref": "VPC"
+                            }
+                        ]
+                    ]
+                }
+            },
+            "DeletionPolicy": "Retain"
+        },
+        "CfnUser": {
+            "Type": "AWS::IAM::User",
+            "Properties": {
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "S3MediaReadWrite",
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "s3:*"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "CfnKeys": {
+            "Type": "AWS::IAM::AccessKey",
+            "Properties": {
+                "UserName": {
+                    "Ref": "CfnUser"
+                }
+            }
+        },
+        "BucketPolicy": {
+            "Type": "AWS::S3::BucketPolicy",
+            "DependsOn": "MagentoS3Bucket",
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2008-10-17",
+                    "Id": "S3MediaPolicy",
+                    "Statement": [
+                        {
+                            "Sid": "ReadAccess",
+                            "Action": [
+                                "s3:PutObject",
+                                "s3:GetObject",
+                                "s3:GetObjectVersion",
+                                "s3:*",
+                                "s3:DeleteObject",
+                                "s3:DeleteObjectVersion"
+                            ],
+                            "Effect": "Allow",
+                            "Resource": {
+                                "Fn::Join": [
+                                    "",
+                                    [
+                                        "arn:aws:s3:::",
+                                        {
+                                            "Fn::Join": [
+                                                "",
+                                                [
+                                                    {
+                                                        "Ref": "BucketNamePrefix"
+                                                    },
+                                                    {
+                                                        "Ref": "VPC"
+                                                    }
+                                                ]
+                                            ]
+                                        },
+                                        "/*"
+                                    ]
+                                ]
+                            },
+                            "Principal": {
+                                "AWS": {
+                                    "Fn::GetAtt": [
+                                        "CfnUser",
+                                        "Arn"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                "Bucket": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "BucketNamePrefix"
+                            },
+                            {
+                                "Ref": "VPC"
+                            }
+                        ]
+                    ]
+                }
+            }
+        },
+        "NewInstanceIAMRole": {
+            "Condition": "CreateIamInstanceProfile",
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "Instance-Limited-Role",
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "s3:*",
+                                        "ec2:Describe*",
+                                        "ec2:AttachNetworkInterface",
+                                        "ec2:AttachVolume",
+                                        "ec2:CreateTags",
+                                        "ec2:CreateVolume",
+                                        "ec2:RunInstances",
+                                        "ec2:StartInstances",
+                                        "ec2:DeleteVolume",
+                                        "ec2:CreateSecurityGroup",
+                                        "ec2:CreateSnapshot"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "cloudformation:DescribeStacks",
+                                        "cloudformation:DescribeStackEvents",
+                                        "cloudformation:DescribeStackResource",
+                                        "cloudformation:DescribeStackResources",
+                                        "cloudformation:GetTemplate",
+                                        "cloudformation:List*"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "autoscaling:DescribeAccountLimits",
+                                        "autoscaling:DescribeAdjustmentTypes",
+                                        "autoscaling:DescribeAutoScalingGroups",
+                                        "autoscaling:DescribeAutoScalingInstances",
+                                        "autoscaling:DescribeAutoScalingNotificationTypes",
+                                        "autoscaling:DescribeLaunchConfigurations",
+                                        "autoscaling:DescribePolicies",
+                                        "autoscaling:DescribeTags"
+                                    ],
+                                    "Resource": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "dynamodb:*",
+                                        "dynamodb:Scan",
+                                        "dynamodb:Query",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:UpdateTable"
+                                    ],
+                                    "Resource": [
+                                        "*"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "NewIamInstanceProfile": {
+            "Condition": "CreateIamInstanceProfile",
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "NewInstanceIAMRole"
+                    }
+                ]
+            }
+        },
+        "NotificationTopic": {
+            "Type": "AWS::SNS::Topic",
+            "Condition": "AllowNotificationEmail",
+            "Properties": {
+                "TopicName": "MagentoWebServerAutoScaler",
+                "Subscription": [
+                    {
+                        "Endpoint": {
+                            "Ref": "NotificationEmail"
+                        },
+                        "Protocol": "email"
+                    }
+                ]
+            }
+        },
+        "WebServerGroup": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "AutoScalerQuickstart",
+                        "PropagateAtLaunch": "true"
+                    }
+                ],
+                "LaunchConfigurationName": {
+                    "Ref": "LaunchConfig"
+                },
+                "MinSize": {
+                    "Ref": "WebServerMinSize"
+                },
+                "MaxSize": {
+                    "Ref": "WebServerMaxSize"
+                },
+                "DesiredCapacity": {
+                    "Ref": "WebServerDesiredCapacity"
+                },
+                "LoadBalancerNames": [
+                    {
+                        "Ref": "ElasticLoadBalancer"
+                    }
+                ],
+                "VPCZoneIdentifier": {
+                    "Ref": "WebServerSubnets"
+                },
+                "MetricsCollection": [
+                    {
+                        "Granularity": "1Minute",
+                        "Metrics": [
+                            "GroupMinSize",
+                            "GroupMaxSize"
+                        ]
+                    }
+                ],
+                "NotificationConfiguration": {
+                    "Fn::If": [
+                        "AllowNotificationEmail",
+                        {
+                            "TopicARN": {
+                                "Ref": "NotificationTopic"
+                            },
+                            "NotificationTypes": [
+                                "autoscaling:EC2_INSTANCE_LAUNCH",
+                                "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+                                "autoscaling:EC2_INSTANCE_TERMINATE",
+                                "autoscaling:EC2_INSTANCE_TERMINATE_ERROR"
+                            ]
+                        },
+                        {
+                            "Ref": "AWS::NoValue"
+                        }
+                    ]
+                }
+            },
+            "CreationPolicy": {
+                "ResourceSignal": {
+                    "Timeout": "PT3600M",
+                    "Count": "1"
+                }
+            },
+            "UpdatePolicy": {
+                "AutoScalingRollingUpdate": {
+                    "MinInstancesInService": "1",
+                    "MaxBatchSize": "1",
+                    "PauseTime": "PT15M",
+                    "WaitOnResourceSignals": "true"
+                }
+            }
+        },
+        "LaunchConfig": {
+            "Type": "AWS::AutoScaling::LaunchConfiguration",
+            "Metadata": {
+                "Comment": "Install a simple application",
+                "AWS::CloudFormation::Init": {
+                    "config": {
+                        "packages": {},
+                        "files": {
+                            "/home/ec2-user/.passwd-s3fs": {
+                                "content": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            {
+                                                "Ref": "CfnKeys"
+                                            },
+                                            ":",
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "CfnKeys",
+                                                    "SecretAccessKey"
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root"
+                            }
+                        },
+                        "/etc/cfn/cfn-hup.conf": {
+                            "content": {
+                                "Fn::Join": [
+                                    "",
+                                    [
+                                        "[main]\n",
+                                        "stack=",
+                                        {
+                                            "Ref": "AWS::StackId"
+                                        },
+                                        "\n",
+                                        "region=",
+                                        {
+                                            "Ref": "AWS::Region"
+                                        },
+                                        "\n"
+                                    ]
+                                ]
+                            },
+                            "mode": "000400",
+                            "owner": "root",
+                            "group": "root"
+                        },
+                        "/etc/cfn/hooks.d/cfn-auto-reloader.conf": {
+                            "content": {
+                                "Fn::Join": [
+                                    "",
+                                    [
+                                        "[cfn-auto-reloader-hook]\n",
+                                        "triggers=post.update\n",
+                                        "path=Resources.LaunchConfig.Metadata.AWS::CloudFormation::Init\n",
+                                        "action=/opt/aws/bin/cfn-init -v ",
+                                        "         --stack ",
+                                        {
+                                            "Ref": "AWS::StackName"
+                                        },
+                                        "         --resource LaunchConfig ",
+                                        "         --region ",
+                                        {
+                                            "Ref": "AWS::Region"
+                                        },
+                                        "\n",
+                                        "runas=root\n"
+                                    ]
+                                ]
+                            }
+                        }
+                    },
+                    "services": {
+                        "sysvinit": {
+                            "httpd": {
+                                "enabled": "true",
+                                "ensureRunning": "true"
+                            },
+                            "cfn-hup": {
+                                "enabled": "true",
+                                "ensureRunning": "true",
+                                "files": [
+                                    "/etc/cfn/cfn-hup.conf",
+                                    "/etc/cfn/hooks.d/cfn-auto-reloader.conf"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "Properties": {
+                "AssociatePublicIpAddress": "false",
+                "EbsOptimized": "false",
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "AMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        {
+                            "Fn::FindInMap": [
+                                "InstanceTypeArch",
+                                {
+                                    "Ref": "WebServerInstanceType"
+                                },
+                                "Arch"
+                            ]
+                        }
+                    ]
+                },
+                "IamInstanceProfile": {
+                    "Fn::If": [
+                        "CreateIamInstanceProfile",
+                        {
+                            "Ref": "NewIamInstanceProfile"
+                        },
+                        {
+                            "Ref": "ExistingIamInstanceProfile"
+                        }
+                    ]
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "AutoScaledInstanceSecurityGroup"
+                    }
+                ],
+                "InstanceType": {
+                    "Ref": "WebServerInstanceType"
+                },
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "yum update -y aws-cfn-bootstrap\n",
+                                "yum update -y\n",
+                                "mkdir -p /home/ec2-user/misc\n",
+                                "wget https://s3.amazonaws.com/",
+                                {
+                                    "Ref": "BuildBucket"
+                                },
+                                "/magento/latest/scripts/unzip/Linux/download.sh --output-document /home/ec2-user/misc/download.sh\n",
+                                "wget https://s3.amazonaws.com/",
+                                {
+                                    "Ref": "BuildBucket"
+                                },
+                                "/magento/latest/scripts/unzip/Linux/config.sh --output-document /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export PARENTSTACKNAME=",
+                                            {
+                                                "Ref": "AWS::StackName"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export PARENTSTACKID=",
+                                            {
+                                                "Ref": "AWS::StackId"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export MAGENTOMEDIAS3=",
+                                            {
+                                                "Ref": "MagentoS3Bucket"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export MAGENTORELEASEMEDIA=",
+                                            {
+                                                "Ref": "MagentoReleaseMedia"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export MAGENTOSAMPLEDATA=",
+                                            {
+                                                "Ref": "MagentoSampleData"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export DBMasterUsername=",
+                                            {
+                                                "Ref": "DBMasterUsername"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export ELBURL=",
+                                            {
+                                                "Fn::Join": [
+                                                    "",
+                                                    [
+                                                        "http://",
+                                                        {
+                                                            "Fn::GetAtt": [
+                                                                "ElasticLoadBalancer",
+                                                                "DNSName"
+                                                            ]
+                                                        }
+                                                    ]
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export DBMasterUserPassword=",
+                                            {
+                                                "Ref": "DBMasterUserPassword"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "echo ",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "export RDSMySQLStack=",
+                                            {
+                                                "Ref": "RDSMySQLStack"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                " >> /home/ec2-user/misc/config.sh\n",
+                                "/opt/aws/bin/cfn-init -v ",
+                                "         --stack ",
+                                {
+                                    "Ref": "AWS::StackName"
+                                },
+                                "         --resource LaunchConfig ",
+                                "         --region ",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "\n",
+                                "sh /home/ec2-user/misc/download.sh -b ",
+                                {
+                                    "Ref": "BuildBucket"
+                                },
+                                "\n",
+                                "/opt/aws/bin/cfn-signal -e $? ",
+                                "         --stack ",
+                                {
+                                    "Ref": "AWS::StackName"
+                                },
+                                "         --resource WebServerGroup ",
+                                "         --region ",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "WebServerScaleUpPolicy": {
+            "Type": "AWS::AutoScaling::ScalingPolicy",
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "WebServerGroup"
+                },
+                "Cooldown": "60",
+                "ScalingAdjustment": "1"
+            }
+        },
+        "WebServerScaleDownPolicy": {
+            "Type": "AWS::AutoScaling::ScalingPolicy",
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "WebServerGroup"
+                },
+                "Cooldown": "60",
+                "ScalingAdjustment": "-1"
+            }
+        },
+        "CPUAlarmHigh": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "Scale-up if CPU > 90% for 10 minutes",
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "Statistic": "Average",
+                "Period": "300",
+                "EvaluationPeriods": "2",
+                "Threshold": "90",
+                "AlarmActions": [
+                    {
+                        "Ref": "WebServerScaleUpPolicy"
+                    }
+                ],
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "WebServerGroup"
+                        }
+                    }
+                ],
+                "ComparisonOperator": "GreaterThanThreshold"
+            }
+        },
+        "CPUAlarmLow": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "Scale-down if CPU < 70% for 10 minutes",
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "Statistic": "Average",
+                "Period": "300",
+                "EvaluationPeriods": "2",
+                "Threshold": "70",
+                "AlarmActions": [
+                    {
+                        "Ref": "WebServerScaleDownPolicy"
+                    }
+                ],
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "WebServerGroup"
+                        }
+                    }
+                ],
+                "ComparisonOperator": "LessThanThreshold"
+            }
+        },
+        "ElasticLoadBalancer": {
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "ELBQuickStart"
+                    }
+                ],
+                "Subnets": {
+                    "Ref": "ElasticLoadBalancerSubnets"
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "ElasticLoadBalancerSecurityGroup"
+                    }
+                ],
+                "CrossZone": "true",
+                "LBCookieStickinessPolicy": [
+                    {
+                        "PolicyName": "MagentoELBStickyPolicy"
+                    }
+                ],
+                "Listeners": [
+                    {
+                        "LoadBalancerPort": "80",
+                        "InstancePort": "80",
+                        "Protocol": "HTTP",
+                        "PolicyNames": [
+                            "MagentoELBStickyPolicy"
+                        ],
+                        "SSLCertificateId": {
+                            "Fn::If": [
+                                "DontUseSSL",
+                                {
+                                    "Ref": "AWS::NoValue"
+                                },
+                                {
+                                    "Ref": "SSLCertificateId"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "HealthCheck": {
+                    "Target": "HTTP:80/",
+                    "HealthyThreshold": "3",
+                    "UnhealthyThreshold": "5",
+                    "Interval": "30",
+                    "Timeout": "5"
+                },
+                "ConnectionDrainingPolicy": {
+                    "Enabled": "true",
+                    "Timeout": "60"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "URL": {
+            "Description": "The URL of the website",
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        "http://",
+                        {
+                            "Fn::GetAtt": [
+                                "ElasticLoadBalancer",
+                                "DNSName"
+                            ]
+                        }
+                    ]
+                ]
+            }
+        }
+    }
+}

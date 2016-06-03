@@ -1,0 +1,10 @@
+{
+  "name": "node-helper",
+  "version": "1.0.0",
+  "dependencies": {
+    "aws-sdk": "^2.1.39",
+    "minimist": "^1.1.1",
+    "netmask": "^1.0.5",
+    "underscore": "^1.8.3"
+  }
+}
