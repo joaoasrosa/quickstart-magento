@@ -696,6 +696,7 @@
         },
         "NATInstance0": {
             "Type": "AWS::EC2::Instance",
+            "DependsOn": "AttachGateway",
             "Properties": {
                 "Tags": [
                     {
@@ -782,6 +783,7 @@
         },
         "NATInstance1": {
             "Type": "AWS::EC2::Instance",
+            "DependsOn": "AttachGateway",
             "Properties": {
                 "Tags": [
                     {
@@ -869,6 +871,7 @@
         "NATInstance2": {
             "Condition": "MoreThan3AZ",
             "Type": "AWS::EC2::Instance",
+            "DependsOn": "AttachGateway",
             "Properties": {
                 "Tags": [
                     {
