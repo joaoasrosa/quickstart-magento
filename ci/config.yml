@@ -18,5 +18,3 @@ tests:
   quickstart-magentot1:
     template_file: Magento-Quickstart-NewVPC.template
     parameter_input: quickstart-magento.json
-    regions:
-    - us-west-1
