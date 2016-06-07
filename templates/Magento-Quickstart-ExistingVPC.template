@@ -904,169 +904,39 @@
                 "NAME": "ap-southeast-1.compute.internal"
             }
         },
-        "AWSInstanceType2Arch": {
-            "t2.micro": {
-                "Arch": "HVM64"
-            },
-            "t2.small": {
-                "Arch": "HVM64"
-            },
-            "t2.medium": {
-                "Arch": "HVM64"
-            },
-            "m3.medium": {
-                "Arch": "HVM64"
-            },
-            "m3.large": {
-                "Arch": "HVM64"
-            },
-            "m3.xlarge": {
-                "Arch": "HVM64"
-            },
-            "m3.2xlarge": {
-                "Arch": "HVM64"
-            },
-            "c3.large": {
-                "Arch": "HVM64"
-            },
-            "c3.xlarge": {
-                "Arch": "HVM64"
-            },
-            "c3.2xlarge": {
-                "Arch": "HVM64"
-            },
-            "c3.4xlarge": {
-                "Arch": "HVM64"
-            },
-            "c3.8xlarge": {
-                "Arch": "HVM64"
-            },
-            "c4.large": {
-                "Arch": "HVM64"
-            },
-            "c4.xlarge": {
-                "Arch": "HVM64"
-            },
-            "c4.2xlarge": {
-                "Arch": "HVM64"
-            },
-            "c4.4xlarge": {
-                "Arch": "HVM64"
-            },
-            "c4.8xlarge": {
-                "Arch": "HVM64"
-            },
-            "g2.2xlarge": {
-                "Arch": "HVMG2"
-            },
-            "r3.large": {
-                "Arch": "HVM64"
-            },
-            "r3.xlarge": {
-                "Arch": "HVM64"
-            },
-            "r3.2xlarge": {
-                "Arch": "HVM64"
-            },
-            "r3.4xlarge": {
-                "Arch": "HVM64"
-            },
-            "r3.8xlarge": {
-                "Arch": "HVM64"
-            },
-            "i2.xlarge": {
-                "Arch": "HVM64"
-            },
-            "i2.2xlarge": {
-                "Arch": "HVM64"
-            },
-            "i2.4xlarge": {
-                "Arch": "HVM64"
-            },
-            "i2.8xlarge": {
-                "Arch": "HVM64"
-            },
-            "d2.xlarge": {
-                "Arch": "HVM64"
-            },
-            "d2.2xlarge": {
-                "Arch": "HVM64"
-            },
-            "d2.4xlarge": {
-                "Arch": "HVM64"
-            },
-            "d2.8xlarge": {
-                "Arch": "HVM64"
-            },
-            "hi1.4xlarge": {
-                "Arch": "HVM64"
-            },
-            "hs1.8xlarge": {
-                "Arch": "HVM64"
-            },
-            "cr1.8xlarge": {
-                "Arch": "HVM64"
-            },
-            "cc2.8xlarge": {
-                "Arch": "HVM64"
-            }
-        },
-        "AWSNATAMI": {
-            "eu-central-1": {
-                "AMI": "ami-46073a5b"
-            },
-            "sa-east-1": {
-                "AMI": "ami-fbfa41e6"
+        "AWSAMIRegionMap": {
+            "AMI": {
+                "AMZNLINUX": "amzn-ami-hvm-2016.03.1.x86_64-gp2"
             },
             "ap-northeast-1": {
-                "AMI": "ami-03cf3903"
+                "AMZNLINUX": "ami-29160d47"
             },
-            "eu-west-1": {
-                "AMI": "ami-6975eb1e"
-            },
-            "us-east-1": {
-                "AMI": "ami-303b1458"
-            },
-            "us-west-1": {
-                "AMI": "ami-7da94839"
-            },
-            "us-west-2": {
-                "AMI": "ami-69ae8259"
-            },
-            "ap-southeast-2": {
-                "AMI": "ami-e7ee9edd"
+            "ap-northeast-2": {
+                "AMZNLINUX": "ami-cf32faa1"
             },
             "ap-southeast-1": {
-                "AMI": "ami-b49dace6"
-            }
-        },
-        "AMI": {
+                "AMZNLINUX": "ami-1ddc0b7e"
+            },
+            "ap-southeast-2": {
+                "AMZNLINUX": "ami-0c95b86f"
+            },
             "eu-central-1": {
-                "64HVM": "ami-a8221fb5"
+                "AMZNLINUX": "ami-d3c022bc"
+            },
+            "eu-west-1": {
+                "AMZNLINUX": "ami-b0ac25c3"
             },
             "sa-east-1": {
-                "64HVM": "ami-b52890a8"
-            },
-            "ap-northeast-1": {
-                "64HVM": "ami-cbf90ecb"
-            },
-            "eu-west-1": {
-                "64HVM": "ami-a10897d6"
+                "AMZNLINUX": "ami-fb890097"
             },
             "us-east-1": {
-                "64HVM": "ami-1ecae776"
+                "AMZNLINUX": "ami-f5f41398"
             },
             "us-west-1": {
-                "64HVM": "ami-d114f295"
+                "AMZNLINUX": "ami-6e84fa0e"
             },
             "us-west-2": {
-                "64HVM": "ami-e7527ed7"
-            },
-            "ap-southeast-2": {
-                "64HVM": "ami-fd9cecc7"
-            },
-            "ap-southeast-1": {
-                "64HVM": "ami-68d8e93a"
+                "AMZNLINUX": "ami-d0f506b0"
             }
         }
     }
