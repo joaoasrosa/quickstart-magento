@@ -719,11 +719,11 @@
                 ],
                 "ImageId": {
                     "Fn::FindInMap": [
-                        "AWSNATAMI",
+                        "AWSAMIRegionMap",
                         {
                             "Ref": "AWS::Region"
                         },
-                        "AMI"
+                        "AWSNAT"
                     ]
                 },
                 "UserData": {
@@ -805,11 +805,11 @@
                 ],
                 "ImageId": {
                     "Fn::FindInMap": [
-                        "AWSNATAMI",
+                        "AWSAMIRegionMap",
                         {
                             "Ref": "AWS::Region"
                         },
-                        "AMI"
+                        "AWSNAT"
                     ]
                 },
                 "UserData": {
@@ -892,11 +892,11 @@
                 ],
                 "ImageId": {
                     "Fn::FindInMap": [
-                        "AWSNATAMI",
+                        "AWSAMIRegionMap",
                         {
                             "Ref": "AWS::Region"
                         },
-                        "AMI"
+                        "AWSNAT"
                     ]
                 },
                 "UserData": {
@@ -2450,62 +2450,39 @@
                 "Arch": "HVM64"
             }
         },
-        "AWSNATAMI": {
-            "eu-central-1": {
-                "AMI": "ami-46073a5b"
-            },
-            "sa-east-1": {
-                "AMI": "ami-fbfa41e6"
+        "AWSAMIRegionMap": {
+            "AMI": {
+                "AWSNAT": "amzn-ami-vpc-nat-hvm-2016.03.1.x86_64-ebs"
             },
             "ap-northeast-1": {
-                "AMI": "ami-03cf3903"
+                "AWSNAT": "ami-5d170c33"
             },
-            "eu-west-1": {
-                "AMI": "ami-6975eb1e"
-            },
-            "us-east-1": {
-                "AMI": "ami-303b1458"
-            },
-            "us-west-1": {
-                "AMI": "ami-7da94839"
-            },
-            "us-west-2": {
-                "AMI": "ami-69ae8259"
-            },
-            "ap-southeast-2": {
-                "AMI": "ami-e7ee9edd"
+            "ap-northeast-2": {
+                "AWSNAT": "ami-0d32fa63"
             },
             "ap-southeast-1": {
-                "AMI": "ami-b49dace6"
-            }
-        },
-        "AMI": {
+                "AWSNAT": "ami-4ddb0c2e"
+            },
+            "ap-southeast-2": {
+                "AWSNAT": "ami-9094b9f3"
+            },
             "eu-central-1": {
-                "64HVM": "ami-a8221fb5"
+                "AWSNAT": "ami-b2c321dd"
+            },
+            "eu-west-1": {
+                "AWSNAT": "ami-a2971ed1"
             },
             "sa-east-1": {
-                "64HVM": "ami-b52890a8"
-            },
-            "ap-northeast-1": {
-                "64HVM": "ami-cbf90ecb"
-            },
-            "eu-west-1": {
-                "64HVM": "ami-a10897d6"
+                "AWSNAT": "ami-a28d04ce"
             },
             "us-east-1": {
-                "64HVM": "ami-1ecae776"
+                "AWSNAT": "ami-bae80fd7"
             },
             "us-west-1": {
-                "64HVM": "ami-d114f295"
+                "AWSNAT": "ami-3885fb58"
             },
             "us-west-2": {
-                "64HVM": "ami-e7527ed7"
-            },
-            "ap-southeast-2": {
-                "64HVM": "ami-fd9cecc7"
-            },
-            "ap-southeast-1": {
-                "64HVM": "ami-68d8e93a"
+                "AWSNAT": "ami-d3f506b3"
             }
         }
     }

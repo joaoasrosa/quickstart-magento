@@ -230,92 +230,39 @@
                 "Examples": "https://s3.cn-north-1.amazonaws.com.cn/cloudformation-examples-cn-north-1"
             }
         },
-        "InstanceTypeArch": {
-            "t2.micro": {
-                "Arch": "64HVM"
-            },
-            "m3.medium": {
-                "Arch": "64HVM"
-            },
-            "m3.large": {
-                "Arch": "64HVM"
-            },
-            "m3.xlarge": {
-                "Arch": "64HVM"
-            },
-            "m3.2xlarge": {
-                "Arch": "64HVM"
-            },
-            "c3.large": {
-                "Arch": "64HVM"
-            },
-            "c3.xlarge": {
-                "Arch": "64HVM"
-            },
-            "c3.2xlarge": {
-                "Arch": "64HVM"
-            },
-            "c3.4xlarge": {
-                "Arch": "64HVM"
-            },
-            "c3.8xlarge": {
-                "Arch": "64HVM"
-            },
-            "r3.large": {
-                "Arch": "64HVM"
-            },
-            "r3.xlarge": {
-                "Arch": "64HVM"
-            },
-            "r3.2xlarge": {
-                "Arch": "64HVM"
-            },
-            "r3.4xlarge": {
-                "Arch": "64HVM"
-            },
-            "r3.8xlarge": {
-                "Arch": "64HVM"
-            },
-            "i2.xlarge": {
-                "Arch": "64HVM"
-            },
-            "i2.2xlarge": {
-                "Arch": "64HVM"
-            },
-            "i2.4xlarge": {
-                "Arch": "64HVM"
-            },
-            "i2.8xlarge": {
-                "Arch": "64HVM"
-            }
-        },
-        "AMI": {
-            "eu-west-1": {
-                "64HVM": "ami-e4d18e93"
-            },
-            "ap-southeast-1": {
-                "64HVM": "ami-d44b4286"
-            },
-            "ap-southeast-2": {
-                "64HVM": "ami-db7b39e1"
-            },
-            "eu-central-1": {
-                "64HVM": "ami-a6b0b7bb"
+        "AWSAMIRegionMap": {
+            "AMI": {
+                "AMZNLINUX": "amzn-ami-hvm-2016.03.1.x86_64-gp2"
             },
             "ap-northeast-1": {
-                "64HVM": "ami-1c1b9f1c"
+                "AMZNLINUX": "ami-29160d47"
             },
-            "us-east-1": {
-                "64HVM": "ami-0d4cfd66"
+            "ap-northeast-2": {
+                "AMZNLINUX": "ami-cf32faa1"
+            },
+            "ap-southeast-1": {
+                "AMZNLINUX": "ami-1ddc0b7e"
+            },
+            "ap-southeast-2": {
+                "AMZNLINUX": "ami-0c95b86f"
+            },
+            "eu-central-1": {
+                "AMZNLINUX": "ami-d3c022bc"
+            },
+            "eu-west-1": {
+                "AMZNLINUX": "ami-b0ac25c3"
             },
             "sa-east-1": {
-                "64HVM": "ami-55098148"
+                "AMZNLINUX": "ami-fb890097"
+            },
+            "us-east-1": {
+                "AMZNLINUX": "ami-f5f41398"
             },
             "us-west-1": {
-                "64HVM": "ami-87ea13c3"
+                "AMZNLINUX": "ami-6e84fa0e"
             },
             "us-west-2": {
-                "64HVM": "ami-d5c5d1e5"
+                "AMZNLINUX": "ami-d0f506b0"
             }
         }
     },
@@ -621,26 +568,7 @@
                             "GroupMaxSize"
                         ]
                     }
-                ],
-                "NotificationConfiguration": {
-                    "Fn::If": [
-                        "AllowNotificationEmail",
-                        {
-                            "TopicARN": {
-                                "Ref": "NotificationTopic"
-                            },
-                            "NotificationTypes": [
-                                "autoscaling:EC2_INSTANCE_LAUNCH",
-                                "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
-                                "autoscaling:EC2_INSTANCE_TERMINATE",
-                                "autoscaling:EC2_INSTANCE_TERMINATE_ERROR"
-                            ]
-                        },
-                        {
-                            "Ref": "AWS::NoValue"
-                        }
-                    ]
-                }
+                ]
             },
             "CreationPolicy": {
                 "ResourceSignal": {
@@ -762,19 +690,11 @@
                 },
                 "ImageId": {
                     "Fn::FindInMap": [
-                        "AMI",
+                        "AWSAMIRegionMap",
                         {
                             "Ref": "AWS::Region"
                         },
-                        {
-                            "Fn::FindInMap": [
-                                "InstanceTypeArch",
-                                {
-                                    "Ref": "WebServerInstanceType"
-                                },
-                                "Arch"
-                            ]
-                        }
+                        "AMZNLINUX"
                     ]
                 },
                 "IamInstanceProfile": {
