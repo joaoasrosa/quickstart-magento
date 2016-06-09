@@ -695,29 +695,9 @@
             }
         },
         "NATInstance0": {
-            "Type": "AWS::EC2::Instance",
             "DependsOn": "AttachGateway",
+            "Type": "AWS::EC2::Instance",
             "Properties": {
-                "Tags": [
-                    {
-                        "Key": "Name",
-                        "Value": "NATInstance0 (QuickStart)"
-                    }
-                ],
-                "InstanceType": {
-                    "Ref": "NATInstanceType"
-                },
-                "KeyName": {
-                    "Ref": "KeyName"
-                },
-                "NetworkInterfaces": [
-                    {
-                        "NetworkInterfaceId": {
-                            "Ref": "NATInstance0Interface"
-                        },
-                        "DeviceIndex": "0"
-                    }
-                ],
                 "ImageId": {
                     "Fn::FindInMap": [
                         "AWSAMIRegionMap",
@@ -727,6 +707,38 @@
                         "AWSNAT"
                     ]
                 },
+                "InstanceType": {
+                    "Ref": "NATInstanceType"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "NATInstance0 (QuickStart)"
+                    },
+                    {
+                        "Key": "Network",
+                        "Value": "Public"
+                    }
+                ],
+                "NetworkInterfaces": [
+                    {
+                        "GroupSet": [
+                            {
+                                "Ref": "NATSecurityGroup"
+                            }
+                        ],
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "DeleteOnTermination": "true",
+                        "SubnetId": {
+                            "Ref": "PublicSubnet0"
+                        }
+                    }
+                ],
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "SourceDestCheck": "false",
                 "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
@@ -743,68 +755,16 @@
         "NATInstance0EIP": {
             "Type": "AWS::EC2::EIP",
             "Properties": {
-                "Domain": "vpc"
-            }
-        },
-        "NATInstance0Interface": {
-            "Type": "AWS::EC2::NetworkInterface",
-            "Properties": {
-                "SubnetId": {
-                    "Ref": "PublicSubnet0"
-                },
-                "Description": "External interface for the NAT instance",
-                "GroupSet": [
-                    {
-                        "Ref": "NATSecurityGroup"
-                    }
-                ],
-                "SourceDestCheck": "false",
-                "Tags": [
-                    {
-                        "Key": "Network",
-                        "Value": "Public"
-                    }
-                ]
-            }
-        },
-        "AssociateNATInstance0Interface": {
-            "Type": "AWS::EC2::EIPAssociation",
-            "Properties": {
-                "AllocationId": {
-                    "Fn::GetAtt": [
-                        "NATInstance0EIP",
-                        "AllocationId"
-                    ]
-                },
-                "NetworkInterfaceId": {
-                    "Ref": "NATInstance0Interface"
+                "Domain": "vpc",
+                "InstanceId": {
+                    "Ref": "NATInstance0"
                 }
             }
         },
         "NATInstance1": {
-            "Type": "AWS::EC2::Instance",
             "DependsOn": "AttachGateway",
+            "Type": "AWS::EC2::Instance",
             "Properties": {
-                "Tags": [
-                    {
-                        "Key": "Name",
-                        "Value": "NATInstance1 (QuickStart)"
-                    }
-                ],
-                "InstanceType": {
-                    "Ref": "NATInstanceType"
-                },
-                "KeyName": {
-                    "Ref": "KeyName"
-                },
-                "NetworkInterfaces": [
-                    {
-                        "NetworkInterfaceId": {
-                            "Ref": "NATInstance1Interface"
-                        },
-                        "DeviceIndex": "0"
-                    }
-                ],
                 "ImageId": {
                     "Fn::FindInMap": [
                         "AWSAMIRegionMap",
@@ -814,6 +774,38 @@
                         "AWSNAT"
                     ]
                 },
+                "InstanceType": {
+                    "Ref": "NATInstanceType"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "NATInstance1 (QuickStart)"
+                    },
+                    {
+                        "Key": "Network",
+                        "Value": "Public"
+                    }
+                ],
+                "NetworkInterfaces": [
+                    {
+                        "GroupSet": [
+                            {
+                                "Ref": "NATSecurityGroup"
+                            }
+                        ],
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "DeleteOnTermination": "true",
+                        "SubnetId": {
+                            "Ref": "PublicSubnet1"
+                        }
+                    }
+                ],
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "SourceDestCheck": "false",
                 "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
@@ -830,69 +822,17 @@
         "NATInstance1EIP": {
             "Type": "AWS::EC2::EIP",
             "Properties": {
-                "Domain": "vpc"
-            }
-        },
-        "NATInstance1Interface": {
-            "Type": "AWS::EC2::NetworkInterface",
-            "Properties": {
-                "SubnetId": {
-                    "Ref": "PublicSubnet1"
-                },
-                "Description": "External interface for the NAT instance",
-                "GroupSet": [
-                    {
-                        "Ref": "NATSecurityGroup"
-                    }
-                ],
-                "SourceDestCheck": "false",
-                "Tags": [
-                    {
-                        "Key": "Network",
-                        "Value": "Public"
-                    }
-                ]
-            }
-        },
-        "AssociateNATInstance1Interface": {
-            "Type": "AWS::EC2::EIPAssociation",
-            "Properties": {
-                "AllocationId": {
-                    "Fn::GetAtt": [
-                        "NATInstance1EIP",
-                        "AllocationId"
-                    ]
-                },
-                "NetworkInterfaceId": {
-                    "Ref": "NATInstance1Interface"
+                "Domain": "vpc",
+                "InstanceId": {
+                    "Ref": "NATInstance1"
                 }
             }
         },
         "NATInstance2": {
             "Condition": "MoreThan3AZ",
-            "Type": "AWS::EC2::Instance",
             "DependsOn": "AttachGateway",
+            "Type": "AWS::EC2::Instance",
             "Properties": {
-                "Tags": [
-                    {
-                        "Key": "Name",
-                        "Value": "NATInstance2 (QuickStart)"
-                    }
-                ],
-                "InstanceType": {
-                    "Ref": "NATInstanceType"
-                },
-                "KeyName": {
-                    "Ref": "KeyName"
-                },
-                "NetworkInterfaces": [
-                    {
-                        "NetworkInterfaceId": {
-                            "Ref": "NATInstance2Interface"
-                        },
-                        "DeviceIndex": "0"
-                    }
-                ],
                 "ImageId": {
                     "Fn::FindInMap": [
                         "AWSAMIRegionMap",
@@ -902,6 +842,38 @@
                         "AWSNAT"
                     ]
                 },
+                "InstanceType": {
+                    "Ref": "NATInstanceType"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "NATInstance2 (QuickStart)"
+                    },
+                    {
+                        "Key": "Network",
+                        "Value": "Public"
+                    }
+                ],
+                "NetworkInterfaces": [
+                    {
+                        "GroupSet": [
+                            {
+                                "Ref": "NATSecurityGroup"
+                            }
+                        ],
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "DeleteOnTermination": "true",
+                        "SubnetId": {
+                            "Ref": "PublicSubnet2"
+                        }
+                    }
+                ],
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "SourceDestCheck": "false",
                 "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
@@ -919,43 +891,9 @@
             "Condition": "MoreThan3AZ",
             "Type": "AWS::EC2::EIP",
             "Properties": {
-                "Domain": "vpc"
-            }
-        },
-        "NATInstance2Interface": {
-            "Condition": "MoreThan3AZ",
-            "Type": "AWS::EC2::NetworkInterface",
-            "Properties": {
-                "SubnetId": {
-                    "Ref": "PublicSubnet2"
-                },
-                "Description": "External interface for the NAT instance",
-                "GroupSet": [
-                    {
-                        "Ref": "NATSecurityGroup"
-                    }
-                ],
-                "SourceDestCheck": "false",
-                "Tags": [
-                    {
-                        "Key": "Network",
-                        "Value": "Public"
-                    }
-                ]
-            }
-        },
-        "AssociateNATInstance2Interface": {
-            "Condition": "MoreThan3AZ",
-            "Type": "AWS::EC2::EIPAssociation",
-            "Properties": {
-                "AllocationId": {
-                    "Fn::GetAtt": [
-                        "NATInstance2EIP",
-                        "AllocationId"
-                    ]
-                },
-                "NetworkInterfaceId": {
-                    "Ref": "NATInstance2Interface"
+                "Domain": "vpc",
+                "InstanceId": {
+                    "Ref": "NATInstance2"
                 }
             }
         },
