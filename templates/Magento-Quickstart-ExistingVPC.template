@@ -902,6 +902,9 @@
             },
             "ap-southeast-1": {
                 "NAME": "ap-southeast-1.compute.internal"
+            },
+            "ap-south-1": {
+                "NAME": "ap-south-1.compute.internal"
             }
         },
         "AWSAMIRegionMap": {
