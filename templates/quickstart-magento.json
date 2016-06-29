@@ -1,8 +1,8 @@
 [
   {
     "ParameterKey": "KeyName",
-    "ParameterValue": "tonynv"
-  }, 
+    "ParameterValue": "cikey"
+  },
   {
     "ParameterKey": "DBMasterUserPassword",
     "ParameterValue": "SomePass-1234"
