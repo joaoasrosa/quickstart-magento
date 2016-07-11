@@ -2265,6 +2265,9 @@
             "ap-northeast-1": {
                 "NAME": "ap-northeast-1.compute.internal"
             },
+            "ap-northeast-2": {
+                "NAME": "ap-northeast-2.compute.internal"
+            },
             "eu-west-1": {
                 "NAME": "eu-west-1.compute.internal"
             },
