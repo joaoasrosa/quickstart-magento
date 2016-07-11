@@ -5,7 +5,7 @@
   },
   {
     "ParameterKey": "DBMasterUserPassword",
-    "ParameterValue": "SomePass-1234"
+    "ParameterValue": "$[alfred_genpass_32]"
   },
   {
     "ParameterKey": "MagentoReleaseMedia",
