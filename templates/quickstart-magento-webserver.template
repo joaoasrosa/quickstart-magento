@@ -3,33 +3,33 @@
     "Description": "QS() Magento2 License: Apache 2.0 (Please do not remove) Nov,14,2016 ",
     "Parameters": {
         "NotificationEmail": {
-			"Description": "EMail address to notify if there are any scaling operations",
-			"Type": "String",
-			"AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
-			"ConstraintDescription": "must be a valid email address."
-	    },
-      	"KeyPair": {
+            "Description": "EMail address to notify if there are any scaling operations",
+            "Type": "String",
+            "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
+            "ConstraintDescription": "must be a valid email address."
+        },
+        "KeyPair": {
             "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
             "Type": "AWS::EC2::KeyPair::KeyName",
             "Default": "id_rsa_aws",
             "ConstraintDescription": "Must be the name of an existing EC2 KeyPair."
         },
         "WebServerMinSize": {
-	     	"Description": "Minimum No of web server instances",
-	       	"Default": "1",
-	        "Type": "Number"
-	    }, 
-	    "WebServerMaxSize": {
-	     	"Description": "Maximum No of web server instances",
-	       	"Default": "1",
-	        "Type": "Number"
-	    }, 
-	    "WebServerDesiredCapacity": {
-	     	"Description": "Desired No of web server instances",
-	       	"Default": "1",
-	        "Type": "Number"
-	    }, 
-	    "WebServerInstanceType": {
+            "Description": "Minimum No of web server instances",
+            "Default": "1",
+            "Type": "Number"
+        },
+        "WebServerMaxSize": {
+            "Description": "Maximum No of web server instances",
+            "Default": "1",
+            "Type": "Number"
+        },
+        "WebServerDesiredCapacity": {
+            "Description": "Desired No of web server instances",
+            "Default": "1",
+            "Type": "Number"
+        },
+        "WebServerInstanceType": {
             "Type": "String",
             "Description": "Web Server node instance type",
             "AllowedValues": [
@@ -136,96 +136,96 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AMZNLINUX": "amzn-ami-hvm-2016.03.3.x86_64-gp2"
+                "AMZNLINUX": "amzn-ami-hvm-2016.09.1.20161221-x86_64-gp2"
             },
             "ap-northeast-1": {
-                "AMZNLINUX": "ami-374db956"
+                "AMZNLINUX": "ami-9f0c67f8"
             },
             "ap-northeast-2": {
-                "AMZNLINUX": "ami-2b408b45"
+                "AMZNLINUX": "ami-94bb6dfa"
             },
             "ap-south-1": {
-                "AMZNLINUX": "ami-ffbdd790"
+                "AMZNLINUX": "ami-9fc7b0f0"
             },
             "ap-southeast-1": {
-                "AMZNLINUX": "ami-a59b49c6"
+                "AMZNLINUX": "ami-4dd6782e"
             },
             "ap-southeast-2": {
-                "AMZNLINUX": "ami-dc361ebf"
+                "AMZNLINUX": "ami-28cff44b"
             },
             "eu-central-1": {
-                "AMZNLINUX": "ami-ea26ce85"
+                "AMZNLINUX": "ami-211ada4e"
             },
             "eu-west-1": {
-                "AMZNLINUX": "ami-f9dd458a"
+                "AMZNLINUX": "ami-c51e3eb6"
             },
             "sa-east-1": {
-                "AMZNLINUX": "ami-6dd04501"
+                "AMZNLINUX": "ami-bb40d8d7"
             },
             "us-east-1": {
-                "AMZNLINUX": "ami-6869aa05"
+                "AMZNLINUX": "ami-9be6f38c"
             },
             "us-west-1": {
-                "AMZNLINUX": "ami-31490d51"
+                "AMZNLINUX": "ami-b73d6cd7"
             },
             "us-west-2": {
-                "AMZNLINUX": "ami-7172b611"
+                "AMZNLINUX": "ami-1e299d7e"
             }
         },
         "AWSInfoRegionMap": {
-	        "ap-northeast-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "ap-northeast-2": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "ap-south-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "ap-southeast-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "ap-southeast-2": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "eu-central-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "eu-west-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "sa-east-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "us-east-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "us-east-2": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "us-gov-west-1": {
-	          "Partition": "aws-us-gov",
-	          "QuickStartS3URL": "https://s3-us-gov-west-1.amazonaws.com"
-	        },
-	        "us-west-1": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        },
-	        "us-west-2": {
-	          "Partition": "aws",
-	          "QuickStartS3URL": "https://s3.amazonaws.com"
-	        }
-      }
+            "ap-northeast-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "ap-northeast-2": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "ap-south-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "ap-southeast-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "ap-southeast-2": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "eu-central-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "eu-west-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "sa-east-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "us-east-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "us-east-2": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "us-gov-west-1": {
+                "Partition": "aws-us-gov",
+                "QuickStartS3URL": "https://s3-us-gov-west-1.amazonaws.com"
+            },
+            "us-west-1": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            },
+            "us-west-2": {
+                "Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            }
+        }
     },
     "Conditions": {
         "AllowNotificationEmail": {
@@ -242,71 +242,94 @@
         }
     },
     "Resources": {
-		"NotificationTopic": {
-	      	"Type": "AWS::SNS::Topic",
-	      	"Properties": {
-	        	"Subscription": [ { "Endpoint": { "Ref": "NotificationEmail" }, "Protocol": "email" } ]
-	      	}
-	    },
- 	    "WebServerScaleUpPolicy" : {
-			"Type" : "AWS::AutoScaling::ScalingPolicy",
-			"Properties" : {
-			    "AdjustmentType" : "ChangeInCapacity",
-			    "AutoScalingGroupName" : { "Ref" : "WebServerAsg" },
-			    "Cooldown" : "60",
-			    "ScalingAdjustment" : "1"
-  			}
-		},
-		"WebServerScaleDownPolicy" : {
-			"Type" : "AWS::AutoScaling::ScalingPolicy",
-  			"Properties" : {
-			    "AdjustmentType" : "ChangeInCapacity",
-			    "AutoScalingGroupName" : { "Ref" : "WebServerAsg" },
-			    "Cooldown" : "60",
-			    "ScalingAdjustment" : "-1"
-  			}
-		},
-		"CPUAlarmHigh": {
- 			"Type": "AWS::CloudWatch::Alarm",
- 			"Properties": {
-			    "AlarmDescription": "Scale-up if CPU > 90% for 10 minutes",
-			    "MetricName": "CPUUtilization",
-			    "Namespace": "AWS/EC2",
-			    "Statistic": "Average",
-			    "Period": "300",
-			    "EvaluationPeriods": "2",
-			    "Threshold": "90",
-			    "AlarmActions": [ { "Ref": "WebServerScaleUpPolicy" } ],
-			    "Dimensions": [
-      				{
-				        "Name": "AutoScalingGroupName",
-				        "Value": { "Ref": "WebServerAsg" }
-      				}
-    			],
-    			"ComparisonOperator": "GreaterThanThreshold"
-  			}
-		},
-		"CPUAlarmLow": {
-			 "Type": "AWS::CloudWatch::Alarm",
-			 "Properties": {
-			    "AlarmDescription": "Scale-down if CPU < 70% for 10 minutes",
-			    "MetricName": "CPUUtilization",
-			    "Namespace": "AWS/EC2",
-			    "Statistic": "Average",
-			    "Period": "300",
-			    "EvaluationPeriods": "2",
-			    "Threshold": "70",
-			    "AlarmActions": [ { "Ref": "WebServerScaleDownPolicy" } ],
-			    "Dimensions": [
-      				{
-        				"Name": "AutoScalingGroupName",
-        				"Value": { "Ref": "WebServerAsg" }
-      				}
-    			],
-    			"ComparisonOperator": "LessThanThreshold"
-  			}
-		},       
-      	"NewIamInstanceRole": {
+        "NotificationTopic": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {
+                "Subscription": [
+                    {
+                        "Endpoint": {
+                            "Ref": "NotificationEmail"
+                        },
+                        "Protocol": "email"
+                    }
+                ]
+            }
+        },
+        "WebServerScaleUpPolicy": {
+            "Type": "AWS::AutoScaling::ScalingPolicy",
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "WebServerAsg"
+                },
+                "Cooldown": "60",
+                "ScalingAdjustment": "1"
+            }
+        },
+        "WebServerScaleDownPolicy": {
+            "Type": "AWS::AutoScaling::ScalingPolicy",
+            "Properties": {
+                "AdjustmentType": "ChangeInCapacity",
+                "AutoScalingGroupName": {
+                    "Ref": "WebServerAsg"
+                },
+                "Cooldown": "60",
+                "ScalingAdjustment": "-1"
+            }
+        },
+        "CPUAlarmHigh": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "Scale-up if CPU > 90% for 10 minutes",
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "Statistic": "Average",
+                "Period": "300",
+                "EvaluationPeriods": "2",
+                "Threshold": "90",
+                "AlarmActions": [
+                    {
+                        "Ref": "WebServerScaleUpPolicy"
+                    }
+                ],
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "WebServerAsg"
+                        }
+                    }
+                ],
+                "ComparisonOperator": "GreaterThanThreshold"
+            }
+        },
+        "CPUAlarmLow": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "Scale-down if CPU < 70% for 10 minutes",
+                "MetricName": "CPUUtilization",
+                "Namespace": "AWS/EC2",
+                "Statistic": "Average",
+                "Period": "300",
+                "EvaluationPeriods": "2",
+                "Threshold": "70",
+                "AlarmActions": [
+                    {
+                        "Ref": "WebServerScaleDownPolicy"
+                    }
+                ],
+                "Dimensions": [
+                    {
+                        "Name": "AutoScalingGroupName",
+                        "Value": {
+                            "Ref": "WebServerAsg"
+                        }
+                    }
+                ],
+                "ComparisonOperator": "LessThanThreshold"
+            }
+        },
+        "NewIamInstanceRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "AssumeRolePolicyDocument": {
@@ -454,13 +477,13 @@
                     "Ref": "WebServerLC"
                 },
                 "MinSize": {
-                  	"Ref": "WebServerMinSize"
+                    "Ref": "WebServerMinSize"
                 },
                 "MaxSize": {
-                  	"Ref": "WebServerMaxSize"
+                    "Ref": "WebServerMaxSize"
                 },
                 "DesiredCapacity": {
-                  	"Ref": "WebServerDesiredCapacity"
+                    "Ref": "WebServerDesiredCapacity"
                 },
                 "LoadBalancerNames": [
                     {
@@ -470,15 +493,17 @@
                 "VPCZoneIdentifier": {
                     "Ref": "WebServerSubnets"
                 },
-                "NotificationConfiguration" : {
-		          	"TopicARN" : { "Ref" : "NotificationTopic" },
-		          	"NotificationTypes" : [ 
-           				"autoscaling:EC2_INSTANCE_LAUNCH",
+                "NotificationConfiguration": {
+                    "TopicARN": {
+                        "Ref": "NotificationTopic"
+                    },
+                    "NotificationTypes": [
+                        "autoscaling:EC2_INSTANCE_LAUNCH",
                         "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
                         "autoscaling:EC2_INSTANCE_TERMINATE",
                         "autoscaling:EC2_INSTANCE_TERMINATE_ERROR"
                     ]
-		        },
+                },
                 "Tags": [
                     {
                         "Key": "Name",
@@ -497,12 +522,12 @@
                     }
                 ]
             },
-            "CreationPolicy" : {
-		        "ResourceSignal" : {
-		          "Timeout" : "PT15M",
-		          "Count"   : "1"
-		        }
-	      	}
+            "CreationPolicy": {
+                "ResourceSignal": {
+                    "Timeout": "PT15M",
+                    "Count": "1"
+                }
+            }
         },
         "WebServerLC": {
             "Type": "AWS::AutoScaling::LaunchConfiguration",
@@ -511,9 +536,9 @@
                 "AWS::CloudFormation::Init": {
                     "config": {
                         "packages": {
-                        	"yum" : {
-				                "nfs-utils" : []
-				             }
+                            "yum": {
+                                "nfs-utils": []
+                            }
                         },
                         "/etc/cfn/cfn-hup.conf": {
                             "content": {
@@ -562,20 +587,22 @@
                                 ]
                             }
                         },
-	                    "commands" : {
-				            "01_createdir" : {
-				              	"command" : "mkdir -p /mnt"
-				            },
-	                 		"02_permissions" : {
-			                	"command" : "chown ec2-user:ec2-user /mnt"
-			              	},
-                  			"03_mount_fstab" : {
-                       			"command" : { "Fn::Sub" : "echo \"${FileSystem}.efs.${AWS::Region}.amazonaws.com:/ /mnt nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0\" >> /etc/fstab"}
-                          	},
-                           	"04_mount" : {
-	                			"command" : "mount -a -t nfs4"
-	              			}
-                       }
+                        "commands": {
+                            "01_createdir": {
+                                "command": "mkdir -p /mnt"
+                            },
+                            "02_permissions": {
+                                "command": "chown ec2-user:ec2-user /mnt"
+                            },
+                            "03_mount_fstab": {
+                                "command": {
+                                    "Fn::Sub": "echo \"${FileSystem}.efs.${AWS::Region}.amazonaws.com:/ /mnt nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0\" >> /etc/fstab"
+                                }
+                            },
+                            "04_mount": {
+                                "command": "mount -a -t nfs4"
+                            }
+                        }
                     },
                     "services": {
                         "sysvinit": {
@@ -812,14 +839,14 @@
             }
         },
         "EFSMountTargetSecurityGroup": {
-          	"Type": "AWS::EC2::SecurityGroup",
-           	"Properties": {
-              	"GroupDescription": "Security group for EFS Mount Target",
-               	"VpcId": {
-                  	"Ref": "VPCID"
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Security group for EFS Mount Target",
+                "VpcId": {
+                    "Ref": "VPCID"
                 },
                 "SecurityGroupIngress": [
-                  	{
+                    {
                         "IpProtocol": "tcp",
                         "FromPort": "2049",
                         "ToPort": "2049",
@@ -831,27 +858,53 @@
             }
         },
         "FileSystem": {
-	      "Type": "AWS::EFS::FileSystem",
-	      "Properties": {
-	        "PerformanceMode": "generalPurpose"
-	      }
-	    },
+            "Type": "AWS::EFS::FileSystem",
+            "Properties": {
+                "PerformanceMode": "generalPurpose"
+            }
+        },
         "MountTarget1": {
-	      "Type": "AWS::EFS::MountTarget",
-	      "Properties": {
-	        "FileSystemId": { "Ref": "FileSystem" },
-	        "SubnetId": { "Fn::Select" : [ "0", {"Ref": "WebServerSubnets"} ] },
-	        "SecurityGroups": [ { "Ref": "EFSMountTargetSecurityGroup" } ]        
-	      }
-	    },
+            "Type": "AWS::EFS::MountTarget",
+            "Properties": {
+                "FileSystemId": {
+                    "Ref": "FileSystem"
+                },
+                "SubnetId": {
+                    "Fn::Select": [
+                        "0",
+                        {
+                            "Ref": "WebServerSubnets"
+                        }
+                    ]
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "EFSMountTargetSecurityGroup"
+                    }
+                ]
+            }
+        },
         "MountTarget2": {
-	      "Type": "AWS::EFS::MountTarget",
-	      "Properties": {
-	        "FileSystemId": { "Ref": "FileSystem" },
-	        "SubnetId": { "Fn::Select" : [ "1", {"Ref": "WebServerSubnets"} ] },
-	        "SecurityGroups": [ { "Ref": "EFSMountTargetSecurityGroup" } ]        
-	      }
-	    },
+            "Type": "AWS::EFS::MountTarget",
+            "Properties": {
+                "FileSystemId": {
+                    "Ref": "FileSystem"
+                },
+                "SubnetId": {
+                    "Fn::Select": [
+                        "1",
+                        {
+                            "Ref": "WebServerSubnets"
+                        }
+                    ]
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "EFSMountTargetSecurityGroup"
+                    }
+                ]
+            }
+        },
         "ElasticLoadBalancerSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
