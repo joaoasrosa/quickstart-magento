@@ -8,10 +8,6 @@
             "Default": "vpc-xxxxxxxx",
             "AllowedPattern": "vpc-[0-9a-z]{8}"
         },
-        "AutoScaledInstanceSecurityGroup": {
-            "Description": "For DBVPCSecurityGroups, enter existing security group to associate with DB ",
-            "Type": "String"
-        },
         "Subnets": {
             "Type": "List<AWS::EC2::Subnet::Id>",
             "Description": "Atleast two existing Subnets in separate Availability Zones your Virtual Private Cloud (VPC)",
@@ -144,6 +140,23 @@
         }
     },
     "Resources": {
+        "MySQLRDSSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow access to MySQL Port",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "3306",
+                        "ToPort": "3306",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        },
         "MySQLDBSubnetGroup": {
             "Type": "AWS::RDS::DBSubnetGroup",
             "Properties": {
@@ -178,7 +191,7 @@
                 },
                 "VPCSecurityGroups": [
                     {
-                        "Ref": "AutoScaledInstanceSecurityGroup"
+                        "Ref": "MySQLRDSSecurityGroup"
                     }
                 ],
                 "MultiAZ": {

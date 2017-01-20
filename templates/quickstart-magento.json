@@ -1,22 +1,26 @@
 [
   {
-    "ParameterKey": "KeyName",
+    "ParameterKey": "AvailabilityZones",
+    "ParameterValue": "$[alfred_genaz_2]"
+  },
+  {
+    "ParameterKey": "KeyPairName",
     "ParameterValue": "cikey"
   },
   {
-    "ParameterKey": "RemoteAccessCIDR",
-    "ParameterValue": "10.0.0.0/16"
+    "ParameterKey": "AccessCIDR",
+    "ParameterValue": "54.240.198.33/32"
+  },
+  {
+    "ParameterKey": "NotificationEmail",
+    "ParameterValue": "foo@bar.com"
+  },
+  {
+    "ParameterKey": "MagentoReleaseMedia",
+    "ParameterValue": "https://s3.amazonaws.com/quickstart-reference/magento/latest/media/Magento-CE-2_1_3_tar_gz-2016-12-13-09-08-39.tar.gz"
   },
   {
     "ParameterKey": "DBMasterUserPassword",
     "ParameterValue": "$[alfred_genpass_32]"
-  },
-  {
-    "ParameterKey": "MagentoReleaseMedia",
-    "ParameterValue": "https://s3.amazonaws.com/quickstart-reference/magento/latest/media/magento-1.9.2.2.tar.gz"
-  },
-  {
-    "ParameterKey": "MagentoSampleData",
-    "ParameterValue": "https://s3.amazonaws.com/quickstart-reference/magento/latest/media/magento-sample-data-latest.tar.gz"
   }
 ]

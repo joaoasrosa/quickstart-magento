@@ -39,14 +39,8 @@ download_scripts() {
 	mkdir -p /home/ec2-user/misc/scripts
 	cd /home/ec2-user/misc
 
-	wget https://s3.amazonaws.com/${BUILDBUCKET}/magento/latest/scripts/zip/Linux/scripts.zip --output-document=/home/ec2-user/misc/scripts.zip
-	unzip scripts.zip  -d /home/ec2-user/misc/scripts	
-}
-
-setMySQLcontext() {
-    cd /home/ec2-user/misc/scripts
-    sh /home/ec2-user/misc/scripts/setupMySQL.sh
-    #source /home/ec2-user/misc/config.sh  && /usr/bin/node mysqlsetup.js
+	wget https://s3.amazonaws.com/${BUILDBUCKET}/latest/scripts/zip/linux/scripts.zip --output-document=/home/ec2-user/misc/scripts.zip
+	unzip scripts.zip -d /home/ec2-user/misc/scripts	
 }
 
 install_aws() {
@@ -56,14 +50,27 @@ install_aws() {
     export AWS=/usr/local/bin/aws
 }
 
-install_node() {
-    yum --enablerepo=epel install node npm -y
-
+install_packages() {
+	sudo yum install -y httpd24 php56 php56-opcache php56-mysqlnd mysql php56-gd php56-intl php56-mbstring php56-mcrypt php56-soap php56-xml
+	echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+    sed -i '/<Directory "\/var\/www\/html/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf
+    sed -i "s/memory_limit.*/memory_limit = 512M/g" /etc/php.ini
+    sed -i "s/;always_populate_raw_post_data.*/always_populate_raw_post_data = -1/g" /etc/php.ini
+    sudo service httpd start
+    # Configure the web server to start with each system boot
+    sudo chkconfig httpd on
+    yum --enablerepo=epel install -y php56* nodejs npm
+    sudo service httpd restart                            
 }
 
+setMySQLcontext() {
+    cd /home/ec2-user/misc/scripts
+    sh /home/ec2-user/misc/scripts/setupMySQL.sh
+}
+
+
 cleanup() {
-	CLEAN=/home/ec2-user/misc/scripts/cleanup.sh
-	[ -f ${CLEAN} ] && sh ${CLEAN}
+	mv /home/ec2-user/misc /tmp/
 }
 
 # ------------------------------------------------------------------
@@ -72,15 +79,12 @@ cleanup() {
 
 download_scripts
 install_aws
-install_node
+install_packages
 setMySQLcontext
 
 INSTALLOUTPUT=$(sh /home/ec2-user/misc/scripts/prereq.sh -b ${BUILDBUCKET} > /home/ec2-user/misc/install.log 2>&1)
-echo ${INSTALLOUTPUT}
 
 #   restart apache
-apachectl -k restart
+sudo service httpd restart 
 
-# cleanup
 cleanup
-
