@@ -22,9 +22,5 @@
   {
     "ParameterKey": "DBMasterUserPassword",
     "ParameterValue": "$[alfred_genpass_32]"
-  },
-  {
-    "ParameterKey": "QSS3BucketName",
-    "ParameterValue": "quickstart-reference-develop"
   }
 ]
