@@ -24,15 +24,8 @@ export LC_ALL="en_US.UTF-8"
 export PATH=${PATH}:/sbin:/usr/sbin:/usr/local/sbin:/root/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/lib/AmazonEC2/ec2-api-tools/bin:/usr/lib/AmazonEC2/ec2-ami-tools/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin
 
 mkdir -p /home/ec2-user/misc
-[ -z ${JQ_COMMAND} ] && export JQ_COMMAND=/home/ec2-user/misc/jq
 
-if [ -f ${JQ_COMMAND} ]; then
-	echo "JQ Already exists!"
-else
-	wget https://s3.amazonaws.com/quickstart-reference/magento/latest/media/jq --output-document ${JQ_COMMAND}
-fi
-chmod  755 ${JQ_COMMAND}
-
+JQ_COMMAND=jq
 if [ -z ${AWS_DEFAULT_REGION} ]; then
 	 export AWS_DEFAULT_REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document \
 					| ${JQ_COMMAND} '.region'  \

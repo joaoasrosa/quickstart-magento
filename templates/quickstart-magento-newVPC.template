@@ -484,7 +484,7 @@
                 }, {
                   "Ref": "QSS3KeyPrefix"
                 },
-                "submodules/quickstart-aws-vpc/templates/aws-vpc.template"
+                "latest/submodules/quickstart-aws-vpc/templates/aws-vpc.template"
               ]
             ]
           },
@@ -538,7 +538,7 @@
 		                }, {
 		                  "Ref": "QSS3KeyPrefix"
 		                },
-                  		"templates/quickstart-magento-rdsmysql.template"
+                  		"latest/templates/quickstart-magento-rdsmysql.template"
 		              ]
 		            ]
                 },
@@ -621,7 +621,7 @@
                 }, {
                   "Ref": "QSS3KeyPrefix"
                 },
-                "templates/quickstart-magento-webserver.template"
+                "latest/templates/quickstart-magento-webserver.template"
               ]
             ]
           },

@@ -39,7 +39,7 @@ download_scripts() {
 	mkdir -p /home/ec2-user/misc/scripts
 	cd /home/ec2-user/misc
 
-	wget https://s3.amazonaws.com/${BUILDBUCKET}/latest/scripts/zip/linux/scripts.zip --output-document=/home/ec2-user/misc/scripts.zip
+	wget https://s3.amazonaws.com/${BUILDBUCKET}/latest/scripts/zip/Linux/scripts.zip --output-document=/home/ec2-user/misc/scripts.zip
 	unzip scripts.zip -d /home/ec2-user/misc/scripts	
 }
 
@@ -51,7 +51,7 @@ install_aws() {
 }
 
 install_packages() {
-	sudo yum install -y httpd24 php56 php56-opcache php56-mysqlnd mysql php56-gd php56-intl php56-mbstring php56-mcrypt php56-soap php56-xml
+	sudo yum install -y httpd24 php56 php56-opcache php56-mysqlnd mysql php56-gd php56-intl php56-mbstring php56-mcrypt php56-soap php56-xml jq
 	echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
     sed -i '/<Directory "\/var\/www\/html/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf
     sed -i "s/memory_limit.*/memory_limit = 512M/g" /etc/php.ini
@@ -87,4 +87,4 @@ INSTALLOUTPUT=$(sh /home/ec2-user/misc/scripts/prereq.sh -b ${BUILDBUCKET} > /ho
 #   restart apache
 sudo service httpd restart 
 
-cleanup
+#cleanup

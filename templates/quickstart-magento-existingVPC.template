@@ -440,7 +440,7 @@
 		                }, {
 		                  "Ref": "QSS3KeyPrefix"
 		                },
-                  		"templates/quickstart-magento-rdsmysql.template"
+                  		"latest/templates/quickstart-magento-rdsmysql.template"
 		              ]
 		            ]
                 },
@@ -514,7 +514,7 @@
                 }, {
                   "Ref": "QSS3KeyPrefix"
                 },
-                "templates/quickstart-magento-webserver.template"
+                "latest/templates/quickstart-magento-webserver.template"
               ]
             ]
           },
