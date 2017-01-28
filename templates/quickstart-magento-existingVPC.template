@@ -265,7 +265,7 @@
         "Description": "The number of days for which automatic DB snapshots are retained."
     },
     "DBInstanceClass": {
-        "Default": "db.m3.2xlarge",
+        "Default": "db.m4.2xlarge",
         "Description": "The name of the compute and memory capacity class of the DB instance.",
         "Type": "String",
         "AllowedValues": [
@@ -275,6 +275,7 @@
             "db.m3.large",
             "db.m3.xlarge",
             "db.m3.2xlarge",
+            "db.m4.2xlarge"
             "db.r3.large",
             "db.r3.xlarge",
             "db.r3.2xlarge",
