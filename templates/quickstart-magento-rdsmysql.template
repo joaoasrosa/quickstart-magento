@@ -13,6 +13,10 @@
             "Description": "Atleast two existing Subnets in separate Availability Zones your Virtual Private Cloud (VPC)",
             "ConstraintDescription": "must be list of existing subnet Ids"
         },
+        "MySQLRDSSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup::Id",
+            "Description": "MySql Security Group"
+        },
         "DBAllocatedStorage": {
             "Default": "5",
             "Description": "The size of the database in gigabytes (GB)",
@@ -120,15 +124,6 @@
                 "false"
             ]
         },
-        "DBPubliclyAccessible": {
-            "Default": "false",
-            "Description": "Indicates whether the database instance is an Internet-facing instance.",
-            "Type": "String",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
-        },
         "DBStorageType": {
             "Default": "standard",
             "Description": "The storage type associated with this database instance",
@@ -140,24 +135,10 @@
             ]
         }
     },
+    "Conditions": {
+        "IOPSStorageType" : {"Fn::Equals" : [{"Ref" : "DBStorageType"}, "io1"]}
+    },
     "Resources": {
-        "MySQLRDSSecurityGroup": {
-            "Type": "AWS::EC2::SecurityGroup",
-            "Properties": {
-                "GroupDescription": "Allow access to MySQL Port",
-                "VpcId": {
-                    "Ref": "VPC"
-                },
-                "SecurityGroupIngress": [
-                    {
-                        "IpProtocol": "tcp",
-                        "FromPort": "3306",
-                        "ToPort": "3306",
-                        "CidrIp": "0.0.0.0/0"
-                    }
-                ]
-            }
-        },
         "MySQLDBSubnetGroup": {
             "Type": "AWS::RDS::DBSubnetGroup",
             "Properties": {
@@ -197,6 +178,22 @@
                 ],
                 "MultiAZ": {
                     "Ref": "DBMultiAZ"
+                },
+                "StorageType": {
+                    "Ref": "DBStorageType"
+                },
+                "AutoMinorVersionUpgrade": {
+                    "Ref": "DBAutoMinorVersionUpgrade"
+                },
+                "BackupRetentionPeriod": {
+                    "Ref": "DBBackupRetentionPeriod"
+                },
+                "Iops" : {
+                  "Fn::If" : [
+                    "IOPSStorageType",
+                    {"Ref" : "DBIops"},
+                    {"Ref" : "AWS::NoValue"}
+                  ]
                 },
                 "Tags": [
                     {

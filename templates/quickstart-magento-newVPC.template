@@ -29,7 +29,8 @@
           "WebServerMaxSize",
           "WebServerDesiredCapacity",
           "NotificationEmail",
-          "MagentoReleaseMedia"
+          "MagentoReleaseMedia",
+          "SSLCertificateId"
         ]
       }, 
       {
@@ -46,10 +47,32 @@
           "DBMasterUsername",
           "DBMasterUserPassword",
           "DBMultiAZ",
-          "DBPubliclyAccessible",
           "DBStorageType"
         ]
       }, 
+      {
+        "Label": {
+          "default": "AWS ElastiCache Configuration"
+        },
+        "Parameters": [
+          "ElastiCacheAutomaticFailover",
+          "ElastiCacheNodeType",
+          "ElastiCacheNodes"
+        ]
+      },
+      {
+        "Label": {
+          "default": "Magento Configuration"
+        },
+        "Parameters": [
+          "DNSName",
+          "AdminFirstName",
+          "AdminLastName",
+          "AdminEmail",
+          "AdminUserName",
+          "AdminPassword"
+        ]
+      },
       {
         "Label": {
           "default": "AWS Quick Start Configuration"
@@ -138,11 +161,38 @@
         "DBMultiAZ": {
             "default": "DB Multi AZ"
         },
-        "DBPubliclyAccessible": {
-            "default": "DB Publicly Accessible"
-        },
         "DBStorageType": {
             "default": "DB Storage Type"
+        },
+        "ElastiCacheAutomaticFailover": {
+          "default": "ElastiCache automatic failover"
+        },
+        "ElastiCacheNodeType": {
+          "defult": "ElastiCache node type"
+        },
+        "ElastiCacheNodes": {
+          "default": "ElastiCache number nodes"
+        },
+        "DNSName": {
+            "default": "Public DNS Name"
+        },
+        "AdminFirstName": {
+            "default": "Administrator First Name"
+        },
+        "AdminLastName": {
+            "default": "Administrator Last Name"
+        },
+        "AdminEmail": {
+            "default": "Administrator email"
+        },
+        "AdminUserName": {
+            "default": "Administrator user name"
+        },
+        "AdminPassword": {
+            "default": "Administrator password"
+        },
+        "SSLCertificateId": {
+            "default": "SSL Certificate ARN"
         }
       }
     }
@@ -391,15 +441,6 @@
                 "false"
             ]
         },
-        "DBPubliclyAccessible": {
-            "Default": "false",
-            "Description": "Indicates whether the database instance is an Internet-facing instance.",
-            "Type": "String",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
-        },
         "DBStorageType": {
             "Default": "gp2",
             "Description": "The storage type associated with this database instance",
@@ -409,6 +450,83 @@
                 "gp2",
                 "io1"
             ]
+        },
+        "ElastiCacheNodes": {
+            "Default": "2",
+            "Description": "Number of nodes in the ElastiCache cluster",
+            "Type": "Number",
+            "MinValue": "2",
+            "MaxValue": "5",
+            "ConstraintDescription": "must be between 2 and 5"
+        },
+        "ElastiCacheAutomaticFailover": {
+            "Default": "true",
+            "Description": "Select true/false to setup Automatic Failover",
+            "Type": "String",
+            "AllowedValues": [
+                "true",
+                "false"
+            ]
+        },
+        "ElastiCacheNodeType": {
+            "Default": "cache.m4.large",
+            "Description": "The name of the compute and memory capacity class of the ElastiCache instance.",
+            "Type": "String",
+            "AllowedValues": [
+                "cache.t2.micro",
+                "cache.t2.small",
+                "cache.t2.medium",
+                "cache.m3.medium",
+                "cache.m3.large",
+                "cache.m3.xlarge",
+                "cache.m3.2xlarge",
+                "cache.m4.large",
+                "cache.m4.xlarge",
+                "cache.m4.2xlarge",
+                "cache.m4.4xlarge",
+                "cache.m4.10xlarge",
+                "cache.c1.xlarge",
+                "cache.r3.large",
+                "cache.r3.xlarge",
+                "cache.r3.2xlarge",
+                "cache.r3.4xlarge",
+                "cache.r3.8xlarge"
+            ],
+            "ConstraintDescription": "Must select a valid cache instance type."
+        },
+        "DNSName": {
+            "Type": "String",
+            "Default": "",
+            "Description": "DNS Name for the magento site, you should create an alias for the ELB after the stack creation"
+        },
+        "AdminFirstName": {
+            "Type": "String",
+            "Description": "First Name of the Magento site administrator"
+        },
+        "AdminLastName": {
+            "Type": "String",
+            "Description": "Last Name of the Magento site administrator"
+        },
+        "AdminEmail": {
+            "Type": "String",
+            "Description": "Email of the Magento site administrator"
+        },
+        "AdminUserName": {
+            "Type": "String",
+            "Description": "Username of the Magento site administrator"
+        },
+        "AdminPassword": {
+            "Type": "String",
+            "Description": "Password of the Magento site administrator",
+            "MinLength": "8",
+            "MaxLength": "32",
+            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
+            "NoEcho": "True"
+        },
+        "SSLCertificateId": {
+            "Description": "The ARN of the SSL certificate to use for the webserver. [ optional]",
+            "Default": "",
+            "Type": "String"
         }
     },
     "Mappings": {
@@ -522,6 +640,40 @@
           }
         }
       },
+      "SecurityGroupStack": {
+        "Type": "AWS::CloudFormation::Stack",
+        "Properties": {
+          "TemplateURL": {
+            "Fn::Join": [
+              "/", [{
+                  "Fn::FindInMap": [
+                    "AWSInfoRegionMap", {
+                      "Ref": "AWS::Region"
+                    },
+                    "QuickStartS3URL"
+                  ]
+                }, {
+                  "Ref": "QSS3BucketName"
+                }, {
+                  "Ref": "QSS3KeyPrefix"
+                },
+                "latest/templates/quickstart-magento-securitygroups.template"
+              ]
+            ]
+          },
+          "Parameters": {
+            "AccessCIDR": {
+              "Ref": "AccessCIDR"
+            },
+            "VPC": {
+                "Fn::GetAtt": [
+                  "VPCStack",
+                  "Outputs.VPCID"
+                ]
+            }
+          }
+        }
+      },
       "RDSMySQL": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
@@ -549,6 +701,12 @@
 		                    "VPCStack",
 		                    "Outputs.VPCID"
 		                ]
+                    },
+                    "MySQLRDSSecurityGroup": {
+                        "Fn::GetAtt": [
+                        "SecurityGroupStack",
+                        "Outputs.MySQLRDSSecurityGroup"
+                    ]
                     },
                     "Subnets": {
                         "Fn::Join": [
@@ -596,11 +754,73 @@
                     "DBMultiAZ": {
                         "Ref": "DBMultiAZ"
                     },
-                    "DBPubliclyAccessible": {
-                        "Ref": "DBPubliclyAccessible"
-                    },
                     "DBStorageType": {
                         "Ref": "DBStorageType"
+                    }
+                }
+            }
+        },
+        "ElastiCache": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "TemplateURL": {
+                  "Fn::Join": [
+                  "/", [{
+                      "Fn::FindInMap": [
+                        "AWSInfoRegionMap", {
+                          "Ref": "AWS::Region"
+                        },
+                        "QuickStartS3URL"
+                      ]
+                    }, {
+                      "Ref": "QSS3BucketName"
+                    }, {
+                      "Ref": "QSS3KeyPrefix"
+                    },
+                      "latest/templates/quickstart-magento-elasticache.template"
+                  ]
+                ]
+                },
+                "Parameters": {
+                    "VPC": {
+                        "Fn::GetAtt": [
+                        "VPCStack",
+                        "Outputs.VPCID"
+                    ]
+                    },
+                    "ElastiCacheSecurityGroup": {
+                        "Fn::GetAtt": [
+                        "SecurityGroupStack",
+                        "Outputs.ElastiCacheSecurityGroup"
+                    ]
+                    },
+                    "Subnets": {
+                        "Fn::Join": [
+                            ",",
+                            [
+                                {
+                                    "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet1AID"
+                          ]
+                                },
+                                {
+                                    "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet2AID"
+                          ]
+                                }
+                            ]
+                        ]
+                    },
+                    "ElastiCacheNodes": {
+                        "Ref": "ElastiCacheNodes"
+                    },
+                    "ElastiCacheAutomaticFailover": {
+                        "Ref": "ElastiCacheAutomaticFailover"
+                    },
+                    "ElastiCacheNodeType": {
+                        "Ref": "ElastiCacheNodeType"
                     }
                 }
             }
@@ -630,6 +850,24 @@
             "KeyPair": {
               "Ref": "KeyPairName"
             },
+            "ELBSecurityGroup": {
+                "Fn::GetAtt": [
+                "SecurityGroupStack",
+                "Outputs.ELBSecurityGroup"
+            ]
+            },
+            "EFSSecurityGroup": {
+                "Fn::GetAtt": [
+                "SecurityGroupStack",
+                "Outputs.EFSSecurityGroup"
+            ]
+            },
+            "WebServerSecurityGroup": {
+                "Fn::GetAtt": [
+                "SecurityGroupStack",
+                "Outputs.WebServerSecurityGroup"
+            ]
+            },
             "NotificationEmail": {
               	"Ref": "NotificationEmail"
             }, 
@@ -641,7 +879,10 @@
             }, 
             "WebServerDesiredCapacity": {
             	"Ref": "WebServerDesiredCapacity"
-            }, 
+            },
+            "WebServerInstanceType": {
+              "Ref": "WebServerInstanceType"
+            },
             "WebServerSubnets": {
                 "Fn::Join": [
                     ",",
@@ -692,9 +933,6 @@
             "QSS3KeyPrefix": {
               "Ref": "QSS3KeyPrefix"
             },
-            "AccessCIDR": {
-              "Ref": "AccessCIDR"
-            },
             "MagentoReleaseMedia": {
 	          	"Ref": "MagentoReleaseMedia"
 	        },
@@ -704,10 +942,43 @@
 	        "DBMasterUsername": {
 	            "Ref": "DBMasterUsername"
 	        },
-	        "RDSMySQLStack": {
-	           "Ref": "RDSMySQL"
-	        }
+          "MySQLEndPointAddress": {
+            "Fn::GetAtt": [
+                "RDSMySQL",
+                "Outputs.MySQLEndPointAddress"
+            ]
+          },
+          "ElastiCacheEndpoint": {
+            "Fn::GetAtt": [
+                "ElastiCache",
+                "Outputs.ElastiCacheEndpoint"
+            ]
+          },
+          "DBName": {
+            "Ref": "DBName"
+          },
+          "DNSName": {
+            "Ref": "DNSName"
+          },
+          "AdminFirstName": {
+              "Ref": "AdminFirstName"
+          },
+          "AdminLastName": {
+              "Ref": "AdminLastName"
+          },
+          "AdminEmail": {
+              "Ref": "AdminEmail"
+          },
+          "AdminUserName": {
+              "Ref": "AdminUserName"
+          },
+          "AdminPassword": {
+              "Ref": "AdminPassword"
+          },
+          "SSLCertificateId": {
+            "Ref": "SSLCertificateId"
           }
+        }
         }
       }
     }

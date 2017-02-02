@@ -22,5 +22,29 @@
   {
     "ParameterKey": "DBMasterUserPassword",
     "ParameterValue": "$[alfred_genpass_32]"
+  },
+  {
+    "ParameterKey": "DNSName",
+    "ParameterValue": "foo.bar.com"
+  },
+  {
+    "ParameterKey": "AdminFirstName",
+    "ParameterValue": "Foo"
+  },
+  {
+    "ParameterKey": "AdminLastName",
+    "ParameterValue": "Bar"
+  },
+  {
+    "ParameterKey": "AdminEmail",
+    "ParameterValue": "foo@bar.com"
+  },
+  {
+    "ParameterKey": "AdminUserName",
+    "ParameterValue": "admin"
+  },
+  {
+    "ParameterKey": "AdminPassword",
+    "ParameterValue": "$[alfred_genpass_32]"
   }
 ]
