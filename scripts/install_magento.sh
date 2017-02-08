@@ -386,7 +386,6 @@ usermod -g nginx ec2-user
 chgrp -R nginx /var/lib/php/7.0/*
 service nginx start
 
-curl -O https://s3-eu-west-1.amazonaws.com/amzsup/magento/configure_magento.sh
 chmod a+x configure_magento.sh
 mv configure_magento.sh /tmp
 

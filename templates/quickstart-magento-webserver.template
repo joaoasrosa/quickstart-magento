@@ -298,6 +298,14 @@
                 },
                 ""
             ]
+        },
+        "UseELBName": {
+            "Fn::Equals": [
+                {
+                    "Ref": "DNSName"
+                },
+                ""
+            ]
         }
     },
     "Resources": {
@@ -722,15 +730,15 @@
                     "#!/bin/bash\n",
                     "/opt/aws/bin/cfn-init -v --stack ", { "Ref": "AWS::StackName" }, " --resource MagentoAMI ",
                         " --region ", { "Ref": "AWS::Region" }, "\n",
-                    "aws s3 cp s3://", { "Ref": "QSS3BucketName" }, "/", { "Ref": "QSS3KeyPrefix" }, "/latest/scripts/install_magento.sh .\n",
                     "curl -O https://", { "Ref": "QSS3BucketName" }, ".s3.amazonaws.com/", { "Ref": "QSS3KeyPrefix" }, "/latest/scripts/install_magento.sh\n",
+                    "curl -O https://", { "Ref": "QSS3BucketName" }, ".s3.amazonaws.com/", { "Ref": "QSS3KeyPrefix" }, "/latest/scripts/configure_magento.sh\n",
                     "chmod a+x install_magento.sh\n",
                     "./install_magento.sh ",
                     { "Ref": "MySQLEndPointAddress" }, " ",
                     { "Ref": "DBMasterUsername" }, " ",
                     { "Ref": "DBMasterUserPassword" }, " ",
                     { "Ref": "DBName" }, " ",
-                    { "Ref": "DNSName"}, " ",
+                    { "Fn::If" : ["UseELBName", { "Fn::GetAtt": [ "ElasticLoadBalancer", "DNSName" ] }, { "Ref": "DNSName"}]} , " ",
                     { "Ref": "AdminFirstName"}, " ",
                     { "Ref": "AdminLastName"}, " ",
                     { "Ref": "AdminEmail"}, " ",
@@ -925,16 +933,27 @@
                 "Fn::Join": [
                     "",
                     [
-                        "http://",
-                        {
-                            "Fn::GetAtt": [
-                                "ElasticLoadBalancer",
-                                "DNSName"
-                            ]
-                        }
+                        { "Fn::If" : [ "DontUseSSL", "http", "https" ]}, "://",
+                        { "Fn::If" : ["UseELBName", { "Fn::GetAtt": [ "ElasticLoadBalancer", "DNSName" ] }, { "Ref": "DNSName"}]}
                     ]
                 ]
             }
+        },
+        "ELBURL": {
+            "Description": "The URL of the ELB, you should create a CNAME or alias to this name if you specified a DNS name",
+            "Value": {
+                "Fn::GetAtt": [
+                    "ElasticLoadBalancer",
+                    "DNSName"
+                ]
+            }
+        },
+        "AdminURL": {
+            "Description": "Admin path",
+            "Value": 
+                { "Fn::Select" : [ "0", { "Fn::Split": ["\"",
+                    { "Fn::Select" : [ "2", { "Fn::Split": [":", { "Fn::GetAtt": [ "MagentoAMIWaitCondition", "Data" ] }]}] }
+                ] } ] }
         }
     }
 }
