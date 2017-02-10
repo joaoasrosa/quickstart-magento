@@ -36,12 +36,19 @@ cat << EOF > /var/www/html/pub/health
 OK
 EOF
 
+if [ "$protocol" = "http" ]
+then
+  secure="--use-secure-admin=0 --use-secure=0"
+else
+  secure="--use-secure-admin=1 --use-secure=1 --base-url-secure=$protocol://$cname/"
+fi
+
 cd /var/www/html/bin
 ./magento setup:install --base-url=$protocol://$cname/ \
 --db-host=$dbhost --db-name=$dbname --db-user=$dbuser --db-password=$dbpassword \
 --admin-firstname=$adminfirst --admin-lastname=$adminlast --admin-email=$adminemail \
 --admin-user=$adminuser --admin-password=$adminpassword --language=en_US \
---currency=EUR --timezone=Europe/Madrid
+--currency=EUR --timezone=Europe/Madrid $secure
 
 init_value=`head -n10 /var/www/html/app/etc/env.php`
 

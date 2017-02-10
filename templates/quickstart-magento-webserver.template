@@ -892,13 +892,21 @@
                             "80",
                             "443"
                         ]},
-                        "InstancePort": "443",
+                        "InstancePort": { "Fn::If" : [
+                            "DontUseSSL",
+                            "80",
+                            "443"
+                        ]},
                         "Protocol": { "Fn::If" : [
                             "DontUseSSL",
                             "HTTP",
                             "HTTPS"
                         ]},
-                        "InstanceProtocol": "HTTPS",
+                        "InstanceProtocol": { "Fn::If" : [
+                            "DontUseSSL",
+                            "HTTP",
+                            "HTTPS"
+                        ]},
                         "SSLCertificateId": {
                             "Fn::If": [
                                 "DontUseSSL",
@@ -913,7 +921,18 @@
                     }
                 ],
                 "HealthCheck": {
-                    "Target": "HTTPS:443/health",
+                    "Target": { "Fn::Join": [
+                    "",
+                    [ { "Fn::If" : [
+                            "DontUseSSL",
+                            "HTTP",
+                            "HTTPS"
+                        ]}, ":", { "Fn::If" : [
+                            "DontUseSSL",
+                            "80",
+                            "443"
+                        ]}, "/health"
+                        ]]},
                     "HealthyThreshold": "3",
                     "UnhealthyThreshold": "5",
                     "Interval": "30",
