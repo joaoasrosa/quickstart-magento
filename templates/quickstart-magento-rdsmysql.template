@@ -136,7 +136,14 @@
         }
     },
     "Conditions": {
-        "IOPSStorageType" : {"Fn::Equals" : [{"Ref" : "DBStorageType"}, "io1"]}
+        "IOPSStorageType": {
+            "Fn::Equals": [
+                {
+                    "Ref": "DBStorageType"
+                },
+                "io1"
+            ]
+        }
     },
     "Resources": {
         "MySQLDBSubnetGroup": {
@@ -188,12 +195,16 @@
                 "BackupRetentionPeriod": {
                     "Ref": "DBBackupRetentionPeriod"
                 },
-                "Iops" : {
-                  "Fn::If" : [
-                    "IOPSStorageType",
-                    {"Ref" : "DBIops"},
-                    {"Ref" : "AWS::NoValue"}
-                  ]
+                "Iops": {
+                    "Fn::If": [
+                        "IOPSStorageType",
+                        {
+                            "Ref": "DBIops"
+                        },
+                        {
+                            "Ref": "AWS::NoValue"
+                        }
+                    ]
                 },
                 "Tags": [
                     {

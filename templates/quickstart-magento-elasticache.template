@@ -65,22 +65,34 @@
         "ElastiCacheSubnetGroup": {
             "Type": "AWS::ElastiCache::SubnetGroup",
             "Properties": {
-                "Description" : "Subnets available for the Redis Cache Instance (QuickStart)",
+                "Description": "Subnets available for the Redis Cache Instance (QuickStart)",
                 "SubnetIds": {
                     "Ref": "Subnets"
                 }
             }
         },
-        "ElastiCacheCluster" : {
-            "Type" : "AWS::ElastiCache::ReplicationGroup",
-            "Properties" : {
+        "ElastiCacheCluster": {
+            "Type": "AWS::ElastiCache::ReplicationGroup",
+            "Properties": {
                 "ReplicationGroupDescription": "ElastiCache Cluster (QuickStart)",
-                "AutomaticFailoverEnabled": { "Ref": "ElastiCacheAutomaticFailover" },
-                "CacheNodeType": { "Ref": "ElastiCacheNodeType" },
-                "CacheSubnetGroupName": { "Ref": "ElastiCacheSubnetGroup"},
+                "AutomaticFailoverEnabled": {
+                    "Ref": "ElastiCacheAutomaticFailover"
+                },
+                "CacheNodeType": {
+                    "Ref": "ElastiCacheNodeType"
+                },
+                "CacheSubnetGroupName": {
+                    "Ref": "ElastiCacheSubnetGroup"
+                },
                 "Engine": "redis",
-                "NumCacheClusters": { "Ref": "ElastiCacheNodes" },
-                "SecurityGroupIds": [ { "Ref": "ElastiCacheSecurityGroup" }]
+                "NumCacheClusters": {
+                    "Ref": "ElastiCacheNodes"
+                },
+                "SecurityGroupIds": [
+                    {
+                        "Ref": "ElastiCacheSecurityGroup"
+                    }
+                ]
             }
         }
     },
@@ -88,7 +100,10 @@
         "ElastiCacheEndpoint": {
             "Description": "ElastiCache address",
             "Value": {
-                "Fn::GetAtt": ["ElastiCacheCluster", "PrimaryEndPoint.Address"]
+                "Fn::GetAtt": [
+                    "ElastiCacheCluster",
+                    "PrimaryEndPoint.Address"
+                ]
             }
         }
     }

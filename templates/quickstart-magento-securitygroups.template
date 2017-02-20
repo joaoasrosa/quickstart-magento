@@ -27,7 +27,12 @@
                         "IpProtocol": "tcp",
                         "FromPort": "3306",
                         "ToPort": "3306",
-                        "SourceSecurityGroupId": { "Fn::GetAtt" : [ "WebServerSecurityGroup", "GroupId"] }
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                                "WebServerSecurityGroup",
+                                "GroupId"
+                            ]
+                        }
                     }
                 ],
                 "SecurityGroupEgress": [
@@ -95,19 +100,31 @@
                         "IpProtocol": "tcp",
                         "FromPort": "22",
                         "ToPort": "22",
-                        "CidrIp": { "Ref": "AccessCIDR" }
+                        "CidrIp": {
+                            "Ref": "AccessCIDR"
+                        }
                     },
                     {
                         "IpProtocol": "tcp",
                         "FromPort": "443",
                         "ToPort": "443",
-                        "SourceSecurityGroupId": { "Fn::GetAtt" : [ "ELBSecurityGroup", "GroupId"] }
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                                "ELBSecurityGroup",
+                                "GroupId"
+                            ]
+                        }
                     },
                     {
                         "IpProtocol": "tcp",
                         "FromPort": "80",
                         "ToPort": "80",
-                        "SourceSecurityGroupId": { "Fn::GetAtt" : [ "ELBSecurityGroup", "GroupId"] }
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                                "ELBSecurityGroup",
+                                "GroupId"
+                            ]
+                        }
                     }
                 ],
                 "SecurityGroupEgress": [
@@ -138,7 +155,12 @@
                         "IpProtocol": "tcp",
                         "FromPort": "2049",
                         "ToPort": "2049",
-                        "SourceSecurityGroupId": { "Fn::GetAtt" : [ "WebServerSecurityGroup", "GroupId"] }
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                                "WebServerSecurityGroup",
+                                "GroupId"
+                            ]
+                        }
                     }
                 ],
                 "SecurityGroupEgress": [
@@ -169,7 +191,12 @@
                         "IpProtocol": "tcp",
                         "FromPort": "6379",
                         "ToPort": "6379",
-                        "SourceSecurityGroupId": { "Fn::GetAtt" : [ "WebServerSecurityGroup", "GroupId"] }
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                                "WebServerSecurityGroup",
+                                "GroupId"
+                            ]
+                        }
                     }
                 ],
                 "SecurityGroupEgress": [
@@ -194,8 +221,18 @@
                 "IpProtocol": "tcp",
                 "FromPort": "3306",
                 "ToPort": "3306",
-                "DestinationSecurityGroupId": { "Fn::GetAtt" : [ "MySQLRDSSecurityGroup", "GroupId"] },
-                "GroupId": { "Fn::GetAtt" : [ "WebServerSecurityGroup", "GroupId"] }
+                "DestinationSecurityGroupId": {
+                    "Fn::GetAtt": [
+                        "MySQLRDSSecurityGroup",
+                        "GroupId"
+                    ]
+                },
+                "GroupId": {
+                    "Fn::GetAtt": [
+                        "WebServerSecurityGroup",
+                        "GroupId"
+                    ]
+                }
             }
         },
         "SecurityGroupRuleAppEFS": {
@@ -204,8 +241,18 @@
                 "IpProtocol": "tcp",
                 "FromPort": "2049",
                 "ToPort": "2049",
-                "DestinationSecurityGroupId": { "Fn::GetAtt" : [ "EFSSecurityGroup", "GroupId"] },
-                "GroupId": { "Fn::GetAtt" : [ "WebServerSecurityGroup", "GroupId"] }
+                "DestinationSecurityGroupId": {
+                    "Fn::GetAtt": [
+                        "EFSSecurityGroup",
+                        "GroupId"
+                    ]
+                },
+                "GroupId": {
+                    "Fn::GetAtt": [
+                        "WebServerSecurityGroup",
+                        "GroupId"
+                    ]
+                }
             }
         },
         "SecurityGroupRuleAppCache": {
@@ -214,8 +261,18 @@
                 "IpProtocol": "tcp",
                 "FromPort": "6379",
                 "ToPort": "6379",
-                "DestinationSecurityGroupId": { "Fn::GetAtt" : [ "ElastiCacheSecurityGroup", "GroupId"] },
-                "GroupId": { "Fn::GetAtt" : [ "WebServerSecurityGroup", "GroupId"] }
+                "DestinationSecurityGroupId": {
+                    "Fn::GetAtt": [
+                        "ElastiCacheSecurityGroup",
+                        "GroupId"
+                    ]
+                },
+                "GroupId": {
+                    "Fn::GetAtt": [
+                        "WebServerSecurityGroup",
+                        "GroupId"
+                    ]
+                }
             }
         }
     },
