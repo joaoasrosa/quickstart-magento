@@ -210,11 +210,17 @@
             "eu-west-1": {
                 "AMZNLINUX": "ami-70edb016"
             },
+            "eu-west-2": {
+                "AMZNLINUX": "ami-f1949e95"
+            },
             "sa-east-1": {
                 "AMZNLINUX": "ami-80086dec"
             },
             "us-east-1": {
                 "AMZNLINUX": "ami-0b33d91d"
+            },
+            "us-east-2": {
+                "AMZNLINUX": "ami-c55673a0"
             },
             "us-west-1": {
                 "AMZNLINUX": "ami-165a0876"
