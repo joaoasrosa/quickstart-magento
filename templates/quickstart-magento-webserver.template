@@ -79,7 +79,7 @@
                 "i2.8xlarge"
             ],
             "ConstraintDescription": "Choose an instance type.",
-            "Default": "t2.medium"
+            "Default": "m4.large"
         },
         "WebServerSubnets": {
             "Type": "List<AWS::EC2::Subnet::Id>",

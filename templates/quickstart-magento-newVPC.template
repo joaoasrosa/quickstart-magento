@@ -331,7 +331,7 @@
                 "i2.8xlarge"
             ],
             "ConstraintDescription": "Choose an instance type. m3.medium or larger recommended.",
-            "Default": "m3.medium"
+            "Default": "m4.large"
         },
         "MagentoReleaseMedia": {
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
