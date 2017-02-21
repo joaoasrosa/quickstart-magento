@@ -204,6 +204,9 @@
             "ap-southeast-2": {
                 "AMZNLINUX": "ami-1c47407f"
             },
+            "ca-central-1": {
+              	"AMZNLINUX": "ami-ebed508f"
+            }, 
             "eu-central-1": {
                 "AMZNLINUX": "ami-af0fc0c0"
             },
@@ -250,6 +253,10 @@
                 "Partition": "aws",
                 "QuickStartS3URL": "https://s3.amazonaws.com"
             },
+            "ca-central-1": {
+              	"Partition": "aws",
+                "QuickStartS3URL": "https://s3.amazonaws.com"
+            }, 
             "eu-central-1": {
                 "Partition": "aws",
                 "QuickStartS3URL": "https://s3.amazonaws.com"
