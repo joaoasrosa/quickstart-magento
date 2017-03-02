@@ -4,7 +4,7 @@
     "Parameters": {
         "VPC": {
             "Type": "AWS::EC2::VPC::Id",
-            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to depoy RDS.",
+            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to deploy ElastiCache cluster.",
             "Default": "vpc-xxxxxxxx",
             "AllowedPattern": "vpc-[0-9a-z]{8}"
         },
