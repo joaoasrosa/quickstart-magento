@@ -85,14 +85,80 @@
                 }
             ],
             "ParameterLabels": {
+                "AccessCIDR": {
+                    "default": "Permitted IP range"
+                },
+                "AdminEmail": {
+                    "default": "Administrator email"
+                },
+                "AdminFirstName": {
+                    "default": "Administrator First Name"
+                },
+                "AdminLastName": {
+                    "default": "Administrator Last Name"
+                },
+                "AdminPassword": {
+                    "default": "Administrator password"
+                },
+                "AdminUserName": {
+                    "default": "Administrator user name"
+                },
                 "AvailabilityZones": {
                     "default": "Availability Zones"
+                },
+                "DBAllocatedStorage": {
+                    "default": "DB storage size (in GB)"
+                },
+                "DBAutoMinorVersionUpgrade": {
+                    "default": "DB Auto Minor Version Upgrade"
+                },
+                "DBBackupRetentionPeriod": {
+                    "default": "DB Backup Retention Period"
+                },
+                "DBInstanceClass": {
+                    "default": "DB instance type"
+                },
+                "DBIops": {
+                    "default": "DB IOPS"
+                },
+                "DBMasterUserPassword": {
+                    "default": "DB Master Password"
+                },
+                "DBMasterUsername": {
+                    "default": "DB Master Username"
+                },
+                "DBMultiAZ": {
+                    "default": "DB Multi AZ"
+                },
+                "DBName": {
+                    "default": "DB Name"
+                },
+                "DBStorageType": {
+                    "default": "DB Storage Type"
+                },
+                "DNSName": {
+                    "default": "Public DNS Name"
+                },
+                "ElastiCacheAutomaticFailover": {
+                    "default": "ElastiCache automatic failover"
+                },
+                "ElastiCacheNodeType": {
+                    "defult": "ElastiCache node type"
+                },
+                "ElastiCacheNodes": {
+                    "default": "ElastiCache number nodes"
                 },
                 "KeyPairName": {
                     "default": "Key Name"
                 },
+                "MagentoReleaseMedia": {
+                    "default": "S3 file path to download Magento"
+                },
                 "NATInstanceType": {
                     "default": "NAT Instance Type"
+                },
+                "NotificationEmail": {
+                    "default": "EMail address to notify if there are any scaling operations"
                 },
                 "PrivateSubnet1CIDR": {
                     "default": "Private Subnet 1 CIDR"
@@ -112,23 +178,11 @@
                 "QSS3KeyPrefix": {
                     "default": "Quick Start S3 Key Prefix"
                 },
-                "AccessCIDR": {
-                    "default": "Permitted IP range"
+                "SSLCertificateId": {
+                    "default": "SSL Certificate ARN"
                 },
                 "VPCCIDR": {
                     "default": "VPC CIDR"
-                },
-                "MagentoReleaseMedia": {
-                    "default": "S3 file path to download Magento"
-                },
-                "NotificationEmail": {
-                    "default": "EMail address to notify if there are any scaling operations"
-                },
-                "WebServerMinSize": {
-                    "default": "Minimum No. of Web server instances"
-                },
-                "WebServerMaxSize": {
-                    "default": "Maximum No. of Web server instances"
                 },
                 "WebServerDesiredCapacity": {
                     "default": "Desired No. of Web server instances"
@@ -136,77 +190,220 @@
                 "WebServerInstanceType": {
                     "default": "Web Server cluster node instance type"
                 },
-                "DBAllocatedStorage": {
-                    "default": "DB storage size (in GB)"
+                "WebServerMaxSize": {
+                    "default": "Maximum No. of Web server instances"
                 },
-                "DBAutoMinorVersionUpgrade": {
-                    "default": "DB Auto Minor Version Upgrade"
-                },
-                "DBBackupRetentionPeriod": {
-                    "default": "DB Backup Retention Period"
-                },
-                "DBInstanceClass": {
-                    "default": "DB instance type"
-                },
-                "DBName": {
-                    "default": "DB Name"
-                },
-                "DBIops": {
-                    "default": "DB IOPS"
-                },
-                "DBMasterUsername": {
-                    "default": "DB Master Username"
-                },
-                "DBMasterUserPassword": {
-                    "default": "DB Master Password"
-                },
-                "DBMultiAZ": {
-                    "default": "DB Multi AZ"
-                },
-                "DBStorageType": {
-                    "default": "DB Storage Type"
-                },
-                "ElastiCacheAutomaticFailover": {
-                    "default": "ElastiCache automatic failover"
-                },
-                "ElastiCacheNodeType": {
-                    "defult": "ElastiCache node type"
-                },
-                "ElastiCacheNodes": {
-                    "default": "ElastiCache number nodes"
-                },
-                "DNSName": {
-                    "default": "Public DNS Name"
-                },
-                "AdminFirstName": {
-                    "default": "Administrator First Name"
-                },
-                "AdminLastName": {
-                    "default": "Administrator Last Name"
-                },
-                "AdminEmail": {
-                    "default": "Administrator email"
-                },
-                "AdminUserName": {
-                    "default": "Administrator user name"
-                },
-                "AdminPassword": {
-                    "default": "Administrator password"
-                },
-                "SSLCertificateId": {
-                    "default": "SSL Certificate ARN"
+                "WebServerMinSize": {
+                    "default": "Minimum No. of Web server instances"
                 }
             }
         }
     },
     "Parameters": {
+        "AccessCIDR": {
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
+            "Description": "The CIDR IP range that is permitted to access Consul Note: a value of 0.0.0.0/0 will allow access from ANY ip address",
+            "Type": "String"
+        },
+        "AdminEmail": {
+            "Description": "Email of the Magento site administrator",
+            "Type": "String"
+        },
+        "AdminFirstName": {
+            "Description": "First Name of the Magento site administrator",
+            "Type": "String"
+        },
+        "AdminLastName": {
+            "Description": "Last Name of the Magento site administrator",
+            "Type": "String"
+        },
+        "AdminPassword": {
+            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
+            "Description": "Password of the Magento site administrator",
+            "MaxLength": "32",
+            "MinLength": "8",
+            "NoEcho": "True",
+            "Type": "String"
+        },
+        "AdminUserName": {
+            "Description": "Username of the Magento site administrator",
+            "Type": "String"
+        },
         "AvailabilityZones": {
             "Description": "List of Availability Zones to use for the subnets in the VPC. Note: The logical order is preserved (2 AZs are used for this deployment)",
             "Type": "List<AWS::EC2::AvailabilityZone::Name>"
         },
+        "DBAllocatedStorage": {
+            "ConstraintDescription": "must be between 5 and 4096 GB. If Iops specified, AllocatedStorage must be at least 100 GB and with minimum Iops value of 1000",
+            "Default": "16",
+            "Description": "The size of the database in gigabytes (GB)",
+            "MaxValue": "4096",
+            "MinValue": "5",
+            "Type": "Number"
+        },
+        "DBAutoMinorVersionUpgrade": {
+            "AllowedValues": [
+                "true",
+                "false"
+            ],
+            "Default": "true",
+            "Description": "Select true/false to setup Auto Minor Version upgrade",
+            "Type": "String"
+        },
+        "DBBackupRetentionPeriod": {
+            "Default": "7",
+            "Description": "The number of days for which automatic DB snapshots are retained.",
+            "Type": "String"
+        },
+        "DBInstanceClass": {
+            "AllowedValues": [
+                "db.t1.micro",
+                "db.m1.small",
+                "db.m3.medium",
+                "db.m3.large",
+                "db.m3.xlarge",
+                "db.m3.2xlarge",
+                "db.m4.2xlarge",
+                "db.r3.large",
+                "db.r3.xlarge",
+                "db.r3.2xlarge",
+                "db.r3.4xlarge",
+                "db.r3.8xlarge",
+                "db.t2.micro",
+                "db.t2.small",
+                "db.t2.medium",
+                "db.m2.xlarge",
+                "db.m2.2xlarge",
+                "db.m2.4xlarge",
+                "db.cr1.8xlarge",
+                "db.m1.medium",
+                "db.m1.large",
+                "db.m1.xlarge"
+            ],
+            "ConstraintDescription": "Must select a valid database instance type.",
+            "Default": "db.m4.2xlarge",
+            "Description": "The name of the compute and memory capacity class of the DB instance.",
+            "Type": "String"
+        },
+        "DBIops": {
+            "AllowedValues": [
+                "1000",
+                "2000",
+                "3000",
+                "4000",
+                "5000",
+                "6000",
+                "7000",
+                "8000",
+                "9000",
+                "10000"
+            ],
+            "ConstraintDescription": "1000 Iops min and increased in 1K increments. ",
+            "Default": "1000",
+            "Description": "DB Iops. Used only when io1 specified for the StorageType property",
+            "Type": "Number"
+        },
+        "DBMasterUserPassword": {
+            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
+            "Description": "The database admin account password. Must be at least 8 characters containing letters, numbers and symbols",
+            "MaxLength": "32",
+            "MinLength": "8",
+            "NoEcho": "True",
+            "Type": "String"
+        },
+        "DBMasterUsername": {
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters.",
+            "Default": "admin",
+            "Description": "The database admin account username",
+            "MaxLength": "16",
+            "MinLength": "1",
+            "NoEcho": "true",
+            "Type": "String"
+        },
+        "DBMultiAZ": {
+            "AllowedValues": [
+                "true",
+                "false"
+            ],
+            "Default": "true",
+            "Description": "Specifies if the database instance is a multiple Availability Zone deployment.",
+            "Type": "String"
+        },
+        "DBName": {
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "Default": "QuickstartMySQLDB",
+            "Description": "Name of the initial database for the MySQL RDS Instance.",
+            "MaxLength": "64",
+            "MinLength": "5",
+            "Type": "String"
+        },
+        "DBStorageType": {
+            "AllowedValues": [
+                "standard",
+                "gp2",
+                "io1"
+            ],
+            "Default": "gp2",
+            "Description": "The storage type associated with this database instance",
+            "Type": "String"
+        },
+        "DNSName": {
+            "Default": "",
+            "Description": "DNS Name for the magento site, you should create an alias for the ELB after the stack creation",
+            "Type": "String"
+        },
+        "ElastiCacheAutomaticFailover": {
+            "AllowedValues": [
+                "true",
+                "false"
+            ],
+            "Default": "true",
+            "Description": "Select true/false to setup Automatic Failover",
+            "Type": "String"
+        },
+        "ElastiCacheNodeType": {
+            "AllowedValues": [
+                "cache.t2.micro",
+                "cache.t2.small",
+                "cache.t2.medium",
+                "cache.m3.medium",
+                "cache.m3.large",
+                "cache.m3.xlarge",
+                "cache.m3.2xlarge",
+                "cache.m4.large",
+                "cache.m4.xlarge",
+                "cache.m4.2xlarge",
+                "cache.m4.4xlarge",
+                "cache.m4.10xlarge",
+                "cache.c1.xlarge",
+                "cache.r3.large",
+                "cache.r3.xlarge",
+                "cache.r3.2xlarge",
+                "cache.r3.4xlarge",
+                "cache.r3.8xlarge"
+            ],
+            "ConstraintDescription": "Must select a valid cache instance type.",
+            "Default": "cache.m4.large",
+            "Description": "The name of the compute and memory capacity class of the ElastiCache instance.",
+            "Type": "String"
+        },
+        "ElastiCacheNodes": {
+            "ConstraintDescription": "must be between 2 and 5",
+            "Default": "2",
+            "Description": "Number of nodes in the ElastiCache cluster",
+            "MaxValue": "5",
+            "MinValue": "2",
+            "Type": "Number"
+        },
         "KeyPairName": {
             "Description": "Public/private key pairs allow you to securely connect to your instance after it launches",
             "Type": "AWS::EC2::KeyPair::KeyName"
+        },
+        "MagentoReleaseMedia": {
+            "Default": "",
+            "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
+            "Type": "String"
         },
         "NATInstanceType": {
             "AllowedValues": [
@@ -221,6 +418,12 @@
             ],
             "Default": "t2.small",
             "Description": "Amazon EC2 instance type for the NAT Instances. This is only used if the region does not support NAT gateways.",
+            "Type": "String"
+        },
+        "NotificationEmail": {
+            "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
+            "ConstraintDescription": "must be a valid email address.",
+            "Description": "EMail address to notify if there are any scaling operations",
             "Type": "String"
         },
         "PrivateSubnet1CIDR": {
@@ -261,41 +464,23 @@
             "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Type": "String"
         },
+        "SSLCertificateId": {
+            "Default": "",
+            "Description": "The ARN of the SSL certificate to use for the webserver. [ optional]",
+            "Type": "String"
+        },
         "VPCCIDR": {
             "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
             "Default": "10.0.0.0/16",
             "Description": "CIDR Block for the VPC",
             "Type": "String"
         },
-        "AccessCIDR": {
-            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
-            "Description": "The CIDR IP range that is permitted to access Consul Note: a value of 0.0.0.0/0 will allow access from ANY ip address",
-            "Type": "String"
-        },
-        "NotificationEmail": {
-            "Description": "EMail address to notify if there are any scaling operations",
-            "Type": "String",
-            "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
-            "ConstraintDescription": "must be a valid email address."
-        },
-        "WebServerMinSize": {
-            "Description": "Minimum No of web server instances",
-            "Default": "1",
-            "Type": "Number"
-        },
-        "WebServerMaxSize": {
-            "Description": "Maximum No of web server instances",
-            "Default": "1",
-            "Type": "Number"
-        },
         "WebServerDesiredCapacity": {
-            "Description": "Desired No of web server instances",
             "Default": "1",
+            "Description": "Desired No of web server instances",
             "Type": "Number"
         },
         "WebServerInstanceType": {
-            "Type": "String",
-            "Description": "Web server instance type",
             "AllowedValues": [
                 "t2.micro",
                 "t2.small",
@@ -331,204 +516,19 @@
                 "i2.8xlarge"
             ],
             "ConstraintDescription": "Choose an instance type. m3.medium or larger recommended.",
-            "Default": "m4.large"
-        },
-        "MagentoReleaseMedia": {
-            "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
-            "Default": "",
+            "Default": "m4.large",
+            "Description": "Web server instance type",
             "Type": "String"
         },
-        "DBAllocatedStorage": {
-            "Default": "16",
-            "Description": "The size of the database in gigabytes (GB)",
-            "Type": "Number",
-            "MinValue": "5",
-            "MaxValue": "4096",
-            "ConstraintDescription": "must be between 5 and 4096 GB. If Iops specified, AllocatedStorage must be at least 100 GB and with minimum Iops value of 1000"
+        "WebServerMaxSize": {
+            "Default": "1",
+            "Description": "Maximum No of web server instances",
+            "Type": "Number"
         },
-        "DBAutoMinorVersionUpgrade": {
-            "Default": "true",
-            "Description": "Select true/false to setup Auto Minor Version upgrade",
-            "Type": "String",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
-        },
-        "DBBackupRetentionPeriod": {
-            "Type": "String",
-            "Default": "7",
-            "Description": "The number of days for which automatic DB snapshots are retained."
-        },
-        "DBInstanceClass": {
-            "Default": "db.m4.2xlarge",
-            "Description": "The name of the compute and memory capacity class of the DB instance.",
-            "Type": "String",
-            "AllowedValues": [
-                "db.t1.micro",
-                "db.m1.small",
-                "db.m3.medium",
-                "db.m3.large",
-                "db.m3.xlarge",
-                "db.m3.2xlarge",
-                "db.m4.2xlarge",
-                "db.r3.large",
-                "db.r3.xlarge",
-                "db.r3.2xlarge",
-                "db.r3.4xlarge",
-                "db.r3.8xlarge",
-                "db.t2.micro",
-                "db.t2.small",
-                "db.t2.medium",
-                "db.m2.xlarge",
-                "db.m2.2xlarge",
-                "db.m2.4xlarge",
-                "db.cr1.8xlarge",
-                "db.m1.medium",
-                "db.m1.large",
-                "db.m1.xlarge"
-            ],
-            "ConstraintDescription": "Must select a valid database instance type."
-        },
-        "DBName": {
-            "Default": "QuickstartMySQLDB",
-            "Description": "Name of the initial database for the MySQL RDS Instance.",
-            "Type": "String",
-            "MinLength": "5",
-            "MaxLength": "64",
-            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*"
-        },
-        "DBIops": {
-            "Default": "1000",
-            "Description": "DB Iops. Used only when io1 specified for the StorageType property",
-            "Type": "Number",
-            "AllowedValues": [
-                "1000",
-                "2000",
-                "3000",
-                "4000",
-                "5000",
-                "6000",
-                "7000",
-                "8000",
-                "9000",
-                "10000"
-            ],
-            "ConstraintDescription": "1000 Iops min and increased in 1K increments. "
-        },
-        "DBMasterUsername": {
-            "Default": "admin",
-            "NoEcho": "true",
-            "Description": "The database admin account username",
-            "Type": "String",
-            "MinLength": "1",
-            "MaxLength": "16",
-            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
-            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
-        },
-        "DBMasterUserPassword": {
-            "Description": "The database admin account password. Must be at least 8 characters containing letters, numbers and symbols",
-            "Type": "String",
-            "MinLength": "8",
-            "MaxLength": "32",
-            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
-            "NoEcho": "True"
-        },
-        "DBMultiAZ": {
-            "Default": "true",
-            "Description": "Specifies if the database instance is a multiple Availability Zone deployment.",
-            "Type": "String",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
-        },
-        "DBStorageType": {
-            "Default": "gp2",
-            "Description": "The storage type associated with this database instance",
-            "Type": "String",
-            "AllowedValues": [
-                "standard",
-                "gp2",
-                "io1"
-            ]
-        },
-        "ElastiCacheNodes": {
-            "Default": "2",
-            "Description": "Number of nodes in the ElastiCache cluster",
-            "Type": "Number",
-            "MinValue": "2",
-            "MaxValue": "5",
-            "ConstraintDescription": "must be between 2 and 5"
-        },
-        "ElastiCacheAutomaticFailover": {
-            "Default": "true",
-            "Description": "Select true/false to setup Automatic Failover",
-            "Type": "String",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
-        },
-        "ElastiCacheNodeType": {
-            "Default": "cache.m4.large",
-            "Description": "The name of the compute and memory capacity class of the ElastiCache instance.",
-            "Type": "String",
-            "AllowedValues": [
-                "cache.t2.micro",
-                "cache.t2.small",
-                "cache.t2.medium",
-                "cache.m3.medium",
-                "cache.m3.large",
-                "cache.m3.xlarge",
-                "cache.m3.2xlarge",
-                "cache.m4.large",
-                "cache.m4.xlarge",
-                "cache.m4.2xlarge",
-                "cache.m4.4xlarge",
-                "cache.m4.10xlarge",
-                "cache.c1.xlarge",
-                "cache.r3.large",
-                "cache.r3.xlarge",
-                "cache.r3.2xlarge",
-                "cache.r3.4xlarge",
-                "cache.r3.8xlarge"
-            ],
-            "ConstraintDescription": "Must select a valid cache instance type."
-        },
-        "DNSName": {
-            "Type": "String",
-            "Default": "",
-            "Description": "DNS Name for the magento site, you should create an alias for the ELB after the stack creation"
-        },
-        "AdminFirstName": {
-            "Type": "String",
-            "Description": "First Name of the Magento site administrator"
-        },
-        "AdminLastName": {
-            "Type": "String",
-            "Description": "Last Name of the Magento site administrator"
-        },
-        "AdminEmail": {
-            "Type": "String",
-            "Description": "Email of the Magento site administrator"
-        },
-        "AdminUserName": {
-            "Type": "String",
-            "Description": "Username of the Magento site administrator"
-        },
-        "AdminPassword": {
-            "Type": "String",
-            "Description": "Password of the Magento site administrator",
-            "MinLength": "8",
-            "MaxLength": "32",
-            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
-            "NoEcho": "True"
-        },
-        "SSLCertificateId": {
-            "Description": "The ARN of the SSL certificate to use for the webserver. [ optional]",
-            "Default": "",
-            "Type": "String"
+        "WebServerMinSize": {
+            "Default": "1",
+            "Description": "Minimum No of web server instances",
+            "Type": "Number"
         }
     },
     "Mappings": {
@@ -554,9 +554,9 @@
                 "QuickStartS3URL": "https://s3.amazonaws.com"
             },
             "ca-central-1": {
-              	"Partition": "aws",
+                "Partition": "aws",
                 "QuickStartS3URL": "https://s3.amazonaws.com"
-            },            
+            },
             "eu-central-1": {
                 "Partition": "aws",
                 "QuickStartS3URL": "https://s3.amazonaws.com"

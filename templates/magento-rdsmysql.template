@@ -2,47 +2,29 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "AWS RDS MySQL Template",
     "Parameters": {
-        "VPC": {
-            "Type": "AWS::EC2::VPC::Id",
-            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to depoy RDS.",
-            "Default": "vpc-xxxxxxxx",
-            "AllowedPattern": "vpc-[0-9a-z]{8}"
-        },
-        "Subnets": {
-            "Type": "List<AWS::EC2::Subnet::Id>",
-            "Description": "Atleast two existing Subnets in separate Availability Zones your Virtual Private Cloud (VPC)",
-            "ConstraintDescription": "must be list of existing subnet Ids"
-        },
-        "MySQLRDSSecurityGroup": {
-            "Type": "AWS::EC2::SecurityGroup::Id",
-            "Description": "MySql Security Group"
-        },
         "DBAllocatedStorage": {
+            "ConstraintDescription": "must be between 5 and 4096 GB. If Iops specified, AllocatedStorage must be at least 100 GB and with minimum Iops value of 1000",
             "Default": "5",
             "Description": "The size of the database in gigabytes (GB)",
-            "Type": "Number",
-            "MinValue": "5",
             "MaxValue": "4096",
-            "ConstraintDescription": "must be between 5 and 4096 GB. If Iops specified, AllocatedStorage must be at least 100 GB and with minimum Iops value of 1000"
+            "MinValue": "5",
+            "Type": "Number"
         },
         "DBAutoMinorVersionUpgrade": {
-            "Default": "true",
-            "Description": "Select true/false to setup Auto Minor Version upgrade",
-            "Type": "String",
             "AllowedValues": [
                 "true",
                 "false"
-            ]
+            ],
+            "Default": "true",
+            "Description": "Select true/false to setup Auto Minor Version upgrade",
+            "Type": "String"
         },
         "DBBackupRetentionPeriod": {
-            "Type": "String",
             "Default": "7",
-            "Description": "The number of days for which automatic DB snapshots are retained."
+            "Description": "The number of days for which automatic DB snapshots are retained.",
+            "Type": "String"
         },
         "DBInstanceClass": {
-            "Default": "db.m4.2xlarge",
-            "Description": "The name of the compute and memory capacity class of the DB instance.",
-            "Type": "String",
             "AllowedValues": [
                 "db.t1.micro",
                 "db.m1.small",
@@ -67,20 +49,12 @@
                 "db.m1.large",
                 "db.m1.xlarge"
             ],
-            "ConstraintDescription": "Must select a valid database instance type."
-        },
-        "DBName": {
-            "Default": "QuickstartMySQLDB",
-            "Description": "Name of MySQL DB for Magento Stack",
-            "Type": "String",
-            "MinLength": "5",
-            "MaxLength": "64",
-            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*"
+            "ConstraintDescription": "Must select a valid database instance type.",
+            "Default": "db.m4.2xlarge",
+            "Description": "The name of the compute and memory capacity class of the DB instance.",
+            "Type": "String"
         },
         "DBIops": {
-            "Default": "1000",
-            "Description": "DB Iops. Used only when io1 specified for the StorageType property",
-            "Type": "Number",
             "AllowedValues": [
                 "1000",
                 "2000",
@@ -93,46 +67,72 @@
                 "9000",
                 "10000"
             ],
-            "ConstraintDescription": "1000 Iops min and increased in 1K increments. "
-        },
-        "DBMasterUsername": {
-            "Default": "admin",
-            "NoEcho": "true",
-            "Description": "The database admin account username",
-            "Type": "String",
-            "MinLength": "1",
-            "MaxLength": "16",
-            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
-            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+            "ConstraintDescription": "1000 Iops min and increased in 1K increments. ",
+            "Default": "1000",
+            "Description": "DB Iops. Used only when io1 specified for the StorageType property",
+            "Type": "Number"
         },
         "DBMasterUserPassword": {
-            "Description": "The database admin account password",
-            "Type": "String",
-            "MinLength": "8",
-            "MaxLength": "64",
             "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
-            "NoEcho": "True",
+            "ConstraintDescription": "Min 8 chars.",
             "Default": "Admin-123456",
-            "ConstraintDescription": "Min 8 chars."
+            "Description": "The database admin account password",
+            "MaxLength": "64",
+            "MinLength": "8",
+            "NoEcho": "True",
+            "Type": "String"
+        },
+        "DBMasterUsername": {
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters.",
+            "Default": "admin",
+            "Description": "The database admin account username",
+            "MaxLength": "16",
+            "MinLength": "1",
+            "NoEcho": "true",
+            "Type": "String"
         },
         "DBMultiAZ": {
-            "Default": "true",
-            "Description": "Specifies if the database instance is a multiple Availability Zone deployment.",
-            "Type": "String",
             "AllowedValues": [
                 "true",
                 "false"
-            ]
+            ],
+            "Default": "true",
+            "Description": "Specifies if the database instance is a multiple Availability Zone deployment.",
+            "Type": "String"
+        },
+        "DBName": {
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "Default": "QuickstartMySQLDB",
+            "Description": "Name of MySQL DB for Magento Stack",
+            "MaxLength": "64",
+            "MinLength": "5",
+            "Type": "String"
         },
         "DBStorageType": {
-            "Default": "standard",
-            "Description": "The storage type associated with this database instance",
-            "Type": "String",
             "AllowedValues": [
                 "standard",
                 "gp2",
                 "io1"
-            ]
+            ],
+            "Default": "standard",
+            "Description": "The storage type associated with this database instance",
+            "Type": "String"
+        },
+        "MySQLRDSSecurityGroup": {
+            "Description": "MySql Security Group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
+        },
+        "Subnets": {
+            "ConstraintDescription": "must be list of existing subnet Ids",
+            "Description": "Atleast two existing Subnets in separate Availability Zones your Virtual Private Cloud (VPC)",
+            "Type": "List<AWS::EC2::Subnet::Id>"
+        },
+        "VPC": {
+            "AllowedPattern": "vpc-[0-9a-z]{8}",
+            "Default": "vpc-xxxxxxxx",
+            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to depoy RDS.",
+            "Type": "AWS::EC2::VPC::Id"
         }
     },
     "Conditions": {

@@ -2,42 +2,16 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "AWS Elasticache Template",
     "Parameters": {
-        "VPC": {
-            "Type": "AWS::EC2::VPC::Id",
-            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to deploy ElastiCache cluster.",
-            "Default": "vpc-xxxxxxxx",
-            "AllowedPattern": "vpc-[0-9a-z]{8}"
-        },
-        "Subnets": {
-            "Type": "List<AWS::EC2::Subnet::Id>",
-            "Description": "Atleast two existing Subnets in separate Availability Zones your Virtual Private Cloud (VPC)",
-            "ConstraintDescription": "must be list of existing subnet Ids"
-        },
-        "ElastiCacheSecurityGroup": {
-            "Type": "AWS::EC2::SecurityGroup::Id",
-            "Description": "ElastiCache Security Group"
-        },
-        "ElastiCacheNodes": {
-            "Default": "2",
-            "Description": "Number of nodes in the ElastiCache cluster",
-            "Type": "Number",
-            "MinValue": "2",
-            "MaxValue": "5",
-            "ConstraintDescription": "must be between 2 and 5"
-        },
         "ElastiCacheAutomaticFailover": {
-            "Default": "true",
-            "Description": "Select true/false to setup Automatic Failover",
-            "Type": "String",
             "AllowedValues": [
                 "true",
                 "false"
-            ]
+            ],
+            "Default": "true",
+            "Description": "Select true/false to setup Automatic Failover",
+            "Type": "String"
         },
         "ElastiCacheNodeType": {
-            "Default": "cache.m4.large",
-            "Description": "The name of the compute and memory capacity class of the ElastiCache instance.",
-            "Type": "String",
             "AllowedValues": [
                 "cache.t2.micro",
                 "cache.t2.small",
@@ -58,7 +32,33 @@
                 "cache.r3.4xlarge",
                 "cache.r3.8xlarge"
             ],
-            "ConstraintDescription": "Must select a valid cache instance type."
+            "ConstraintDescription": "Must select a valid cache instance type.",
+            "Default": "cache.m4.large",
+            "Description": "The name of the compute and memory capacity class of the ElastiCache instance.",
+            "Type": "String"
+        },
+        "ElastiCacheNodes": {
+            "ConstraintDescription": "must be between 2 and 5",
+            "Default": "2",
+            "Description": "Number of nodes in the ElastiCache cluster",
+            "MaxValue": "5",
+            "MinValue": "2",
+            "Type": "Number"
+        },
+        "ElastiCacheSecurityGroup": {
+            "Description": "ElastiCache Security Group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
+        },
+        "Subnets": {
+            "ConstraintDescription": "must be list of existing subnet Ids",
+            "Description": "Atleast two existing Subnets in separate Availability Zones your Virtual Private Cloud (VPC)",
+            "Type": "List<AWS::EC2::Subnet::Id>"
+        },
+        "VPC": {
+            "AllowedPattern": "vpc-[0-9a-z]{8}",
+            "Default": "vpc-xxxxxxxx",
+            "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to deploy ElastiCache cluster.",
+            "Type": "AWS::EC2::VPC::Id"
         }
     },
     "Resources": {

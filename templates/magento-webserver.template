@@ -2,48 +2,128 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "Magento License: Apache 2.0 (Please do not remove) Nov,14,2016 ",
     "Parameters": {
-        "NotificationEmail": {
-            "Description": "EMail address to notify if there are any scaling operations",
-            "Type": "String",
-            "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
-            "ConstraintDescription": "must be a valid email address."
+        "AdminEmail": {
+            "Description": "Email of the Magento site administrator",
+            "Type": "String"
         },
-        "KeyPair": {
-            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
-            "Type": "AWS::EC2::KeyPair::KeyName",
-            "Default": "id_rsa_aws",
-            "ConstraintDescription": "Must be the name of an existing EC2 KeyPair."
+        "AdminFirstName": {
+            "Description": "First Name of the Magento site administrator",
+            "Type": "String"
         },
-        "ELBSecurityGroup": {
-            "Type": "AWS::EC2::SecurityGroup::Id",
-            "Description": "ELB Security Group"
+        "AdminLastName": {
+            "Description": "Last Name of the Magento site administrator",
+            "Type": "String"
+        },
+        "AdminPassword": {
+            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
+            "Description": "Password of the Magento site administrator",
+            "MaxLength": "32",
+            "MinLength": "8",
+            "NoEcho": "True",
+            "Type": "String"
+        },
+        "AdminUserName": {
+            "Description": "Username of the Magento site administrator",
+            "Type": "String"
+        },
+        "DBMasterUserPassword": {
+            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
+            "Default": "Admin-123456",
+            "Description": "RDS MySQL Stack",
+            "NoEcho": "True",
+            "Type": "String"
+        },
+        "DBMasterUsername": {
+            "Default": "admin",
+            "Description": "RDS MySQL Stack",
+            "Type": "String"
+        },
+        "DBName": {
+            "Default": "",
+            "Description": "RDS MySQL DB Name",
+            "Type": "String"
+        },
+        "DNSName": {
+            "Default": "",
+            "Description": "DNS Name for the magento site, you should create an alias for the ELB after the stack creation",
+            "Type": "String"
         },
         "EFSSecurityGroup": {
-            "Type": "AWS::EC2::SecurityGroup::Id",
-            "Description": "EFS Security Group"
+            "Description": "EFS Security Group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
         },
-        "WebServerSecurityGroup": {
-            "Type": "AWS::EC2::SecurityGroup::Id",
-            "Description": "Web Server Security Group"
+        "ELBSecurityGroup": {
+            "Description": "ELB Security Group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
         },
-        "WebServerMinSize": {
-            "Description": "Minimum No of web server instances",
-            "Default": "1",
-            "Type": "Number"
+        "ElastiCacheEndpoint": {
+            "Default": "",
+            "Description": "ElastiCache Endpoint",
+            "Type": "String"
         },
-        "WebServerMaxSize": {
-            "Description": "Maximum No of web server instances",
-            "Default": "1",
-            "Type": "Number"
+        "ElasticLoadBalancerSubnets": {
+            "ConstraintDescription": "must be list of existing Public subnet Ids",
+            "Default": "",
+            "Description": "A list of public subnet identifiers of Amazon VPCs where the ElasticLoadBalancer would be launched.",
+            "Type": "List<AWS::EC2::Subnet::Id>"
+        },
+        "KeyPair": {
+            "ConstraintDescription": "Must be the name of an existing EC2 KeyPair.",
+            "Default": "id_rsa_aws",
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        },
+        "MagentoReleaseMedia": {
+            "Default": "",
+            "Description": "Amazon S3 path to download magento .tar.gz file (s3://mybucket/magento-1.9.2.1.tar-2015-08-03-06-35-45.gz)",
+            "Type": "String"
+        },
+        "MySQLEndPointAddress": {
+            "Default": "",
+            "Description": "RDS MySQL Endpoint",
+            "Type": "String"
+        },
+        "NotificationEmail": {
+            "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
+            "ConstraintDescription": "must be a valid email address.",
+            "Description": "EMail address to notify if there are any scaling operations",
+            "Type": "String"
+        },
+        "QSS3BucketName": {
+            "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
+            "ConstraintDescription": "Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
+            "Default": "quickstart-reference",
+            "Description": "S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
+            "Type": "String"
+        },
+        "QSS3KeyPrefix": {
+            "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
+            "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "Default": "hashicorp/consul/latest",
+            "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "Type": "String"
+        },
+        "QuickStartS3URL": {
+            "ConstraintDescription": "S3Url",
+            "Default": "https://s3.amazonaws.com",
+            "Description": "AWS S3 Url",
+            "Type": "String"
+        },
+        "SSLCertificateId": {
+            "Default": "",
+            "Description": "The ARN of the SSL certificate to use for the webserver. [ optional]",
+            "Type": "String"
+        },
+        "VPCID": {
+            "Description": "VPC ID",
+            "Type": "AWS::EC2::VPC::Id"
         },
         "WebServerDesiredCapacity": {
-            "Description": "Desired No of web server instances",
             "Default": "1",
+            "Description": "Desired No of web server instances",
             "Type": "Number"
         },
         "WebServerInstanceType": {
-            "Type": "String",
-            "Description": "Web Server node instance type",
             "AllowedValues": [
                 "t2.micro",
                 "t2.small",
@@ -79,109 +159,29 @@
                 "i2.8xlarge"
             ],
             "ConstraintDescription": "Choose an instance type.",
-            "Default": "m4.large"
+            "Default": "m4.large",
+            "Description": "Web Server node instance type",
+            "Type": "String"
+        },
+        "WebServerMaxSize": {
+            "Default": "1",
+            "Description": "Maximum No of web server instances",
+            "Type": "Number"
+        },
+        "WebServerMinSize": {
+            "Default": "1",
+            "Description": "Minimum No of web server instances",
+            "Type": "Number"
+        },
+        "WebServerSecurityGroup": {
+            "Description": "Web Server Security Group",
+            "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "WebServerSubnets": {
-            "Type": "List<AWS::EC2::Subnet::Id>",
+            "ConstraintDescription": "must be list of existing subnet Ids",
+            "Default": "",
             "Description": "A list of subnet identifiers of Amazon VPCs where the WebServer Autoscaling would be launched.",
-            "Default": "",
-            "ConstraintDescription": "must be list of existing subnet Ids"
-        },
-        "ElasticLoadBalancerSubnets": {
-            "Type": "List<AWS::EC2::Subnet::Id>",
-            "Description": "A list of public subnet identifiers of Amazon VPCs where the ElasticLoadBalancer would be launched.",
-            "Default": "",
-            "ConstraintDescription": "must be list of existing Public subnet Ids"
-        },
-        "QuickStartS3URL": {
-            "ConstraintDescription": "S3Url",
-            "Default": "https://s3.amazonaws.com",
-            "Description": "AWS S3 Url",
-            "Type": "String"
-        },
-        "QSS3BucketName": {
-            "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
-            "ConstraintDescription": "Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Default": "quickstart-reference",
-            "Description": "S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Type": "String"
-        },
-        "QSS3KeyPrefix": {
-            "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
-            "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Default": "hashicorp/consul/latest",
-            "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Type": "String"
-        },
-        "VPCID": {
-            "Description": "VPC ID",
-            "Type": "AWS::EC2::VPC::Id"
-        },
-        "MagentoReleaseMedia": {
-            "Description": "Amazon S3 path to download magento .tar.gz file (s3://mybucket/magento-1.9.2.1.tar-2015-08-03-06-35-45.gz)",
-            "Default": "",
-            "Type": "String"
-        },
-        "DBMasterUserPassword": {
-            "Type": "String",
-            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
-            "NoEcho": "True",
-            "Default": "Admin-123456",
-            "Description": "RDS MySQL Stack"
-        },
-        "DBMasterUsername": {
-            "Type": "String",
-            "Default": "admin",
-            "Description": "RDS MySQL Stack"
-        },
-        "MySQLEndPointAddress": {
-            "Type": "String",
-            "Default": "",
-            "Description": "RDS MySQL Endpoint"
-        },
-        "ElastiCacheEndpoint": {
-            "Type": "String",
-            "Default": "",
-            "Description": "ElastiCache Endpoint"
-        },
-        "DBName": {
-            "Type": "String",
-            "Default": "",
-            "Description": "RDS MySQL DB Name"
-        },
-        "DNSName": {
-            "Type": "String",
-            "Default": "",
-            "Description": "DNS Name for the magento site, you should create an alias for the ELB after the stack creation"
-        },
-        "AdminFirstName": {
-            "Type": "String",
-            "Description": "First Name of the Magento site administrator"
-        },
-        "AdminLastName": {
-            "Type": "String",
-            "Description": "Last Name of the Magento site administrator"
-        },
-        "AdminEmail": {
-            "Type": "String",
-            "Description": "Email of the Magento site administrator"
-        },
-        "AdminUserName": {
-            "Type": "String",
-            "Description": "Username of the Magento site administrator"
-        },
-        "AdminPassword": {
-            "Type": "String",
-            "Description": "Password of the Magento site administrator",
-            "MinLength": "8",
-            "MaxLength": "32",
-            "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
-            "NoEcho": "True"
-        },
-        "SSLCertificateId": {
-            "Description": "The ARN of the SSL certificate to use for the webserver. [ optional]",
-            "Default": "",
-            "Type": "String"
+            "Type": "List<AWS::EC2::Subnet::Id>"
         }
     },
     "Mappings": {
@@ -205,8 +205,8 @@
                 "AMZNLINUX": "ami-1c47407f"
             },
             "ca-central-1": {
-              	"AMZNLINUX": "ami-ebed508f"
-            }, 
+                "AMZNLINUX": "ami-ebed508f"
+            },
             "eu-central-1": {
                 "AMZNLINUX": "ami-af0fc0c0"
             },
@@ -254,9 +254,9 @@
                 "QuickStartS3URL": "https://s3.amazonaws.com"
             },
             "ca-central-1": {
-              	"Partition": "aws",
+                "Partition": "aws",
                 "QuickStartS3URL": "https://s3.amazonaws.com"
-            }, 
+            },
             "eu-central-1": {
                 "Partition": "aws",
                 "QuickStartS3URL": "https://s3.amazonaws.com"
