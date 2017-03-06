@@ -107,16 +107,16 @@
                     "default": "Availability Zones"
                 },
                 "DBAllocatedStorage": {
-                    "default": "DB storage size (in GB)"
+                    "default": "DB Storage Size (in GB)"
                 },
                 "DBAutoMinorVersionUpgrade": {
-                    "default": "DB Auto Minor Version Upgrade"
+                    "default": "Automatic Upgrade To New MySQL Minor Versions"
                 },
                 "DBBackupRetentionPeriod": {
                     "default": "DB Backup Retention Period"
                 },
                 "DBInstanceClass": {
-                    "default": "DB instance type"
+                    "default": "DB Instance Type"
                 },
                 "DBIops": {
                     "default": "DB IOPS"
@@ -128,7 +128,7 @@
                     "default": "DB Master Username"
                 },
                 "DBMultiAZ": {
-                    "default": "DB Multi AZ"
+                    "default": "Enable Multi-AZ Deployment For DB Instance"
                 },
                 "DBName": {
                     "default": "DB Name"
@@ -140,25 +140,25 @@
                     "default": "Public DNS Name"
                 },
                 "ElastiCacheAutomaticFailover": {
-                    "default": "ElastiCache automatic failover"
+                    "default": "ElastiCache Automatic Failover"
                 },
                 "ElastiCacheNodeType": {
-                    "defult": "ElastiCache node type"
+                    "defult": "ElastiCache Node Type"
                 },
                 "ElastiCacheNodes": {
-                    "default": "ElastiCache number nodes"
+                    "default": "Number Of ElastiCache Nodes"
                 },
                 "KeyPairName": {
                     "default": "Key Name"
                 },
                 "MagentoReleaseMedia": {
-                    "default": "S3 file path to download Magento"
+                    "default": "S3 File Path To Download Magento"
                 },
                 "NATInstanceType": {
                     "default": "NAT Instance Type"
                 },
                 "NotificationEmail": {
-                    "default": "EMail address to notify if there are any scaling operations"
+                    "default": "Email Address To Notify If There Are Any Scaling Operations"
                 },
                 "PrivateSubnet1CIDR": {
                     "default": "Private Subnet 1 CIDR"
@@ -185,16 +185,16 @@
                     "default": "VPC CIDR"
                 },
                 "WebServerDesiredCapacity": {
-                    "default": "Desired No. of Web server instances"
+                    "default": "Desired Number Of Web Server Instances"
                 },
                 "WebServerInstanceType": {
-                    "default": "Web Server cluster node instance type"
+                    "default": "Web Server Cluster Node Instance Type"
                 },
                 "WebServerMaxSize": {
-                    "default": "Maximum No. of Web server instances"
+                    "default": "Maximum Number Of Web Server Instances"
                 },
                 "WebServerMinSize": {
-                    "default": "Minimum No. of Web server instances"
+                    "default": "Minimum Number Of Web Server Instances"
                 }
             }
         }
@@ -460,7 +460,7 @@
         "QSS3KeyPrefix": {
             "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
             "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Default": "magento",
+            "Default": "magento/latest",
             "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Type": "String"
         },
