@@ -5,19 +5,19 @@
   },
   {
     "ParameterKey": "KeyPairName",
-    "ParameterValue": "cikey"
+    "ParameterValue": "$[alfred_getkeypair]"
   },
   {
     "ParameterKey": "AccessCIDR",
-    "ParameterValue": "54.240.198.33/32"
+    "ParameterValue": "10.0.0.0/16"
   },
   {
     "ParameterKey": "NotificationEmail",
-    "ParameterValue": "foo@bar.com"
+    "ParameterValue": "foo@example.com"
   },
   {
     "ParameterKey": "MagentoReleaseMedia",
-    "ParameterValue": "https://s3.amazonaws.com/sshvans-qs/magento-2/latest/media/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz"
+    "ParameterValue": "https://s3.amazonaws.com/$[alfred_getmediabucket]/magento/Magento-CE-2.1.5_sample_data-2017-02-20-05-42-11.tar.gz"
   },
   {
     "ParameterKey": "DBMasterUserPassword",
@@ -33,7 +33,7 @@
   },
   {
     "ParameterKey": "AdminEmail",
-    "ParameterValue": "foo@bar.com"
+    "ParameterValue": "foo@example.com"
   },
   {
     "ParameterKey": "AdminUserName",
