@@ -16,8 +16,7 @@
                         "PrivateSubnet2CIDR",
                         "PublicSubnet1CIDR",
                         "PublicSubnet2CIDR",
-                        "AccessCIDR",
-                        "NATInstanceType"
+                        "AccessCIDR"
                     ]
                 },
                 {
@@ -154,9 +153,6 @@
                 },
                 "MagentoReleaseMedia": {
                     "default": "S3 File Path To Download Magento"
-                },
-                "NATInstanceType": {
-                    "default": "NAT Instance Type"
                 },
                 "NotificationEmail": {
                     "default": "Email Address To Notify"
@@ -624,9 +620,6 @@
                     },
                     "KeyPairName": {
                         "Ref": "KeyPairName"
-                    },
-                    "NATInstanceType": {
-                        "Ref": "NATInstanceType"
                     },
                     "NumberOfAZs": "2",
                     "PrivateSubnet1ACIDR": {
