@@ -20,7 +20,7 @@ global:
 tests:
   quickstart-magentot1:
     parameter_input: quickstart-magento.json
-    template_file: magento-master-newVPC.template
+    template_file: magento-master.template
     regions:
     - us-east-1
     - us-east-2
