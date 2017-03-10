@@ -22,7 +22,8 @@ magentourl=${12}
 protocol=${13}
 
 cd
-curl -o magento.tar.gz $magentourl
+#curl -o magento.tar.gz $magentourl
+aws s3 cp $magentourl magento.tar.gz
 
 cd /var/www/html
 tar xzf ~/magento.tar.gz
