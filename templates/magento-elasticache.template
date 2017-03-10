@@ -50,7 +50,7 @@
             "Type": "AWS::EC2::SecurityGroup::Id"
         },
         "Subnets": {
-            "ConstraintDescription": "must be list of existing subnet Ids",
+            "ConstraintDescription": "Must be list of existing subnet Ids",
             "Description": "Atleast two existing Subnets in separate Availability Zones your Virtual Private Cloud (VPC)",
             "Type": "List<AWS::EC2::Subnet::Id>"
         },
