@@ -22,8 +22,14 @@ magentourl=${12}
 protocol=${13}
 
 cd
-curl -o magento.tar.gz $magentourl
+#curl -o magento.tar.gz $magentourl
+#echo "Running command aws s3 cp ${magentourl} magento.tar.gz"
 #aws s3 cp $magentourl magento.tar.gz
+#if [ $? -ne 0 ]; then
+#	echo "Error downloading media from s3"
+#	exit 1
+#fi
+[ -f "magento.tar.gz" ] && echo "Media file Found" || echo "Media file Not found"
 
 cd /var/www/html
 tar xzf ~/magento.tar.gz

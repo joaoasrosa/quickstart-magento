@@ -29,18 +29,18 @@
         "DBMasterUserPassword": {
             "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
             "Default": "Admin-123456",
-            "Description": "RDS MySQL Stack",
+            "Description": "RDS MySQL Database Password",
             "NoEcho": "True",
             "Type": "String"
         },
         "DBMasterUsername": {
             "Default": "admin",
-            "Description": "RDS MySQL Stack",
+            "Description": "RDS MySQL Database Username",
             "Type": "String"
         },
         "DBName": {
             "Default": "",
-            "Description": "RDS MySQL DB Name",
+            "Description": "RDS MySQL Database Name",
             "Type": "String"
         },
         "DNSName": {
@@ -62,7 +62,7 @@
             "Type": "String"
         },
         "ElasticLoadBalancerSubnets": {
-            "ConstraintDescription": "must be list of existing Public subnet Ids",
+            "ConstraintDescription": "Must be list of existing Public subnet Ids",
             "Default": "",
             "Description": "A list of public subnet identifiers of Amazon VPCs where the ElasticLoadBalancer would be launched.",
             "Type": "List<AWS::EC2::Subnet::Id>"
@@ -85,8 +85,8 @@
         },
         "NotificationEmail": {
             "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
-            "ConstraintDescription": "must be a valid email address.",
-            "Description": "EMail address to notify if there are any scaling operations",
+            "ConstraintDescription": "Must be a valid email address.",
+            "Description": "Email address to notify if there are any scaling operations",
             "Type": "String"
         },
         "QSS3BucketName": {
@@ -105,7 +105,7 @@
         },
         "SSLCertificateId": {
             "Default": "",
-            "Description": "The ARN of the SSL certificate to use for the webserver. [ optional]",
+            "Description": "The ARN of the SSL certificate to use for the webserver. [optional]",
             "Type": "String"
         },
         "VPCID": {
@@ -653,7 +653,15 @@
             ],
             "Metadata": {
                 "Comment": "Install a Magento web server",
-                "AWS::CloudFormation::Init": {
+                "AWS::CloudFormation::Authentication":{
+                  "S3AccessCreds":{
+                     "type":"S3",
+                     "roleName":{
+                        "Ref":"NewIamInstanceRole"
+                     }
+                  }
+               },
+               "AWS::CloudFormation::Init": {
                     "config": {
                         "packages": {
                             "yum": {
@@ -746,6 +754,15 @@
                                         ]
                                     ]
                                 }
+                            },
+                            "/home/ec2-user/magento.tar.gz": {
+                              	"source": {
+                                 	"Ref": "MagentoReleaseMedia"
+                               	},
+                                "mode"  : "000644",
+							    "owner" : "root",
+							    "group" : "root",
+                                "authentication":"S3AccessCreds"
                             }
                         },
                         "services": {
@@ -779,6 +796,9 @@
                 "KeyName": {
                     "Ref": "KeyPair"
                 },
+                "IamInstanceProfile" : { 
+                  	"Ref": "NewIamInstanceProfile" 
+               	},
                 "ImageId": {
                     "Fn::FindInMap": [
                         "AWSAMIRegionMap",
