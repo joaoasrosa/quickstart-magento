@@ -1,7 +1,8 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "(0013) Deploy Magento 2.1 on AWS, License: Apache 2.0 (New VPC)",
+    "Description": "(0013) Deploy Magento 2.1 on AWS (New VPC)",
     "Metadata": {
+      	"LICENSE": "Apache License Version 2.0",
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [
                 {

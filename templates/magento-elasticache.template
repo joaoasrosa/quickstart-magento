@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "AWS Elasticache Template",
+    "Description": "Magento 2.1 Elasticache Template",
     "Parameters": {
         "ElastiCacheAutomaticFailover": {
             "AllowedValues": [
