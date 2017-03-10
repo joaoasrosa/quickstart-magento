@@ -435,9 +435,24 @@
                                         "logs:PutLogEvents",
                                         "logs:DescribeLogStreams"
                                     ],
-                                    "Resource": [
-                                        "arn:aws:logs:*:*:*"
-                                    ]
+                                    "Resource": {
+                                      	"Fn::Join": [
+                                    		"",
+                                      		[
+                                          		"arn:",
+                                          		{
+								                    "Fn::FindInMap": [
+								                        "AWSInfoRegionMap",
+								                        {
+								                            "Ref": "AWS::Region"
+								                        },
+								                        "Partition"
+								                    ]
+								                },
+                        						":logs:*:*:*"
+                                  			]     
+                                       	]
+                                	}
                                 },
                                 {
                                     "Effect": "Allow",
@@ -947,7 +962,24 @@
                                         "logs:CreateLogStream",
                                         "logs:PutLogEvents"
                                     ],
-                                    "Resource": "arn:aws:logs:*:*:*"
+                                    "Resource": {
+                                      	"Fn::Join": [
+                                    		"",
+                                      		[
+                                          		"arn:",
+                                          		{
+								                    "Fn::FindInMap": [
+								                        "AWSInfoRegionMap",
+								                        {
+								                            "Ref": "AWS::Region"
+								                        },
+								                        "Partition"
+								                    ]
+								                },
+                        						":logs:*:*:*"
+                                  			]     
+                                       	]
+                                	}
                                 },
                                 {
                                     "Effect": "Allow",
