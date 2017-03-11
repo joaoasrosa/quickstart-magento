@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "(QS0013) Deploy Magento 2.1 on AWS",
+    "Description": "Deploy Magento 2.1 on AWS. QS(0013)",
     "Metadata": {
       	"LICENSE": "Apache License Version 2.0",
         "AWS::CloudFormation::Interface": {
