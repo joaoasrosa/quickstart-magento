@@ -443,6 +443,12 @@
             "Description": "VPC Id",
             "Type": "AWS::EC2::VPC::Id"
         },
+        "VPCCIDR": {
+          	"AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
+            "ConstraintDescription": "Must be a valid IP range in x.x.x.x/x notation",
+            "Description": "The CIDR IP range of VPC",
+            "Type": "String"
+        }, 
         "WebServerDesiredCapacity": {
             "Default": "1",
             "Description": "Desired No of web server instances",
@@ -592,6 +598,9 @@
                     },
                     "VPC": {
                         "Ref": "VPCID"
+                    },
+                    "VPCCIDR": {
+                      	"Ref": "VPCCIDR"
                     }
                 }
             }

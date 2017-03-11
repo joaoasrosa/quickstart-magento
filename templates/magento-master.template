@@ -775,6 +775,12 @@
                             "Outputs.VPCID"
                         ]
                     },
+                    "VPCCIDR":{
+                      	"Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.VPCCIDR"
+                        ]
+                    }, 
                     "WebServerDesiredCapacity": {
                         "Ref": "WebServerDesiredCapacity"
                     },

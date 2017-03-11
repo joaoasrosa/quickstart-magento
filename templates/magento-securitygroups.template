@@ -5,7 +5,7 @@
         "AccessCIDR": {
             "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
             "ConstraintDescription": "Must be a valid IP range in x.x.x.x/x notation",
-            "Description": "The CIDR IP range that is permitted to access Consul Note: a value of 0.0.0.0/0 will allow access from ANY ip address",
+            "Description": "The CIDR IP range that is permitted to access. Note: a value of 0.0.0.0/0 will allow access from ANY ip address",
             "Type": "String"
         },
         "VPC": {
@@ -13,6 +13,12 @@
             "Default": "vpc-xxxxxxxx",
             "Description": "VPC-ID of your existing Virtual Private Cloud (VPC) where you want to depoy RDS.",
             "Type": "AWS::EC2::VPC::Id"
+        },
+        "VPCCIDR": {
+          	"AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
+            "ConstraintDescription": "Must be a valid IP range in x.x.x.x/x notation",
+            "Description": "The CIDR block for VPC",
+            "Type": "String"
         }
     },
     "Resources": {
@@ -156,11 +162,8 @@
                         "IpProtocol": "tcp",
                         "FromPort": "2049",
                         "ToPort": "2049",
-                        "SourceSecurityGroupId": {
-                            "Fn::GetAtt": [
-                                "WebServerSecurityGroup",
-                                "GroupId"
-                            ]
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
                         }
                     }
                 ],
