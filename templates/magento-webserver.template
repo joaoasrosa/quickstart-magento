@@ -763,6 +763,99 @@
 							    "owner" : "root",
 							    "group" : "root",
                                 "authentication":"S3AccessCreds"
+                            },
+                            "/tmp/params.txt":{
+                              	"content": {
+                               		"Fn::Join": [
+	                                   	"",
+	                                    [
+	                                      	"MySQLEndPointAddress|",
+	                                      	{
+			                                    "Ref": "MySQLEndPointAddress"
+			                                },
+	                                  		"\n",
+	                                    	"DBMasterUsername|",
+			                                {
+			                                    "Ref": "DBMasterUsername"
+			                                },
+			                                "\n",
+	                                  		"DBMasterUserPassword|",
+			                                {
+			                                    "Ref": "DBMasterUserPassword"
+			                                },
+			                                "\n",
+	                                  		"DBName|",
+	                                  		{
+			                                    "Ref": "DBName"
+			                                },
+			                                "\n",
+	                                  		"DNSName|",
+			                                {
+			                                    "Fn::If": [
+			                                        "UseELBName",
+			                                        {
+			                                            "Fn::GetAtt": [
+			                                                "ElasticLoadBalancer",
+			                                                "DNSName"
+			                                            ]
+			                                        },
+			                                        {
+			                                            "Ref": "DNSName"
+			                                        }
+			                                    ]
+			                                },
+			                                "\n",
+	                                  		"AdminFirstName|",
+	                                  		{
+			                                    "Ref": "AdminFirstName"
+			                                },
+			                                "\n",
+	                                  		"AdminLastName|",
+			                                {
+			                                    "Ref": "AdminLastName"
+			                                },
+			                                "\n",
+	                                  		"AdminEmail|",
+			                                {
+			                                    "Ref": "AdminEmail"
+			                                },
+			                                "\n",
+	                                  		"AdminUserName|",
+			                                {
+			                                    "Ref": "AdminUserName"
+			                                },
+			                                "\n",
+	                                  		"AdminPassword|",
+			                                {
+			                                    "Ref": "AdminPassword"
+			                                },
+			                                "\n",
+	                                  		"ElastiCacheEndpoint|",
+			                                {
+			                                    "Ref": "ElastiCacheEndpoint"
+			                                },
+			                                "\n",
+	                                  		"FileSystem|",
+			                                {
+			                                    "Ref": "FileSystem"
+			                                },
+			                                "\n",
+	                                  		"MagentoReleaseMedia|",
+			                                {
+			                                    "Ref": "MagentoReleaseMedia"
+			                                },
+			                                "\n",
+	                                  		"SSLCertificateId|",
+			                                {
+			                                    "Ref": "SSLCertificateId"
+			                                },
+                                      		"\n"
+	                                    ]
+                                 	]
+                             	},
+                              	"mode": "000644",
+                                "owner": "root",
+                                "group": "root"
                             }
                         },
                         "services": {
@@ -859,75 +952,7 @@
                                 },
                                 "/scripts/configure_magento.sh\n",
                                 "chmod a+x install_magento.sh\n",
-                                "./install_magento.sh ",
-                                {
-                                    "Ref": "MySQLEndPointAddress"
-                                },
-                                " ",
-                                {
-                                    "Ref": "DBMasterUsername"
-                                },
-                                " ",
-                                {
-                                    "Ref": "DBMasterUserPassword"
-                                },
-                                " ",
-                                {
-                                    "Ref": "DBName"
-                                },
-                                " ",
-                                {
-                                    "Fn::If": [
-                                        "UseELBName",
-                                        {
-                                            "Fn::GetAtt": [
-                                                "ElasticLoadBalancer",
-                                                "DNSName"
-                                            ]
-                                        },
-                                        {
-                                            "Ref": "DNSName"
-                                        }
-                                    ]
-                                },
-                                " ",
-                                {
-                                    "Ref": "AdminFirstName"
-                                },
-                                " ",
-                                {
-                                    "Ref": "AdminLastName"
-                                },
-                                " ",
-                                {
-                                    "Ref": "AdminEmail"
-                                },
-                                " ",
-                                {
-                                    "Ref": "AdminUserName"
-                                },
-                                " ",
-                                {
-                                    "Ref": "AdminPassword"
-                                },
-                                " ",
-                                {
-                                    "Ref": "ElastiCacheEndpoint"
-                                },
-                                " ",
-                                {
-                                    "Ref": "FileSystem"
-                                },
-                                " ",
-                                {
-                                    "Ref": "MagentoReleaseMedia"
-                                },
-                                " ",
-                                "\"",
-                                {
-                                    "Ref": "SSLCertificateId"
-                                },
-                                "\"\n",
+                                "./install_magento.sh /tmp/params.txt\n",
                                 "/opt/aws/bin/cfn-signal -e 0 -d \"`cat /home/ec2-user/adminuri`\" -r \"Build Process Complete\" '",
                                 {
                                     "Ref": "MagentoAMIWaitHandle"

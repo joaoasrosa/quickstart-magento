@@ -1,31 +1,58 @@
 #!/bin/bash
 
-# curl -O https://s3-eu-west-1.amazonaws.com/amzsup/magento/install_magento.sh
-# chmod a+x install_magento.sh
-# ./install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost efsid magentourl
-# https://s3-eu-west-1.amazonaws.com/bucket/magento/Magento-CE-2.1.0_sample_data-2016-06-23-02-34-07.tar.gz
+# Set an initial value
 
-if [ $# -ne 14 ]; then
-    echo $0: usage: install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost efsid magentourl certificateid
+function exportParams() {
+	dbhost=`grep 'MySQLEndPointAddress' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	dbuser=`grep 'DBMasterUsername' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	dbpassword=`grep 'DBMasterUserPassword' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	dbname=`grep 'DBName' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	cname=`grep 'DNSName' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	adminfirst=`grep 'AdminFirstName' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	adminlast=`grep 'AdminLastName' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	adminemail=`grep 'AdminEmail' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	adminuser=`grep 'AdminUserName' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	adminpassword=`grep 'AdminPassword' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	cachehost=`grep 'ElastiCacheEndpoint' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	efsid=`grep 'FileSystem' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	magentourl=`grep 'MagentoReleaseMedia' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	certificateid=`grep 'SSLCertificateId' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+}
+
+if [ $# -ne 1 ]; then
+	echo $0: usage: install_magento.sh "<param-file-path>"
+    exit 1
+fi
+
+PARAMS_FILE=$1
+
+dbhost='NONE'
+dbuser='NONE'
+dbpassword='NONE'
+dbname='NONE'
+cname='NONE'
+adminfirst='NONE'
+adminlast='NONE'
+adminemail='NONE'
+adminuser='NONE'
+adminpassword='NONE'
+cachehost='NONE'
+efsid='NONE'
+magentourl='NONE'
+certificateid='NONE'
+
+#install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost efsid magentourl certificateid	                                    		                                    	
+
+if [ -f ${PARAMS_FILE} ]; then
+	echo "Extracting parameter values from params file"
+	exportParams
+else
+	echo "Paramaters file not found or accessible."
     exit 1
 fi
 
 # cname = public name of the service (magento.javieros.tk)
 
-dbhost=$1
-dbuser=$2
-dbpassword=$3
-dbname=$4
-cname=$5
-adminfirst=$6
-adminlast=$7
-adminemail=$8
-adminuser=$9
-adminpassword=${10}
-cachehost=${11}
-efsid=${12}
-magentourl=${13}
-certificateid=${14}
 
 EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
 EC2_REGION="`echo \"$EC2_AVAIL_ZONE\" | sed -e 's:\([0-9][0-9]*\)[a-z]*\$:\\1:'`"
@@ -574,6 +601,9 @@ tar czf /root/media.tgz -C /var/www/html/pub/media .
 mount -t nfs4 -o vers=4.1 $efsid.efs.$EC2_REGION.amazonaws.com:/ /var/www/html/pub/media
 rm -rf /var/www/html/pub/media/*
 tar xzf /root/media.tgz -C /var/www/html/pub/media
+
+# Remove params file used in bootstrapping
+rm -f ${PARAMS_FILE}
 
 cat << EOF > magento.cron
 * * * * * /usr/bin/php -c /etc/php-7.0.ini /var/www/html/bin/magento cron:run | grep -v "Ran jobs by schedule" >> /var/www/html/var/log/magento.cron.log
