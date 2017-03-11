@@ -403,6 +403,9 @@
                 "ComparisonOperator": "LessThanThreshold"
             }
         },
+        "MagentoMainLogGroup": {
+            "Type": "AWS::Logs::LogGroup"
+        },
         "NewIamInstanceRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -449,7 +452,15 @@
 								                        "Partition"
 								                    ]
 								                },
-                        						":logs:*:*:*"
+                        						":logs:",
+                              					{
+                                                    "Ref": "AWS::Region"
+                                                },
+                              					":*:",
+                                   				{
+                                                    "Ref": "MagentoMainLogGroup"
+                                                },
+                                   				":*"
                                   			]     
                                        	]
                                 	}
@@ -853,7 +864,7 @@
 	                                    ]
                                  	]
                              	},
-                              	"mode": "000644",
+                              	"mode": "000440",
                                 "owner": "root",
                                 "group": "root"
                             }
