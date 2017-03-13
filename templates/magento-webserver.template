@@ -964,7 +964,7 @@
                                 "/scripts/configure_magento.sh\n",
                                 "chmod a+x install_magento.sh\n",
                                 "./install_magento.sh /tmp/params.txt\n",
-                                "/opt/aws/bin/cfn-signal -e 0 -d \"`cat /home/ec2-user/adminuri`\" -r \"Build Process Complete\" '",
+                                "/opt/aws/bin/cfn-signal -e $? -d \"`cat /home/ec2-user/adminuri`\" -r \"Build Process Complete\" '",
                                 {
                                     "Ref": "MagentoAMIWaitHandle"
                                 },
