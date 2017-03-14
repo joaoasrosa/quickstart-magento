@@ -2,7 +2,7 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "Deploy Magento 2.1 on AWS (New VPC)",
     "Metadata": {
-      	"LICENSE": "Apache License Version 2.0",
+        "LICENSE": "Apache License Version 2.0",
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [
                 {
@@ -107,7 +107,7 @@
                     "default": "Availability Zones"
                 },
                 "DBAllocatedStorage": {
-                    "default": "DB Storage Size (in GB)"
+                    "default": "DB Storage Size (in GiB)"
                 },
                 "DBAutoMinorVersionUpgrade": {
                     "default": "Automatic Upgrade To New MySQL Minor Versions"
@@ -700,11 +700,11 @@
                     "DBIops": {
                         "Ref": "DBIops"
                     },
-                    "DBMasterUsername": {
-                        "Ref": "DBMasterUsername"
-                    },
                     "DBMasterUserPassword": {
                         "Ref": "DBMasterUserPassword"
+                    },
+                    "DBMasterUsername": {
+                        "Ref": "DBMasterUsername"
                     },
                     "DBMultiAZ": {
                         "Ref": "DBMultiAZ"
@@ -737,30 +737,30 @@
                         "Ref": "NotificationEmail"
                     },
                     "PrivateSubnet1ID": {
-			            "Fn::GetAtt": [
+                        "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PrivateSubnet1AID"
                         ]
-			        },
-			        "PrivateSubnet2ID": {
-			            "Fn::GetAtt": [
+                    },
+                    "PrivateSubnet2ID": {
+                        "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PrivateSubnet2AID"
                         ]
-			        },
-			        "PublicSubnet1ID": {
-			            "Fn::GetAtt": [
+                    },
+                    "PublicSubnet1ID": {
+                        "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PublicSubnet1ID"
                         ]
-			        },
-			        "PublicSubnet2ID": {
-			            "Fn::GetAtt": [
+                    },
+                    "PublicSubnet2ID": {
+                        "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PublicSubnet2ID"
                         ]
-			        },
-        			"QSS3BucketName": {
+                    },
+                    "QSS3BucketName": {
                         "Ref": "QSS3BucketName"
                     },
                     "QSS3KeyPrefix": {
@@ -769,29 +769,29 @@
                     "SSLCertificateId": {
                         "Ref": "SSLCertificateId"
                     },
+                    "VPCCIDR": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.VPCCIDR"
+                        ]
+                    },
                     "VPCID": {
                         "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.VPCID"
                         ]
                     },
-                    "VPCCIDR":{
-                      	"Fn::GetAtt": [
-                            "VPCStack",
-                            "Outputs.VPCCIDR"
-                        ]
-                    }, 
                     "WebServerDesiredCapacity": {
                         "Ref": "WebServerDesiredCapacity"
                     },
                     "WebServerInstanceType": {
                         "Ref": "WebServerInstanceType"
                     },
-                    "WebServerMinSize": {
-                        "Ref": "WebServerMinSize"
-                    },
                     "WebServerMaxSize": {
                         "Ref": "WebServerMaxSize"
+                    },
+                    "WebServerMinSize": {
+                        "Ref": "WebServerMinSize"
                     }
                 }
             }

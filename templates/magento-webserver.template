@@ -439,31 +439,31 @@
                                         "logs:DescribeLogStreams"
                                     ],
                                     "Resource": {
-                                      	"Fn::Join": [
-                                    		"",
-                                      		[
-                                          		"arn:",
-                                          		{
-								                    "Fn::FindInMap": [
-								                        "AWSInfoRegionMap",
-								                        {
-								                            "Ref": "AWS::Region"
-								                        },
-								                        "Partition"
-								                    ]
-								                },
-                        						":logs:",
-                              					{
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                "arn:",
+                                                {
+                                                    "Fn::FindInMap": [
+                                                        "AWSInfoRegionMap",
+                                                        {
+                                                            "Ref": "AWS::Region"
+                                                        },
+                                                        "Partition"
+                                                    ]
+                                                },
+                                                ":logs:",
+                                                {
                                                     "Ref": "AWS::Region"
                                                 },
-                              					":*:",
-                                   				{
+                                                ":*:",
+                                                {
                                                     "Ref": "MagentoMainLogGroup"
                                                 },
-                                   				":*"
-                                  			]     
-                                       	]
-                                	}
+                                                ":*"
+                                            ]
+                                        ]
+                                    }
                                 },
                                 {
                                     "Effect": "Allow",
@@ -664,15 +664,15 @@
             ],
             "Metadata": {
                 "Comment": "Install a Magento web server",
-                "AWS::CloudFormation::Authentication":{
-                  "S3AccessCreds":{
-                     "type":"S3",
-                     "roleName":{
-                        "Ref":"NewIamInstanceRole"
-                     }
-                  }
-               },
-               "AWS::CloudFormation::Init": {
+                "AWS::CloudFormation::Authentication": {
+                    "S3AccessCreds": {
+                        "type": "S3",
+                        "roleName": {
+                            "Ref": "NewIamInstanceRole"
+                        }
+                    }
+                },
+                "AWS::CloudFormation::Init": {
                     "config": {
                         "packages": {
                             "yum": {
@@ -767,148 +767,148 @@
                                 }
                             },
                             "/install_magento.sh": {
-                              	"source": {
-                                 	"Fn::Join": [
-                                  		"",
-                                    	[
-                                       		"https://",
-			                                {
-			                                    "Ref": "QSS3BucketName"
-			                                },
-			                                ".s3.amazonaws.com/",
-			                                {
-			                                    "Ref": "QSS3KeyPrefix"
-			                                },
-			                                "/scripts/install_magento.sh"
-                                    	]
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/install_magento.sh"
+                                        ]
                                     ]
-                               	},
-                                "mode"  : "000644",
-							    "owner" : "root",
-							    "group" : "root",
-                                "authentication":"S3AccessCreds"
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
                             },
                             "/configure_magento.sh": {
-                              	"source": {
-                                 	"Fn::Join": [
-                                  		"",
-                                    	[
-                                       		"https://",
-			                                {
-			                                    "Ref": "QSS3BucketName"
-			                                },
-			                                ".s3.amazonaws.com/",
-			                                {
-			                                    "Ref": "QSS3KeyPrefix"
-			                                },
-			                                "/scripts/configure_magento.sh"
-                                    	]
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/configure_magento.sh"
+                                        ]
                                     ]
-                               	},
-                                "mode"  : "000644",
-							    "owner" : "root",
-							    "group" : "root",
-                                "authentication":"S3AccessCreds"
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
                             },
                             "/home/ec2-user/magento.tar.gz": {
-                              	"source": {
-                                 	"Ref": "MagentoReleaseMedia"
-                               	},
-                                "mode"  : "000644",
-							    "owner" : "root",
-							    "group" : "root",
-                                "authentication":"S3AccessCreds"
+                                "source": {
+                                    "Ref": "MagentoReleaseMedia"
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
                             },
-                            "/tmp/params.txt":{
-                              	"content": {
-                               		"Fn::Join": [
-	                                   	"",
-	                                    [
-	                                      	"MySQLEndPointAddress|",
-	                                      	{
-			                                    "Ref": "MySQLEndPointAddress"
-			                                },
-	                                  		"\n",
-	                                    	"DBMasterUsername|",
-			                                {
-			                                    "Ref": "DBMasterUsername"
-			                                },
-			                                "\n",
-	                                  		"DBMasterUserPassword|",
-			                                {
-			                                    "Ref": "DBMasterUserPassword"
-			                                },
-			                                "\n",
-	                                  		"DBName|",
-	                                  		{
-			                                    "Ref": "DBName"
-			                                },
-			                                "\n",
-	                                  		"DNSName|",
-			                                {
-			                                    "Fn::If": [
-			                                        "UseELBName",
-			                                        {
-			                                            "Fn::GetAtt": [
-			                                                "ElasticLoadBalancer",
-			                                                "DNSName"
-			                                            ]
-			                                        },
-			                                        {
-			                                            "Ref": "DNSName"
-			                                        }
-			                                    ]
-			                                },
-			                                "\n",
-	                                  		"AdminFirstName|",
-	                                  		{
-			                                    "Ref": "AdminFirstName"
-			                                },
-			                                "\n",
-	                                  		"AdminLastName|",
-			                                {
-			                                    "Ref": "AdminLastName"
-			                                },
-			                                "\n",
-	                                  		"AdminEmail|",
-			                                {
-			                                    "Ref": "AdminEmail"
-			                                },
-			                                "\n",
-	                                  		"AdminUserName|",
-			                                {
-			                                    "Ref": "AdminUserName"
-			                                },
-			                                "\n",
-	                                  		"AdminPassword|",
-			                                {
-			                                    "Ref": "AdminPassword"
-			                                },
-			                                "\n",
-	                                  		"ElastiCacheEndpoint|",
-			                                {
-			                                    "Ref": "ElastiCacheEndpoint"
-			                                },
-			                                "\n",
-	                                  		"FileSystem|",
-			                                {
-			                                    "Ref": "FileSystem"
-			                                },
-			                                "\n",
-	                                  		"MagentoReleaseMedia|",
-			                                {
-			                                    "Ref": "MagentoReleaseMedia"
-			                                },
-			                                "\n",
-	                                  		"SSLCertificateId|",
-			                                {
-			                                    "Ref": "SSLCertificateId"
-			                                },
-                                      		"\n"
-	                                    ]
-                                 	]
-                             	},
-                              	"mode": "000440",
+                            "/tmp/params.txt": {
+                                "content": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "MySQLEndPointAddress|",
+                                            {
+                                                "Ref": "MySQLEndPointAddress"
+                                            },
+                                            "\n",
+                                            "DBMasterUsername|",
+                                            {
+                                                "Ref": "DBMasterUsername"
+                                            },
+                                            "\n",
+                                            "DBMasterUserPassword|",
+                                            {
+                                                "Ref": "DBMasterUserPassword"
+                                            },
+                                            "\n",
+                                            "DBName|",
+                                            {
+                                                "Ref": "DBName"
+                                            },
+                                            "\n",
+                                            "DNSName|",
+                                            {
+                                                "Fn::If": [
+                                                    "UseELBName",
+                                                    {
+                                                        "Fn::GetAtt": [
+                                                            "ElasticLoadBalancer",
+                                                            "DNSName"
+                                                        ]
+                                                    },
+                                                    {
+                                                        "Ref": "DNSName"
+                                                    }
+                                                ]
+                                            },
+                                            "\n",
+                                            "AdminFirstName|",
+                                            {
+                                                "Ref": "AdminFirstName"
+                                            },
+                                            "\n",
+                                            "AdminLastName|",
+                                            {
+                                                "Ref": "AdminLastName"
+                                            },
+                                            "\n",
+                                            "AdminEmail|",
+                                            {
+                                                "Ref": "AdminEmail"
+                                            },
+                                            "\n",
+                                            "AdminUserName|",
+                                            {
+                                                "Ref": "AdminUserName"
+                                            },
+                                            "\n",
+                                            "AdminPassword|",
+                                            {
+                                                "Ref": "AdminPassword"
+                                            },
+                                            "\n",
+                                            "ElastiCacheEndpoint|",
+                                            {
+                                                "Ref": "ElastiCacheEndpoint"
+                                            },
+                                            "\n",
+                                            "FileSystem|",
+                                            {
+                                                "Ref": "FileSystem"
+                                            },
+                                            "\n",
+                                            "MagentoReleaseMedia|",
+                                            {
+                                                "Ref": "MagentoReleaseMedia"
+                                            },
+                                            "\n",
+                                            "SSLCertificateId|",
+                                            {
+                                                "Ref": "SSLCertificateId"
+                                            },
+                                            "\n"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000440",
                                 "owner": "root",
                                 "group": "root"
                             }
@@ -944,9 +944,9 @@
                 "KeyName": {
                     "Ref": "KeyPair"
                 },
-                "IamInstanceProfile" : { 
-                  	"Ref": "NewIamInstanceProfile" 
-               	},
+                "IamInstanceProfile": {
+                    "Ref": "NewIamInstanceProfile"
+                },
                 "ImageId": {
                     "Fn::FindInMap": [
                         "AWSAMIRegionMap",
@@ -1045,23 +1045,23 @@
                                         "logs:PutLogEvents"
                                     ],
                                     "Resource": {
-                                      	"Fn::Join": [
-                                    		"",
-                                      		[
-                                          		"arn:",
-                                          		{
-								                    "Fn::FindInMap": [
-								                        "AWSInfoRegionMap",
-								                        {
-								                            "Ref": "AWS::Region"
-								                        },
-								                        "Partition"
-								                    ]
-								                },
-                        						":logs:*:*:*"
-                                  			]     
-                                       	]
-                                	}
+                                        "Fn::Join": [
+                                            "",
+                                            [
+                                                "arn:",
+                                                {
+                                                    "Fn::FindInMap": [
+                                                        "AWSInfoRegionMap",
+                                                        {
+                                                            "Ref": "AWS::Region"
+                                                        },
+                                                        "Partition"
+                                                    ]
+                                                },
+                                                ":logs:*:*:*"
+                                            ]
+                                        ]
+                                    }
                                 },
                                 {
                                     "Effect": "Allow",
