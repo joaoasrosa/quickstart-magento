@@ -65,7 +65,7 @@
         "ElastiCacheSubnetGroup": {
             "Type": "AWS::ElastiCache::SubnetGroup",
             "Properties": {
-                "Description": "Subnets available for the Redis Cache Instance (QuickStart)",
+                "Description": "Subnets available for the Redis Cache Instance (AWS Quick Start)",
                 "SubnetIds": {
                     "Ref": "Subnets"
                 }
@@ -74,7 +74,7 @@
         "ElastiCacheCluster": {
             "Type": "AWS::ElastiCache::ReplicationGroup",
             "Properties": {
-                "ReplicationGroupDescription": "ElastiCache Cluster (QuickStart)",
+                "ReplicationGroupDescription": "ElastiCache Cluster (AWS Quick Start)",
                 "AutomaticFailoverEnabled": {
                     "Ref": "ElastiCacheAutomaticFailover"
                 },

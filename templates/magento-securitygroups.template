@@ -25,7 +25,7 @@
         "MySQLRDSSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupDescription": "Allow access to MySQL Port (QuickStart)",
+                "GroupDescription": "Allow access to MySQL Port (AWS Quick Start)",
                 "VpcId": {
                     "Ref": "VPC"
                 },
@@ -61,7 +61,7 @@
         "ELBSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupDescription": "ELB Security Group (QuickStart)",
+                "GroupDescription": "ELB Security Group (AWS Quick Start)",
                 "VpcId": {
                     "Ref": "VPC"
                 },
@@ -98,7 +98,7 @@
         "WebServerSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupDescription": "App Server Security Group (QuickStart)",
+                "GroupDescription": "App Server Security Group (AWS Quick Start)",
                 "VpcId": {
                     "Ref": "VPC"
                 },
@@ -153,7 +153,7 @@
         "EFSSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupDescription": "Database Security Group (QuickStart)",
+                "GroupDescription": "Database Security Group (AWS Quick Start)",
                 "VpcId": {
                     "Ref": "VPC"
                 },
@@ -186,7 +186,7 @@
         "ElastiCacheSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupDescription": "Database Security Group (QuickStart)",
+                "GroupDescription": "Database Security Group (AWS Quick Start)",
                 "VpcId": {
                     "Ref": "VPC"
                 },

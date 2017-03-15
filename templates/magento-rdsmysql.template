@@ -3,9 +3,9 @@
     "Description": "Magento 2.1 RDS MySQL Template",
     "Parameters": {
         "DBAllocatedStorage": {
-            "ConstraintDescription": "must be between 5 and 4096 GB. If Iops specified, AllocatedStorage must be at least 100 GB and with minimum Iops value of 1000",
+            "ConstraintDescription": "must be between 5 and 4096 GiB. If Iops specified, AllocatedStorage must be at least 100 GiB and with minimum Iops value of 1000",
             "Default": "5",
-            "Description": "The size of the database in gigabytes (GB)",
+            "Description": "The size of the database in gigabytes (GiB)",
             "MaxValue": "4096",
             "MinValue": "5",
             "Type": "Number"
