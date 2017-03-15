@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Set an initial value
 
@@ -601,6 +601,10 @@ tar czf /root/media.tgz -C /var/www/html/pub/media .
 mount -t nfs4 -o vers=4.1 $efsid.efs.$EC2_REGION.amazonaws.com:/ /var/www/html/pub/media
 rm -rf /var/www/html/pub/media/*
 tar xzf /root/media.tgz -C /var/www/html/pub/media
+
+# Remove passwords from files
+sed -i s/${dbpassword}/xxxxx/g /var/log/cloud-init.log
+sed -i s/${adminpassword}/xxxxx/g /var/log/cloud-init.log
 
 # Remove params file used in bootstrapping
 rm -f ${PARAMS_FILE}
