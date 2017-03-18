@@ -1058,7 +1058,15 @@
                                                         "Partition"
                                                     ]
                                                 },
-                                                ":logs:*:*:*"
+                                                ":logs:",
+                                                {
+                                                    "Ref": "AWS::Region"
+                                                },
+                                                ":*:",
+                                                {
+                                                    "Ref": "MagentoMainLogGroup"
+                                                },
+                                                ":*"
                                             ]
                                         ]
                                     }
