@@ -588,7 +588,7 @@
                             {
                                 "Ref": "QSS3KeyPrefix"
                             },
-                            "templates/magento-securitygroups.template"
+                            "templates/securitygroups.template"
                         ]
                     ]
                 },
@@ -627,7 +627,7 @@
                             {
                                 "Ref": "QSS3KeyPrefix"
                             },
-                            "templates/magento-rdsmysql.template"
+                            "templates/rdsmysql.template"
                         ]
                     ]
                 },
@@ -709,7 +709,7 @@
                             {
                                 "Ref": "QSS3KeyPrefix"
                             },
-                            "templates/magento-elasticache.template"
+                            "templates/elasticache.template"
                         ]
                     ]
                 },
@@ -770,7 +770,7 @@
                             {
                                 "Ref": "QSS3KeyPrefix"
                             },
-                            "templates/magento-webserver.template"
+                            "templates/webserver.template"
                         ]
                     ]
                 },
