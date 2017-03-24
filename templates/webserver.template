@@ -75,7 +75,7 @@
         },
         "MagentoReleaseMedia": {
             "Default": "",
-            "Description": "Amazon S3 path to download magento .tar.gz file (s3://mybucket/magento-1.9.2.1.tar-2015-08-03-06-35-45.gz)",
+            "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
             "Type": "String"
         },
         "MySQLEndPointAddress": {
