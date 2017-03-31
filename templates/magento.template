@@ -62,15 +62,18 @@
                         "default": "Magento Configuration"
                     },
                     "Parameters": [
-                        "DNSName",
                         "AdminFirstName",
                         "AdminLastName",
                         "AdminEmail",
                         "AdminUserName",
                         "AdminPassword",
+                        "Currency",
+                        "DNSName",
+                        "Language",
                         "NotificationEmail",
                         "MagentoReleaseMedia",
-                        "SSLCertificateId"
+                        "SSLCertificateId",
+                        "TimeZone"
                     ]
                 },
                 {
@@ -101,6 +104,9 @@
                 },
                 "AdminUserName": {
                     "default": "Administrator User Name"
+                },
+                "Currency": {
+                    "default": "Currency"
                 },
                 "DBAllocatedStorage": {
                     "default": "DB Storage Size (in GiB)"
@@ -147,6 +153,9 @@
                 "KeyPairName": {
                     "default": "Key Name"
                 },
+                "Language": {
+                    "default": "Language"
+                },
                 "MagentoReleaseMedia": {
                     "default": "S3 File Path To Download Magento"
                 },
@@ -173,6 +182,9 @@
                 },
                 "SSLCertificateId": {
                     "default": "SSL Certificate ARN"
+                },
+                "TimeZone": {
+                    "default": "TimeZone"
                 },
                 "VPCID": {
                     "default": "VPC ID"
@@ -222,6 +234,10 @@
         },
         "AdminUserName": {
             "Description": "Username of the Magento site administrator",
+            "Type": "String"
+        },
+        "Currency": {
+            "Description": "Magento default currency",
             "Type": "String"
         },
         "DBAllocatedStorage": {
@@ -393,6 +409,10 @@
             "Description": "Public/private key pairs allow you to securely connect to your instance after it launches",
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
+        "Language": {
+            "Description": "Magento default language",
+            "Type": "String"
+        },
         "MagentoReleaseMedia": {
             "Default": "",
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
@@ -432,6 +452,10 @@
             "ConstraintDescription": "AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Default": "magento/latest",
             "Description": "S3 key prefix for the AWS Quick Start assets. AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "Type": "String"
+        },
+        "TimeZone": {
+            "Description": "Magento default timezone",
             "Type": "String"
         },
         "SSLCertificateId": {
@@ -890,6 +914,15 @@
                     },
                     "SSLCertificateId": {
                         "Ref": "SSLCertificateId"
+                    },
+                    "Currency": {
+                        "Ref": "Currency"
+                    },
+                    "Language": {
+                        "Ref": "Language"
+                    },
+                    "TimeZone": {
+                        "Ref": "TimeZone"
                     }
                 }
             }
