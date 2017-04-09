@@ -67,13 +67,13 @@
                         "AdminEmail",
                         "AdminUserName",
                         "AdminPassword",
-                        "Currency",
                         "DNSName",
-                        "Language",
                         "NotificationEmail",
                         "MagentoReleaseMedia",
-                        "SSLCertificateId",
-                        "TimeZone"
+                        "MagentoLanguage",
+                        "MagentoCurrency",
+                        "MagentoTimezone",
+                        "SSLCertificateId"
                     ]
                 },
                 {
