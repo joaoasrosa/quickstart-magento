@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 13 ]; then
-    echo $0: usage: install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost magentourl protocol
+    echo $0: usage: install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost magentourl protocol magentolanguage magentocurrency magentotimezone
     exit 1
 fi
 
@@ -20,6 +20,9 @@ adminpassword=${10}
 cachehost=${11}
 magentourl=${12}
 protocol=${13}
+magentolanguage=$14
+magentocurrency=$15
+magentotimezone=$16
 
 cd
 #curl -o magento.tar.gz $magentourl
@@ -54,8 +57,8 @@ cd /var/www/html/bin
 ./magento setup:install --base-url=$protocol://$cname/ \
 --db-host=$dbhost --db-name=$dbname --db-user=$dbuser --db-password=$dbpassword \
 --admin-firstname=$adminfirst --admin-lastname=$adminlast --admin-email=$adminemail \
---admin-user=$adminuser --admin-password=$adminpassword --language=en_US \
---currency=EUR --timezone=Europe/Madrid $secure
+--admin-user=$adminuser --admin-password=$adminpassword --language=$magentolanguage \
+--currency=$magentocurrency --timezone=$magentotimezone $secure
 
 init_value=`head -n10 /var/www/html/app/etc/env.php`
 

@@ -236,10 +236,6 @@
             "Description": "Username of the Magento site administrator",
             "Type": "String"
         },
-        "Currency": {
-            "Description": "Magento default currency",
-            "Type": "String"
-        },
         "DBAllocatedStorage": {
             "ConstraintDescription": "Must be between 5 and 4096 GiB. If Iops specified, AllocatedStorage must be at least 100 GiB and with minimum Iops value of 1000",
             "Default": "16",
@@ -409,13 +405,24 @@
             "Description": "Public/private key pairs allow you to securely connect to your instance after it launches",
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
-        "Language": {
-            "Description": "Magento default language",
-            "Type": "String"
-        },
         "MagentoReleaseMedia": {
             "Default": "",
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
+            "Type": "String"
+        },
+		"MagentoLanguage": {
+            "Default": "en_US",
+            "Description": "Magento default installation code for the language",
+            "Type": "String"
+        },
+		"MagentoCurrency": {
+            "Default": "EUR",
+            "Description": "Magento default installation code for the currency",
+            "Type": "String"
+        },
+		"MagentoTimezone": {
+            "Default": "Europe/Lisbon",
+            "Description": "Magento default installation timezone",
             "Type": "String"
         },
         "NotificationEmail": {
@@ -452,10 +459,6 @@
             "ConstraintDescription": "AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Default": "magento/latest",
             "Description": "S3 key prefix for the AWS Quick Start assets. AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Type": "String"
-        },
-        "TimeZone": {
-            "Description": "Magento default timezone",
             "Type": "String"
         },
         "SSLCertificateId": {
@@ -873,6 +876,15 @@
                     "MagentoReleaseMedia": {
                         "Ref": "MagentoReleaseMedia"
                     },
+                    "MagentoLanguage": {
+                        "Ref": "MagentoLanguage"
+                    },
+                    "MagentoCurrency": {
+                        "Ref": "MagentoCurrency"
+                    },
+                    "MagentoTimezone": {
+                        "Ref": "MagentoTimezone"
+                    },
                     "DBMasterUserPassword": {
                         "Ref": "DBMasterUserPassword"
                     },
@@ -914,15 +926,6 @@
                     },
                     "SSLCertificateId": {
                         "Ref": "SSLCertificateId"
-                    },
-                    "Currency": {
-                        "Ref": "Currency"
-                    },
-                    "Language": {
-                        "Ref": "Language"
-                    },
-                    "TimeZone": {
-                        "Ref": "TimeZone"
                     }
                 }
             }
