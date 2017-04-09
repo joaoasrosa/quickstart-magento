@@ -196,49 +196,49 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AMZNLINUXHVM": "amzn-ami-hvm-2016.09.1.20170119-x86_64-gp2"
+                "AMZNLINUXHVM": "amzn-ami-hvm-2017.03.0.20170401-x86_64-gp2"
             },
             "ap-northeast-1": {
-                "AMZNLINUXHVM": "ami-56d4ad31"
+                "AMZNLINUXHVM": "ami-859bbfe2"
             },
             "ap-northeast-2": {
-                "AMZNLINUXHVM": "ami-dac312b4"
+                "AMZNLINUXHVM": "ami-8369baed"
             },
             "ap-south-1": {
-                "AMZNLINUXHVM": "ami-f9daac96"
+                "AMZNLINUXHVM": "ami-815625ee"
             },
             "ap-southeast-1": {
-                "AMZNLINUXHVM": "ami-dc9339bf"
+                "AMZNLINUXHVM": "ami-a2bc03c1"
             },
             "ap-southeast-2": {
-                "AMZNLINUXHVM": "ami-1c47407f"
+                "AMZNLINUXHVM": "ami-8bf2fde8"
             },
             "ca-central-1": {
-                "AMZNLINUXHVM": "ami-ebed508f"
+                "AMZNLINUXHVM": "ami-8601bce2"
             },
             "eu-central-1": {
-                "AMZNLINUXHVM": "ami-af0fc0c0"
+                "AMZNLINUXHVM": "ami-5b06d634"
             },
             "eu-west-1": {
-                "AMZNLINUXHVM": "ami-70edb016"
+                "AMZNLINUXHVM": "ami-e5083683"
             },
             "eu-west-2": {
-                "AMZNLINUXHVM": "ami-f1949e95"
+                "AMZNLINUXHVM": "ami-11130775"
             },
             "sa-east-1": {
-                "AMZNLINUXHVM": "ami-80086dec"
+                "AMZNLINUXHVM": "ami-a97013c5"
             },
             "us-east-1": {
-                "AMZNLINUXHVM": "ami-0b33d91d"
+                "AMZNLINUXHVM": "ami-22ce4934"
             },
             "us-east-2": {
-                "AMZNLINUXHVM": "ami-c55673a0"
+                "AMZNLINUXHVM": "ami-7bfcd81e"
             },
             "us-west-1": {
-                "AMZNLINUXHVM": "ami-165a0876"
+                "AMZNLINUXHVM": "ami-9e247efe"
             },
             "us-west-2": {
-                "AMZNLINUXHVM": "ami-f173cc91"
+                "AMZNLINUXHVM": "ami-8ca83fec"
             }
         },
         "AWSInfoRegionMap": {
