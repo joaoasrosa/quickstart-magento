@@ -105,9 +105,6 @@
                 "AdminUserName": {
                     "default": "Administrator User Name"
                 },
-                "Currency": {
-                    "default": "Currency"
-                },
                 "DBAllocatedStorage": {
                     "default": "DB Storage Size (in GiB)"
                 },
@@ -153,11 +150,17 @@
                 "KeyPairName": {
                     "default": "Key Name"
                 },
-                "Language": {
-                    "default": "Language"
-                },
                 "MagentoReleaseMedia": {
                     "default": "S3 File Path To Download Magento"
+                },
+				"MagentoLanguage": {
+                    "default": "Magento Language"
+                },
+				"MagentoCurrency": {
+                    "default": "Magento Currency"
+                },
+				"MagentoTimezone": {
+                    "default": "Magento Timezone"
                 },
                 "NotificationEmail": {
                     "default": "Email Address To Notify"
@@ -182,9 +185,6 @@
                 },
                 "SSLCertificateId": {
                     "default": "SSL Certificate ARN"
-                },
-                "TimeZone": {
-                    "default": "TimeZone"
                 },
                 "VPCID": {
                     "default": "VPC ID"
