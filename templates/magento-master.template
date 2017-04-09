@@ -406,6 +406,21 @@
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
             "Type": "String"
         },
+		"MagentoLanguage": {
+            "Default": "en_US",
+            "Description": "Magento default installation code for the language",
+            "Type": "String"
+        },
+		"MagentoCurrency": {
+            "Default": "EUR",
+            "Description": "Magento default installation code for the currency",
+            "Type": "String"
+        },
+		"MagentoTimezone": {
+            "Default": "Europe/Lisbon",
+            "Description": "Magento default installation timezone",
+            "Type": "String"
+        },
         "NotificationEmail": {
             "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
             "ConstraintDescription": "Must be a valid email address.",
@@ -732,6 +747,15 @@
                     },
                     "MagentoReleaseMedia": {
                         "Ref": "MagentoReleaseMedia"
+                    },
+                    "MagentoLanguage": {
+                        "Ref": "MagentoLanguage"
+                    },
+                    "MagentoCurrency": {
+                        "Ref": "MagentoCurrency"
+                    },
+                    "MagentoTimezone": {
+                        "Ref": "MagentoTimezone"
                     },
                     "NotificationEmail": {
                         "Ref": "NotificationEmail"

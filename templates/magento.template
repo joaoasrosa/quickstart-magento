@@ -62,14 +62,17 @@
                         "default": "Magento Configuration"
                     },
                     "Parameters": [
-                        "DNSName",
                         "AdminFirstName",
                         "AdminLastName",
                         "AdminEmail",
                         "AdminUserName",
                         "AdminPassword",
+                        "DNSName",
                         "NotificationEmail",
                         "MagentoReleaseMedia",
+                        "MagentoLanguage",
+                        "MagentoCurrency",
+                        "MagentoTimezone",
                         "SSLCertificateId"
                     ]
                 },
@@ -149,6 +152,15 @@
                 },
                 "MagentoReleaseMedia": {
                     "default": "S3 File Path To Download Magento"
+                },
+				"MagentoLanguage": {
+                    "default": "Magento Language"
+                },
+				"MagentoCurrency": {
+                    "default": "Magento Currency"
+                },
+				"MagentoTimezone": {
+                    "default": "Magento Timezone"
                 },
                 "NotificationEmail": {
                     "default": "Email Address To Notify"
@@ -396,6 +408,21 @@
         "MagentoReleaseMedia": {
             "Default": "",
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
+            "Type": "String"
+        },
+		"MagentoLanguage": {
+            "Default": "en_US",
+            "Description": "Magento default installation code for the language",
+            "Type": "String"
+        },
+		"MagentoCurrency": {
+            "Default": "EUR",
+            "Description": "Magento default installation code for the currency",
+            "Type": "String"
+        },
+		"MagentoTimezone": {
+            "Default": "Europe/Lisbon",
+            "Description": "Magento default installation timezone",
             "Type": "String"
         },
         "NotificationEmail": {
@@ -848,6 +875,15 @@
                     },
                     "MagentoReleaseMedia": {
                         "Ref": "MagentoReleaseMedia"
+                    },
+                    "MagentoLanguage": {
+                        "Ref": "MagentoLanguage"
+                    },
+                    "MagentoCurrency": {
+                        "Ref": "MagentoCurrency"
+                    },
+                    "MagentoTimezone": {
+                        "Ref": "MagentoTimezone"
                     },
                     "DBMasterUserPassword": {
                         "Ref": "DBMasterUserPassword"
