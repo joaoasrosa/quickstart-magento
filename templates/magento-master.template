@@ -70,6 +70,9 @@
                         "AdminUserName",
                         "AdminPassword",
                         "NotificationEmail",
+                        "MagentoCurrency",
+                        "MagentoLanguage",
+                        "MagentoTimezone",
                         "MagentoReleaseMedia",
                         "SSLCertificateId"
                     ]
@@ -150,6 +153,15 @@
                 },
                 "KeyPairName": {
                     "default": "Key Name"
+                },
+                "MagentoCurrency": {
+                    "default": "Magento Currency"
+                },
+                "MagentoLanguage": {
+                    "default": "Magento Language"
+                },
+                "MagentoTimezone": {
+                    "default": "Magento Timezone"
                 },
                 "MagentoReleaseMedia": {
                     "default": "S3 File Path To Download Magento"
@@ -408,17 +420,17 @@
         },
 		"MagentoLanguage": {
             "Default": "en_US",
-            "Description": "Magento default installation code for the language",
+            "Description": "Magento Language",
             "Type": "String"
         },
 		"MagentoCurrency": {
             "Default": "EUR",
-            "Description": "Magento default installation code for the currency",
+            "Description": "Magento Currency",
             "Type": "String"
         },
 		"MagentoTimezone": {
             "Default": "Europe/Lisbon",
-            "Description": "Magento default installation timezone",
+            "Description": "Magento Timezone",
             "Type": "String"
         },
         "NotificationEmail": {
@@ -745,17 +757,17 @@
                     "KeyPairName": {
                         "Ref": "KeyPairName"
                     },
-                    "MagentoReleaseMedia": {
-                        "Ref": "MagentoReleaseMedia"
+                    "MagentoCurrency": {
+                        "Ref": "MagentoCurrency"
                     },
                     "MagentoLanguage": {
                         "Ref": "MagentoLanguage"
                     },
-                    "MagentoCurrency": {
-                        "Ref": "MagentoCurrency"
-                    },
                     "MagentoTimezone": {
                         "Ref": "MagentoTimezone"
+                    },
+                    "MagentoReleaseMedia": {
+                        "Ref": "MagentoReleaseMedia"
                     },
                     "NotificationEmail": {
                         "Ref": "NotificationEmail"
