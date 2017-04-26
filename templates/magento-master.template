@@ -146,7 +146,7 @@
                     "default": "ElastiCache Automatic Failover"
                 },
                 "ElastiCacheNodeType": {
-                    "defult": "ElastiCache Node Type"
+                    "default": "ElastiCache Node Type"
                 },
                 "ElastiCacheNodes": {
                     "default": "Number Of ElastiCache Nodes"
@@ -363,7 +363,7 @@
         },
         "DNSName": {
             "Default": "",
-            "Description": "DNS Name for the magento site, you should create an alias for the ELB after the stack creation",
+            "Description": "(Optional) DNS Name for the magento site, you should create an alias for the ELB after the stack creation",
             "Type": "String"
         },
         "ElastiCacheAutomaticFailover": {
@@ -413,27 +413,27 @@
             "Description": "Public/private key pairs allow you to securely connect to your instance after it launches",
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
+        "MagentoCurrency": {
+            "Default": "USD",
+            "Description": "Currency you’d like to use to display prices in the Magento store (Check here for the supported currency command http://devdocs.magento.com/guides/v2.0/install-gde/install/cli/install-cli-install.html)",
+            "Type": "String"
+        },
+		"MagentoLanguage": {
+            "Default": "en_US",
+            "Description": "The language you’d like to use for the text that appears throughout the Magento store (Check here for the supported Language command http://devdocs.magento.com/guides/v2.0/install-gde/install/cli/install-cli-install.html)",
+            "Type": "String"
+        },
+		"MagentoTimezone": {
+            "Default": "America/Los_Angeles",
+            "Description": "The time zone setting that specifies the primary market served by the Magento store",
+            "Type": "String"
+        },
         "MagentoReleaseMedia": {
             "Default": "",
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
             "Type": "String"
         },
-		"MagentoLanguage": {
-            "Default": "en_US",
-            "Description": "Magento Language",
-            "Type": "String"
-        },
-		"MagentoCurrency": {
-            "Default": "EUR",
-            "Description": "Magento Currency",
-            "Type": "String"
-        },
-		"MagentoTimezone": {
-            "Default": "Europe/Lisbon",
-            "Description": "Magento Timezone",
-            "Type": "String"
-        },
-        "NotificationEmail": {
+		"NotificationEmail": {
             "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
             "ConstraintDescription": "Must be a valid email address.",
             "Description": "Email address to notify if there are any scaling operations",
@@ -483,7 +483,7 @@
         },
         "SSLCertificateId": {
             "Default": "",
-            "Description": "The ARN of the SSL certificate to use for the webserver. [optional]",
+            "Description": "(Optional) The ARN of the SSL certificate to use for the webserver. [optional]",
             "Type": "String"
         },
         "VPCCIDR": {

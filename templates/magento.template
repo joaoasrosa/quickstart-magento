@@ -11,12 +11,12 @@
                     },
                     "Parameters": [
                         "VPCID",
+                        "VPCCIDR",
                         "PrivateSubnet1ID",
                         "PrivateSubnet2ID",
                         "PublicSubnet1ID",
                         "PublicSubnet2ID",
-                        "AccessCIDR",
-                        "VPCCIDR"
+                        "AccessCIDR"
                     ]
                 },
                 {
@@ -63,12 +63,12 @@
                         "default": "Magento Configuration"
                     },
                     "Parameters": [
+                        "DNSName",
                         "AdminFirstName",
                         "AdminLastName",
                         "AdminEmail",
                         "AdminUserName",
                         "AdminPassword",
-                        "DNSName",
                         "NotificationEmail",
                         "MagentoCurrency",
                         "MagentoLanguage",
@@ -143,7 +143,7 @@
                     "default": "ElastiCache Automatic Failover"
                 },
                 "ElastiCacheNodeType": {
-                    "defult": "ElastiCache Node Type"
+                    "default": "ElastiCache Node Type"
                 },
                 "ElastiCacheNodes": {
                     "default": "Number Of ElastiCache Nodes"
@@ -356,7 +356,7 @@
         },
         "DNSName": {
             "Default": "",
-            "Description": "DNS Name for the magento site, you should create an alias for the ELB after the stack creation",
+            "Description": "(Optional) DNS Name for the magento site, you should create an alias for the ELB after the stack creation",
             "Type": "String"
         },
         "ElastiCacheAutomaticFailover": {
@@ -407,18 +407,18 @@
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
         "MagentoCurrency": {
-            "Default": "EUR",
-            "Description": "Magento Currency",
+            "Default": "USD",
+            "Description": "Currency you’d like to use to display prices in the Magento store (Check here for the supported currency command http://devdocs.magento.com/guides/v2.0/install-gde/install/cli/install-cli-install.html)",
             "Type": "String"
         },
 		"MagentoLanguage": {
             "Default": "en_US",
-            "Description": "Magento Language",
+            "Description": "The language you’d like to use for the text that appears throughout the Magento store (Check here for the supported Language command http://devdocs.magento.com/guides/v2.0/install-gde/install/cli/install-cli-install.html)",
             "Type": "String"
         },
 		"MagentoTimezone": {
-            "Default": "Europe/Lisbon",
-            "Description": "Magento Timezone",
+            "Default": "America/Los_Angeles",
+            "Description": "The time zone setting that specifies the primary market served by the Magento store",
             "Type": "String"
         },
         "MagentoReleaseMedia": {
@@ -464,7 +464,7 @@
         },
         "SSLCertificateId": {
             "Default": "",
-            "Description": "The ARN of the SSL certificate to use for the webserver. [optional]",
+            "Description": "(Optional) The ARN of the SSL certificate to use for the webserver. [optional]",
             "Type": "String"
         },
         "VPCCIDR": {
