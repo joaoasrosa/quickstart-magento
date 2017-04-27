@@ -17,6 +17,9 @@ function exportParams() {
 	efsid=`grep 'FileSystem' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
 	magentourl=`grep 'MagentoReleaseMedia' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
 	certificateid=`grep 'SSLCertificateId' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	magentolanguage=`grep 'MagentoLanguage' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	magentocurrency=`grep 'MagentoCurrency' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
+	magentotimezone=`grep 'MagentoTimezone' ${PARAMS_FILE} | awk -F'|' '{print $2}' | sed -e 's/^ *//g;s/ *$//g'`
 }
 
 if [ $# -ne 1 ]; then
@@ -40,8 +43,11 @@ cachehost='NONE'
 efsid='NONE'
 magentourl='NONE'
 certificateid='NONE'
+magentolanguage='NONE'
+magentocurrency='NONE'
+magentotimezone='NONE'
 
-#install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost efsid magentourl certificateid	                                    		                                    	
+#install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost efsid magentourl certificateid magentolanguage magentocurrency magentotimezone	                                    		                                    	
 
 if [ -f ${PARAMS_FILE} ]; then
 	echo "Extracting parameter values from params file"
@@ -595,7 +601,7 @@ then
         protocol="http"
 fi
 
-sudo -u ec2-user /tmp/configure_magento.sh $dbhost $dbuser $dbpassword $dbname $cname $adminfirst $adminlast $adminemail $adminuser $adminpassword $cachehost $magentourl $protocol
+sudo -u ec2-user /tmp/configure_magento.sh $dbhost $dbuser $dbpassword $dbname $cname $adminfirst $adminlast $adminemail $adminuser $adminpassword $cachehost $magentourl $protocol $magentolanguage $magentocurrency $magentotimezone
 
 tar czf /root/media.tgz -C /var/www/html/pub/media .
 mount -t nfs4 -o vers=4.1 $efsid.efs.$EC2_REGION.amazonaws.com:/ /var/www/html/pub/media
