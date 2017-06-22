@@ -78,12 +78,12 @@
             "Description": "Magento Currency",
             "Type": "String"
         },
-		"MagentoLanguage": {
+        "MagentoLanguage": {
             "Default": "en_US",
             "Description": "Magento Language",
             "Type": "String"
         },
-		"MagentoTimezone": {
+        "MagentoTimezone": {
             "Default": "Europe/Lisbon",
             "Description": "Magento Timezone",
             "Type": "String"
@@ -93,7 +93,7 @@
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
             "Type": "String"
         },
-		"MySQLEndPointAddress": {
+        "MySQLEndPointAddress": {
             "Default": "",
             "Description": "RDS MySQL Endpoint",
             "Type": "String"
@@ -196,49 +196,49 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AMZNLINUXHVM": "amzn-ami-hvm-2017.03.0.20170417-x86_64-gp2"
+                "AMZNLINUXHVM": "amzn-ami-hvm-2017.03.1.20170617-x86_64-gp2"
             },
             "ap-northeast-1": {
-                "AMZNLINUXHVM": "ami-923d12f5"
+                "AMZNLINUXHVM": "ami-bbf2f9dc"
             },
             "ap-northeast-2": {
-                "AMZNLINUXHVM": "ami-9d15c7f3"
+                "AMZNLINUXHVM": "ami-9bab74f5"
             },
             "ap-south-1": {
-                "AMZNLINUXHVM": "ami-52c7b43d"
+                "AMZNLINUXHVM": "ami-3c89f653"
             },
             "ap-southeast-1": {
-                "AMZNLINUXHVM": "ami-fc5ae39f"
+                "AMZNLINUXHVM": "ami-58d65b3b"
             },
             "ap-southeast-2": {
-                "AMZNLINUXHVM": "ami-162c2575"
+                "AMZNLINUXHVM": "ami-a18392c2"
             },
             "ca-central-1": {
-                "AMZNLINUXHVM": "ami-0bd66a6f"
+                "AMZNLINUXHVM": "ami-20db6444"
             },
             "eu-central-1": {
-                "AMZNLINUXHVM": "ami-b968bad6"
+                "AMZNLINUXHVM": "ami-8da700e2"
             },
             "eu-west-1": {
-                "AMZNLINUXHVM": "ami-01ccc867"
+                "AMZNLINUXHVM": "ami-7d50491b"
             },
             "eu-west-2": {
-                "AMZNLINUXHVM": "ami-b6daced2"
+                "AMZNLINUXHVM": "ami-704e5814"
             },
             "sa-east-1": {
-                "AMZNLINUXHVM": "ami-37cfad5b"
+                "AMZNLINUXHVM": "ami-1d660d71"
             },
             "us-east-1": {
-                "AMZNLINUXHVM": "ami-c58c1dd3"
+                "AMZNLINUXHVM": "ami-643b1972"
             },
             "us-east-2": {
-                "AMZNLINUXHVM": "ami-4191b524"
+                "AMZNLINUXHVM": "ami-3883a55d"
             },
             "us-west-1": {
-                "AMZNLINUXHVM": "ami-7a85a01a"
+                "AMZNLINUXHVM": "ami-563a1736"
             },
             "us-west-2": {
-                "AMZNLINUXHVM": "ami-4836a428"
+                "AMZNLINUXHVM": "ami-a07379d9"
             }
         },
         "AWSInfoRegionMap": {
