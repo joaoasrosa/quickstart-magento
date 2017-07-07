@@ -608,6 +608,12 @@ mount -t nfs4 -o vers=4.1 $efsid.efs.$EC2_REGION.amazonaws.com:/ /var/www/html/p
 rm -rf /var/www/html/pub/media/*
 tar xzf /root/media.tgz -C /var/www/html/pub/media
 
+# Install Composer
+cd /var/www/html/bin/magento
+mkdir -p composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+
 # Remove passwords from files
 sed -i s/${dbpassword}/xxxxx/g /var/log/cloud-init.log
 sed -i s/${adminpassword}/xxxxx/g /var/log/cloud-init.log
