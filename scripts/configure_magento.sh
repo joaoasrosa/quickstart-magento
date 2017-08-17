@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 13 ]; then
+if [ $# -ne 16 ]; then
     echo $0: usage: install_magento.sh dbhost dbuser dbpassword dbname cname adminfirstname adminlastname adminemail adminuser adminpassword cachehost magentourl protocol magentolanguage magentocurrency magentotimezone
     exit 1
 fi
@@ -20,9 +20,9 @@ adminpassword=${10}
 cachehost=${11}
 magentourl=${12}
 protocol=${13}
-magentolanguage=$14
-magentocurrency=$15
-magentotimezone=$16
+magentolanguage=${14}
+magentocurrency=${15}
+magentotimezone=${16}
 
 cd
 #curl -o magento.tar.gz $magentourl
