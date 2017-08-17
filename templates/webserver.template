@@ -73,24 +73,24 @@
             "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
+        "MagentoCurrency": {
+            "Default": "EUR",
+            "Description": "Magento Currency",
+            "Type": "String"
+        },
+        "MagentoLanguage": {
+            "Default": "en_US",
+            "Description": "Magento Language",
+            "Type": "String"
+        },
+        "MagentoTimezone": {
+            "Default": "Europe/Lisbon",
+            "Description": "Magento Timezone",
+            "Type": "String"
+        },
         "MagentoReleaseMedia": {
             "Default": "",
             "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
-            "Type": "String"
-        },
-		"MagentoLanguage": {
-            "Default": "en_US",
-            "Description": "Magento default installation code for the language",
-            "Type": "String"
-        },
-		"MagentoCurrency": {
-            "Default": "EUR",
-            "Description": "Magento default installation code for the currency",
-            "Type": "String"
-        },
-		"MagentoTimezone": {
-            "Default": "Europe/Lisbon",
-            "Description": "Magento default installation timezone",
             "Type": "String"
         },
         "MySQLEndPointAddress": {
@@ -196,49 +196,49 @@
     "Mappings": {
         "AWSAMIRegionMap": {
             "AMI": {
-                "AMZNLINUXHVM": "amzn-ami-hvm-2017.03.0.20170401-x86_64-gp2"
+                "AMZNLINUXHVM": "amzn-ami-hvm-2017.03.1.20170812-x86_64-gp2"
             },
             "ap-northeast-1": {
-                "AMZNLINUXHVM": "ami-859bbfe2"
+                "AMZNLINUXHVM": "ami-4af5022c"
             },
             "ap-northeast-2": {
-                "AMZNLINUXHVM": "ami-8369baed"
+                "AMZNLINUXHVM": "ami-8663bae8"
             },
             "ap-south-1": {
-                "AMZNLINUXHVM": "ami-815625ee"
+                "AMZNLINUXHVM": "ami-d7abd1b8"
             },
             "ap-southeast-1": {
-                "AMZNLINUXHVM": "ami-a2bc03c1"
+                "AMZNLINUXHVM": "ami-fdb8229e"
             },
             "ap-southeast-2": {
-                "AMZNLINUXHVM": "ami-8bf2fde8"
+                "AMZNLINUXHVM": "ami-30041c53"
             },
             "ca-central-1": {
-                "AMZNLINUXHVM": "ami-8601bce2"
+                "AMZNLINUXHVM": "ami-5ac17f3e"
             },
             "eu-central-1": {
-                "AMZNLINUXHVM": "ami-5b06d634"
+                "AMZNLINUXHVM": "ami-657bd20a"
             },
             "eu-west-1": {
-                "AMZNLINUXHVM": "ami-e5083683"
+                "AMZNLINUXHVM": "ami-ebd02392"
             },
             "eu-west-2": {
-                "AMZNLINUXHVM": "ami-11130775"
+                "AMZNLINUXHVM": "ami-489f8e2c"
             },
             "sa-east-1": {
-                "AMZNLINUXHVM": "ami-a97013c5"
+                "AMZNLINUXHVM": "ami-d27203be"
             },
             "us-east-1": {
-                "AMZNLINUXHVM": "ami-22ce4934"
+                "AMZNLINUXHVM": "ami-4fffc834"
             },
             "us-east-2": {
-                "AMZNLINUXHVM": "ami-7bfcd81e"
+                "AMZNLINUXHVM": "ami-ea87a78f"
             },
             "us-west-1": {
-                "AMZNLINUXHVM": "ami-9e247efe"
+                "AMZNLINUXHVM": "ami-3a674d5a"
             },
             "us-west-2": {
-                "AMZNLINUXHVM": "ami-8ca83fec"
+                "AMZNLINUXHVM": "ami-aa5ebdd2"
             }
         },
         "AWSInfoRegionMap": {
