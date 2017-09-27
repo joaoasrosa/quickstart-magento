@@ -16,6 +16,7 @@
                         "PrivateSubnet2CIDR",
                         "PublicSubnet1CIDR",
                         "PublicSubnet2CIDR",
+                        "RemoteAccessCIDR",
                         "AccessCIDR"
                     ]
                 },
@@ -27,7 +28,6 @@
                         "KeyPairName",
                         "BastionAMIOS",
                         "BastionInstanceType",
-                        "RemoteAccessCIDR",
                         "WebServerInstanceType",
                         "WebServerMinSize",
                         "WebServerMaxSize",

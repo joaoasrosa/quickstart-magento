@@ -18,23 +18,21 @@ global:
   - us-west-1
   - us-west-2
   reporting: true
-
 tests:
-  quickstart-magento-mysqlt1:
-    parameter_input: quickstart-magento-mysqlt1.json
-    template_file: magento-master.template
+  mysql:
+    parameter_input: mysql.json
     regions:
     - eu-west-1
     - us-east-1
     - us-east-2
     - us-west-2
-
-  quickstart-magento-aurora1:
-    parameter_input: quickstart-magento-aurora1.json
     template_file: magento-master.template
+  aurora:
+    parameter_input: aurora.json
     regions:
     - ap-southeast-1
     - eu-west-1
     - us-east-1
     - us-east-2
     - us-west-2
+    template_file: magento-master.template
