@@ -22,6 +22,8 @@ tests:
   mysql:
     parameter_input: mysql.json
     regions:
+    - ap-southeast-2
+    - eu-central-1
     - eu-west-1
     - us-east-1
     - us-east-2
@@ -30,7 +32,8 @@ tests:
   aurora:
     parameter_input: aurora.json
     regions:
-    - ap-southeast-1
+    - ap-southeast-2
+    - eu-central-1
     - eu-west-1
     - us-east-1
     - us-east-2
