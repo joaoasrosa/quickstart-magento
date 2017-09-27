@@ -1,7 +1,7 @@
 [
   {
     "ParameterKey": "AvailabilityZones",
-    "ParameterValue": "$[alfred_genaz_2]"
+    "ParameterValue": "$[alfred_getaz_2]"
   },
   {
     "ParameterKey": "KeyPairName",
