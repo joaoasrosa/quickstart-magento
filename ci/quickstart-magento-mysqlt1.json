@@ -12,12 +12,16 @@
     "ParameterValue": "10.0.0.0/16"
   },
   {
+    "ParameterKey": "RemoteAccessCIDR",
+    "ParameterValue": "10.0.0.0/16"
+  },
+  {
     "ParameterKey": "NotificationEmail",
     "ParameterValue": "foo@example.com"
   },
   {
     "ParameterKey": "MagentoReleaseMedia",
-    "ParameterValue": "https://s3.amazonaws.com/$[alfred_getmediabucket]/magento/Magento-CE-2.1.5_sample_data-2017-02-20-05-42-11.tar.gz"
+    "ParameterValue": "https://s3.amazonaws.com/$[alfred_getmediabucket]/magento/Magento-CE-2.1.9_sample_data-2017-09-13-03-57-21.tar.gz"
   },
   {
     "ParameterKey": "DBMasterUserPassword",
@@ -42,5 +46,9 @@
   {
     "ParameterKey": "AdminPassword",
     "ParameterValue": "$[alfred_genpass_32]"
+  },
+  {
+    "ParameterKey": "DBEngineType",
+    "ParameterValue": "MySQL"
   }
 ]
