@@ -99,127 +99,127 @@
                     "default": "Administrator email"
                 },
                 "AdminFirstName": {
-                    "default": "Administrator First Name"
+                    "default": "Administrator first name"
                 },
                 "AdminLastName": {
-                    "default": "Administrator Last Name"
+                    "default": "Administrator last name"
                 },
                 "AdminPassword": {
-                    "default": "Administrator Password"
+                    "default": "Administrator password"
                 },
                 "AdminUserName": {
-                    "default": "Administrator User Name"
+                    "default": "Administrator user name"
                 },
                 "AvailabilityZones": {
                     "default": "Availability Zones"
                 },
-                "DBEngineType": {
-                    "default": "DB Engine"
+                "BastionAMIOS": {
+                    "default": "Bastion AMI OS"
+                },
+                "BastionInstanceType": {
+                    "default": "Bastion instance type"
                 },
                 "DBAllocatedStorage": {
-                    "default": "DB Storage Size (in GiB)"
+                    "default": "DB storage size (in GiB)"
                 },
                 "DBAutoMinorVersionUpgrade": {
-                    "default": "Automatic Upgrade To New Amazon Aurora/MySQL Minor Versions"
+                    "default": "Automatic upgrade to new Amazon Aurora/MySQL minor versions"
                 },
                 "DBBackupRetentionPeriod": {
-                    "default": "DB Backup Retention Period"
+                    "default": "DB backup retention period"
+                },
+                "DBEngineType": {
+                    "default": "DB engine"
                 },
                 "DBInstanceClass": {
-                    "default": "Amazon Aurora/MySQL DB Instance Type"
+                    "default": "Amazon Aurora/MySQL DB instance type"
                 },
                 "DBIops": {
                     "default": "DB IOPS"
                 },
                 "DBMasterUserPassword": {
-                    "default": "DB Master Password"
+                    "default": "DB master password"
                 },
                 "DBMasterUsername": {
-                    "default": "DB Master Username"
+                    "default": "DB master user name"
                 },
                 "DBMultiAZ": {
-                    "default": "Enable Multi-AZ Deployment For DB Instance"
+                    "default": "Enable Multi-AZ deployment for DB instance"
                 },
                 "DBName": {
-                    "default": "DB Name"
+                    "default": "DB name"
                 },
                 "DBStorageType": {
-                    "default": "DB Storage Type"
+                    "default": "DB storage type"
                 },
                 "DNSName": {
-                    "default": "Public DNS Name"
+                    "default": "Public DNS name"
                 },
                 "ElastiCacheAutomaticFailover": {
-                    "default": "ElastiCache Automatic Failover"
+                    "default": "ElastiCache automatic failover"
                 },
                 "ElastiCacheNodeType": {
-                    "default": "ElastiCache Node Type"
+                    "default": "ElastiCache node type"
                 },
                 "ElastiCacheNodes": {
-                    "default": "Number Of ElastiCache Nodes"
+                    "default": "Number of ElastiCache nodes"
                 },
                 "KeyPairName": {
-                    "default": "Key Name"
+                    "default": "Key pair name"
                 },
                 "MagentoCurrency": {
-                    "default": "Magento Currency"
+                    "default": "Magento currency"
                 },
                 "MagentoLanguage": {
-                    "default": "Magento Language"
-                },
-                "MagentoTimezone": {
-                    "default": "Magento Timezone"
+                    "default": "Magento language"
                 },
                 "MagentoReleaseMedia": {
-                    "default": "S3 File Path To Download Magento"
+                    "default": "S3 file path to download Magento"
+                },
+                "MagentoTimezone": {
+                    "default": "Magento timezone"
                 },
                 "NotificationEmail": {
-                    "default": "Email Address To Notify"
+                    "default": "Email address to notify"
                 },
                 "PrivateSubnet1CIDR": {
-                    "default": "Private Subnet 1 CIDR"
+                    "default": "Private subnet 1 CIDR"
                 },
                 "PrivateSubnet2CIDR": {
-                    "default": "Private Subnet 2 CIDR"
+                    "default": "Private subnet 2 CIDR"
                 },
                 "PublicSubnet1CIDR": {
-                    "default": "Public Subnet 1 CIDR"
+                    "default": "Public subnet 1 CIDR"
                 },
                 "PublicSubnet2CIDR": {
-                    "default": "Public Subnet 2 CIDR"
+                    "default": "Public subnet 2 CIDR"
                 },
                 "QSS3BucketName": {
-                    "default": "AWS Quick Start S3 Bucket Name"
+                    "default": "AWS Quick Start S3 bucket name"
                 },
                 "QSS3KeyPrefix": {
-                    "default": "AWS Quick Start S3 Key Prefix"
+                    "default": "AWS Quick Start S3 key prefix"
+                },
+                "RemoteAccessCIDR": {
+                    "default": "Allowed bastion external access CIDR"
                 },
                 "SSLCertificateId": {
-                    "default": "SSL Certificate ARN"
+                    "default": "SSL certificate ARN"
                 },
                 "VPCCIDR": {
                     "default": "VPC CIDR"
                 },
                 "WebServerDesiredCapacity": {
-                    "default": "Desired Number of Web Server Instances"
+                    "default": "Desired number of web server instances"
                 },
                 "WebServerInstanceType": {
-                    "default": "Web Server Cluster Node Instance Type"
+                    "default": "Web server cluster node instance type"
                 },
                 "WebServerMaxSize": {
-                    "default": "Maximum Number of Web Server Instances"
+                    "default": "Maximum number of web server instances"
                 },
                 "WebServerMinSize": {
-                    "default": "Minimum Number of Web Server Instances"
-                },
-                "RemoteAccessCIDR": {
-                    "default": "Allowed Bastion External Access CIDR"
-                },
-                "BastionInstanceType": {
-                    "default": "Bastion Instance Type"
-                },
-                "BastionAMIOS": {
-                    "default": "Bastion AMI OS"
+                    "default": "Minimum number of web server instances"
                 }
             }
         }

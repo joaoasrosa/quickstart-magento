@@ -96,115 +96,118 @@
                     "default": "Administrator email"
                 },
                 "AdminFirstName": {
-                    "default": "Administrator First Name"
+                    "default": "Administrator first name"
                 },
                 "AdminLastName": {
-                    "default": "Administrator Last Name"
+                    "default": "Administrator last name"
                 },
                 "AdminPassword": {
-                    "default": "Administrator Password"
+                    "default": "Administrator password"
                 },
                 "AdminUserName": {
-                    "default": "Administrator User Name"
+                    "default": "Administrator user name"
                 },
                 "DBEngineType": {
-                    "default": "DB Engine"
+                    "default": "DB engine"
                 },
                 "DBAllocatedStorage": {
-                    "default": "DB Storage Size (in GiB)"
+                    "default": "DB storage size (in GiB)"
                 },
                 "DBAutoMinorVersionUpgrade": {
-                    "default": "Automatic Upgrade To New Amazon Aurora/MySQL Minor Versions"
+                    "default": "Automatic upgrade to new Amazon Aurora/MySQL minor versions"
                 },
                 "DBBackupRetentionPeriod": {
-                    "default": "DB Backup Retention Period"
+                    "default": "DB backup retention period"
                 },
                 "DBInstanceClass": {
-                    "default": "Amazon Aurora/MySQL DB Instance Type"
+                    "default": "Amazon Aurora/MySQL DB instance type"
                 },
                 "DBIops": {
                     "default": "DB IOPS"
                 },
                 "DBMasterUserPassword": {
-                    "default": "DB Master Password"
+                    "default": "DB master password"
                 },
                 "DBMasterUsername": {
-                    "default": "DB Master Username"
+                    "default": "DB master user name"
                 },
                 "DBMultiAZ": {
-                    "default": "Enable Multi-AZ Deployment For DB Instance"
+                    "default": "Enable Multi-AZ deployment for DB instance"
                 },
                 "DBName": {
-                    "default": "DB Name"
+                    "default": "DB name"
                 },
                 "DBStorageType": {
-                    "default": "DB Storage Type"
+                    "default": "DB storage type"
                 },
                 "DNSName": {
-                    "default": "Public DNS Name"
+                    "default": "Public DNS name"
                 },
                 "ElastiCacheAutomaticFailover": {
-                    "default": "ElastiCache Automatic Failover"
+                    "default": "ElastiCache automatic failover"
                 },
                 "ElastiCacheNodeType": {
-                    "default": "ElastiCache Node Type"
+                    "default": "ElastiCache node type"
                 },
                 "ElastiCacheNodes": {
-                    "default": "Number Of ElastiCache Nodes"
+                    "default": "Number of ElastiCache nodes"
                 },
                 "KeyPairName": {
-                    "default": "Key Name"
+                    "default": "Key pair name"
                 },
                 "MagentoCurrency": {
-                    "default": "Magento Currency"
+                    "default": "Magento currency"
                 },
                 "MagentoLanguage": {
-                    "default": "Magento Language"
+                    "default": "Magento language"
                 },
                 "MagentoTimezone": {
-                    "default": "Magento Timezone"
+                    "default": "Magento timezone"
                 },
                 "MagentoReleaseMedia": {
-                    "default": "S3 File Path To Download Magento"
+                    "default": "S3 file path to download Magento"
                 },
                 "NotificationEmail": {
-                    "default": "Email Address To Notify"
+                    "default": "Email address to notify"
                 },
                 "PrivateSubnet1ID": {
-                    "default": "Private Subnet 1 ID"
+                    "default": "Private subnet 1 ID"
                 },
                 "PrivateSubnet2ID": {
-                    "default": "Private Subnet 2 ID"
+                    "default": "Private subnet 2 ID"
                 },
                 "PublicSubnet1ID": {
-                    "default": "Public Subnet 1 ID"
+                    "default": "Public subnet 1 ID"
                 },
                 "PublicSubnet2ID": {
-                    "default": "Public Subnet 2 ID"
+                    "default": "Public subnet 2 ID"
                 },
                 "QSS3BucketName": {
-                    "default": "AWS Quick Start S3 Bucket Name"
+                    "default": "AWS Quick Start S3 bucket name"
                 },
                 "QSS3KeyPrefix": {
-                    "default": "AWS Quick Start S3 Key Prefix"
+                    "default": "AWS Quick Start S3 key prefix"
                 },
                 "SSLCertificateId": {
-                    "default": "SSL Certificate ARN"
+                    "default": "SSL certificate ARN"
+                },
+                "VPCCIDR": {
+                    "default": "VPC CIDR"
                 },
                 "VPCID": {
                     "default": "VPC ID"
                 },
                 "WebServerDesiredCapacity": {
-                    "default": "Desired Number of Web Server Instances"
+                    "default": "Desired number of web server instances"
                 },
                 "WebServerInstanceType": {
-                    "default": "Web Server Cluster Node Instance Type"
+                    "default": "Web server cluster node instance type"
                 },
                 "WebServerMaxSize": {
-                    "default": "Maximum Number of Web Server Instances"
+                    "default": "Maximum number of web server instances"
                 },
                 "WebServerMinSize": {
-                    "default": "Minimum Number of Web Server Instances"
+                    "default": "Minimum number of web server instances"
                 }
             }
         }
