@@ -1,29 +1,41 @@
 global:
+  marketplace-ami: false
+  owner: quickstart-eng@amazon.com
   qsname: quickstart-magento
-  owner: sshvans@amazon.com
   regions:
-    - ap-northeast-1
-    - ap-northeast-2
-    - ap-south-1
-    - ap-southeast-1
+  - ap-northeast-1
+  - ap-northeast-2
+  - ap-south-1
+  - ap-southeast-1
+  - ap-southeast-2
+  - ca-central-1
+  - eu-central-1
+  - eu-west-1
+  - eu-west-2
+  - sa-east-1
+  - us-east-1
+  - us-east-2
+  - us-west-1
+  - us-west-2
+  reporting: true
+tests:
+  mysql:
+    parameter_input: mysql.json
+    regions:
     - ap-southeast-2
-    - ca-central-1
     - eu-central-1
     - eu-west-1
-    - sa-east-1
     - us-east-1
     - us-east-2
-    - us-west-1
     - us-west-2
-  reporting: true
-
-tests:
-  quickstart-magentot1:
-    parameter_input: quickstart-magento.json
     template_file: magento-master.template
+  aurora:
+    parameter_input: aurora.json
     regions:
+    - ap-southeast-2
+    - eu-central-1
+    - eu-west-1
     - us-east-1
     - us-east-2
     - us-west-2
-    - eu-west-1
-
+    template_file: magento-master.template

@@ -90,7 +90,7 @@
         },
         "MagentoReleaseMedia": {
             "Default": "",
-            "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2_1_3_sample_data_tar_gz-2016-12-13-09-27-46.tar.gz)",
+            "Description": "Amazon S3 path to download magento .tar.gz file (https://s3.amazonaws.com/mybucket/Magento-CE-2.1.9_sample_data-2017-09-13-03-57-21.tar.gz)",
             "Type": "String"
         },
         "MySQLEndPointAddress": {
@@ -106,16 +106,16 @@
         },
         "QSS3BucketName": {
             "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
-            "ConstraintDescription": "AWS Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
+            "ConstraintDescription": "Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
             "Default": "quickstart-reference",
-            "Description": "S3 bucket name for the AWS Quick Start assets. AWS Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
+            "Description": "S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
             "Type": "String"
         },
         "QSS3KeyPrefix": {
-            "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
-            "ConstraintDescription": "AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
-            "Default": "magento/latest",
-            "Description": "S3 key prefix for the AWS Quick Start assets. AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "AllowedPattern": "^[0-9a-zA-Z-/]*$",
+            "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
+            "Default": "magento/latest/",
+            "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
             "Type": "String"
         },
         "SSLCertificateId": {
@@ -239,64 +239,6 @@
             },
             "us-west-2": {
                 "AMZNLINUXHVM": "ami-aa5ebdd2"
-            }
-        },
-        "AWSInfoRegionMap": {
-            "ap-northeast-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-northeast-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-south-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-southeast-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-southeast-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ca-central-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "eu-central-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "eu-west-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "sa-east-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-east-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-east-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-gov-west-1": {
-                "Partition": "aws-us-gov",
-                "QuickStartS3URL": "https://s3-us-gov-west-1.amazonaws.com"
-            },
-            "us-west-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-west-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
             }
         }
     },
@@ -454,30 +396,7 @@
                                         "logs:DescribeLogStreams"
                                     ],
                                     "Resource": {
-                                        "Fn::Join": [
-                                            "",
-                                            [
-                                                "arn:",
-                                                {
-                                                    "Fn::FindInMap": [
-                                                        "AWSInfoRegionMap",
-                                                        {
-                                                            "Ref": "AWS::Region"
-                                                        },
-                                                        "Partition"
-                                                    ]
-                                                },
-                                                ":logs:",
-                                                {
-                                                    "Ref": "AWS::Region"
-                                                },
-                                                ":*:",
-                                                {
-                                                    "Ref": "MagentoMainLogGroup"
-                                                },
-                                                ":*"
-                                            ]
-                                        ]
+                                        "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${MagentoMainLogGroup}:*"
                                     }
                                 },
                                 {
@@ -608,6 +527,7 @@
             "Type": "AWS::EFS::FileSystem",
             "Properties": {
                 "PerformanceMode": "generalPurpose",
+                "Encrypted": true,
                 "FileSystemTags": [
                     {
                         "Key": "Name",
@@ -783,20 +703,7 @@
                             },
                             "/install_magento.sh": {
                                 "source": {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "https://",
-                                            {
-                                                "Ref": "QSS3BucketName"
-                                            },
-                                            ".s3.amazonaws.com/",
-                                            {
-                                                "Ref": "QSS3KeyPrefix"
-                                            },
-                                            "/scripts/install_magento.sh"
-                                        ]
-                                    ]
+                                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/install_magento.sh"
                                 },
                                 "mode": "000644",
                                 "owner": "root",
@@ -805,20 +712,7 @@
                             },
                             "/configure_magento.sh": {
                                 "source": {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "https://",
-                                            {
-                                                "Ref": "QSS3BucketName"
-                                            },
-                                            ".s3.amazonaws.com/",
-                                            {
-                                                "Ref": "QSS3KeyPrefix"
-                                            },
-                                            "/scripts/configure_magento.sh"
-                                        ]
-                                    ]
+                                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/configure_magento.sh"
                                 },
                                 "mode": "000644",
                                 "owner": "root",
@@ -1075,30 +969,7 @@
                                         "logs:PutLogEvents"
                                     ],
                                     "Resource": {
-                                        "Fn::Join": [
-                                            "",
-                                            [
-                                                "arn:",
-                                                {
-                                                    "Fn::FindInMap": [
-                                                        "AWSInfoRegionMap",
-                                                        {
-                                                            "Ref": "AWS::Region"
-                                                        },
-                                                        "Partition"
-                                                    ]
-                                                },
-                                                ":logs:",
-                                                {
-                                                    "Ref": "AWS::Region"
-                                                },
-                                                ":*:",
-                                                {
-                                                    "Ref": "MagentoMainLogGroup"
-                                                },
-                                                ":*"
-                                            ]
-                                        ]
+                                        "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${MagentoMainLogGroup}:*"
                                     }
                                 },
                                 {
