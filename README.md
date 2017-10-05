@@ -15,4 +15,4 @@ You can also use the AWS CloudFormation templates as a starting point for your o
 
 ![Quick Start Magento Design Architecture](http://docs.aws.amazon.com/quickstart/latest/magento/images/magento-with-aurora-architecture.png)
 
-For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](http://docs.aws.amazon.com/quickstart/latest/magento/welcome.html)
+For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](http://docs.aws.amazon.com/quickstart/latest/magento/welcome.html).
