@@ -122,6 +122,8 @@ server {
         server_name www.example.com;
         fastcgi_hide_header X-Powered-By;
         proxy_hide_header X-Powered-By;
+        # add Referrer-Policy to prevent data leakage between domains
+        add_header Referrer-Policy "strict-origin";
         root $MAGE_ROOT/pub/;
 
         index index.php;
@@ -292,6 +294,8 @@ server {
         server_name www.example.com;
         fastcgi_hide_header X-Powered-By;
         proxy_hide_header X-Powered-By;
+        # add Referrer-Policy to prevent data leakage between domains
+        add_header Referrer-Policy "strict-origin";
         root $MAGE_ROOT/pub/;
 
         ssl_certificate /etc/ssl/certs/magento;
