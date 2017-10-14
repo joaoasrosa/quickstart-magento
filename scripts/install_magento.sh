@@ -120,6 +120,8 @@ server {
         include /etc/nginx/mime.types;
         listen 80 default_server;
         server_name www.example.com;
+        fastcgi_hide_header X-Powered-By;
+        proxy_hide_header X-Powered-By;
         root $MAGE_ROOT/pub/;
 
         index index.php;
@@ -288,6 +290,8 @@ server {
         include /etc/nginx/mime.types;
         listen 443 ssl http2 default_server;
         server_name www.example.com;
+        fastcgi_hide_header X-Powered-By;
+        proxy_hide_header X-Powered-By;
         root $MAGE_ROOT/pub/;
 
         ssl_certificate /etc/ssl/certs/magento;
